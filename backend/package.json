@@ -1,0 +1,29 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "nodemonConfig": {
+    "watch": [
+      "index"
+    ]
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cli": "^1.0.1",
+    "express": "^4.17.1",
+    "grunt": "^1.4.1",
+    "install": "^0.13.0",
+    "mongoose": "^5.13.7",
+    "nodemon": "^2.0.12"
+  },
+  "devDependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5"
+  }
+}
