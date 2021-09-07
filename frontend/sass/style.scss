@@ -8,11 +8,24 @@
 
 // CSS Reset Ends
 
+// Global Settings
 
 body {
   background-color: #1f1f1f;
 }
 
+// Typography
+
+.mainHeader {
+  color: #fff;
+  text-decoration: underline;
+  text-decoration-thickness: 5px;
+  text-decoration-color: #27ACAB;
+}
+
+// -----------------  SECTIONS ----------------------
+
+// Navbar
 .navbar {
   background-color: #1f1f1f;
 }
@@ -23,6 +36,8 @@ body {
   position: fixed;
   right: 100px;
 }
+
+// Navbar Ends
 
 // Hamburger Menu Overlay
 
