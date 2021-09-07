@@ -14,10 +14,13 @@ body {
   text-decoration: underline;
   text-decoration-thickness: 5px;
   text-decoration-color: #27ACAB;
+  padding-top: 80px;
 }
 
 .navbar {
   background-color: #1f1f1f;
+  width: 100%;
+  position: fixed;
 }
 
 #addPostBtn {
@@ -56,7 +59,7 @@ body {
 }
 
 .menu-btn {
-  position: absolute;
+  position: fixed;
   right: 20px;
   top: 15px;
   z-index: 2;
@@ -89,7 +92,7 @@ body {
 }
 
 .wrapper ul li a {
-  color: #000;
+  color: #1f1f1f;
   text-decoration: none;
   font-size: 1.5em;
   position: relative;
@@ -127,6 +130,15 @@ body {
 
 #menu-logo-img {
   height: 100px;
+}
+
+.card {
+  z-index: -99;
+  background-color: #1f1f1f;
+}
+
+.card-text {
+  color: #fff;
 }
 
 /*# sourceMappingURL=style.css.map */
