@@ -92,4 +92,19 @@
   color: #fff;
 }
 
+#menu-logo {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  bottom: 0px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  background-color: #1f1f1f;
+  width: 100%;
+}
+
+#menu-logo-img {
+  height: 100px;
+}
+
 /*# sourceMappingURL=style.css.map */
