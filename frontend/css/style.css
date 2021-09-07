@@ -9,12 +9,30 @@ body {
   background-color: #1f1f1f;
 }
 
-.mainHeader {
+.main-header {
   color: #fff;
   text-decoration: underline;
   text-decoration-thickness: 5px;
   text-decoration-color: #27ACAB;
   padding-top: 80px;
+  margin-bottom: 20px;
+}
+
+.comment-container-header {
+  color: #27ACAB;
+}
+
+.comment-username {
+  color: #27ACAB;
+}
+
+.comment-text {
+  color: #fff;
+}
+
+.comment-time {
+  color: grey;
+  font-size: 0.8em;
 }
 
 .navbar {
@@ -121,7 +139,7 @@ body {
   position: fixed;
   display: flex;
   justify-content: center;
-  bottom: 0px;
+  bottom: 0;
   padding-top: 20px;
   padding-bottom: 20px;
   background-color: #1f1f1f;
@@ -139,6 +157,56 @@ body {
 
 .card-text {
   color: #fff;
+}
+
+.fa-expand {
+  font-size: 20px;
+  color: #fff;
+}
+
+.fa-heart-o {
+  font-size: 20px;
+  color: #27ACAB;
+}
+
+.like-counter {
+  font-size: 20px;
+  color: #fff;
+}
+
+.card {
+  border-radius: 9px;
+  background: linear-gradient(145deg, #212121, #1c1c1c);
+  box-shadow: 5px 5px 10px #181818, -5px -5px 10px #262626;
+}
+
+.card img {
+  position: relative;
+}
+
+.overlay-container {
+  position: absolute;
+  top: 30%;
+  left: 15%;
+  backdrop-filter: blur(15px) saturate(200%);
+  -webkit-backdrop-filter: blur(15px) saturate(200%);
+  background-color: rgba(31, 31, 31, 0.44);
+  border-radius: 12px;
+  height: 60px;
+}
+
+.overlay-username {
+  color: #27ACAB;
+  margin: 1px;
+}
+
+.overlay-imagename {
+  color: #fff;
+}
+
+.overlay-profile-image {
+  margin-top: 5px;
+  margin-right: 10px;
 }
 
 /*# sourceMappingURL=style.css.map */

@@ -52,7 +52,7 @@
   <!-- Fixed Nav ends -->
 
   <!-- Page Header -->
-  <h2 class="mainHeader text-center">All Posts</h2>
+  <h2 class="main-header text-center">All Posts</h2>
 
   <!-- All Posts Output -->
   <div class="container">
@@ -61,46 +61,59 @@
       <!-- Card 1 -->
       <div class="col-md-4">
         <div class="card mb-4">
-          <img class="card-img-top" src="${item.imageURL}" alt="Thumbnail [100%x225]" style="height: 225px; width: 100%; display: block;" data-holder-rendered="true">
+          <img class="card-img-top" src="img/seal.png" alt="" style="width: 100%">
+          <!-- Card Overlay -->
+          <div class="card-img-overlay d-flex">
+            <!-- Likes & Expand Overlay -->
+            <div class="like-expand-container text-wrap">
+              <i class="fa fa-expand" aria-hidden="true"></i>
+              <p class="like-counter"><i class="fa fa-heart-o" aria-hidden="true"></i> 155</p>
+            </div>
+            <!-- Username & Image name Overlay -->
+            <div class="col-8 overlay-container d-flex justify-content-center">
+              <img class="rounded-circle overlay-profile-image" src="img/seal.png" alt="" width="50" height="50">
+              <div class="overlay-text-container">
+                <h4 class="overlay-username d-block">Username</h4>
+                <p class="overlay-imagename d-block">Image Name</p>
+              </div>
+            </div>
+          </div>
+          <!-- Card Overlay ends -->
           <div class="card-body">
+            <!-- Image Description -->
             <p class="card-text">A short description of the image posted above</p>
+            <div class="comment-toggler">
+              <h4 class="comment-container-header text-center">Comments <i class="fa fa-chevron-circle-down" aria-hidden="true"></i></h4>
+            </div>
+
+            <!-- Comment container begins -->
+            <div class="comment-container">
+              <h5 class="comment-username">User Name</h5>
+              <p class="comment-text">A comment from a user maxed out at 160 Characters</p>
+              <p class="comment-time">Last updated 3 mins ago</p>
+            </div>
+            <!-- Comment container ends -->
 
           </div>
+          <!-- Card body ends -->
         </div>
+        <!-- Card md4 ends -->
       </div>
-      <!-- Card 2 -->
-      <div class="col-md-4">
-        <div class="card mb-4">
-          <img class="card-img-top" src="${item.imageURL}" alt="Thumbnail [100%x225]" style="height: 225px; width: 100%; display: block;" data-holder-rendered="true">
-          <div class="card-body">
-            <p class="card-text">A short description of the image posted above</p>
+      <!-- Card 1 ends -->
 
-          </div>
-        </div>
-      </div>
-      <!-- Card 3 -->
-      <div class="col-md-4">
-        <div class="card mb-4">
-          <img class="card-img-top" src="${item.imageURL}" alt="Thumbnail [100%x225]" style="height: 225px; width: 100%; display: block;" data-holder-rendered="true">
-          <div class="card-body">
-            <p class="card-text">A short description of the image posted above</p>
-
-          </div>
-        </div>
-      </div>
-    <!-- Album Output Ends -->
-  </div>
+      <!-- Album Output Ends -->
+    </div>
 
 
 
-  <!-- Container Ends -->
+    <!-- Container Ends -->
 
 
 
-  <script src="node_modules/jquery/dist/jquery.min.js" charset="utf-8"></script>
-  <script src="node_modules/@popperjs/core/dist/umd/popper.min.js" charset="utf-8"></script>
-  <script src="node_modules/bootstrap/dist/js/bootstrap.min.js" charset="utf-8"></script>
-  <script src="js/logout.min.js"></script>
+    <script src="node_modules/jquery/dist/jquery.min.js" charset="utf-8"></script>
+    <script src="node_modules/@popperjs/core/dist/umd/popper.min.js" charset="utf-8"></script>
+    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js" charset="utf-8"></script>
+    <script src="js/logout.min.js"></script>
 </body>
 
 </html>

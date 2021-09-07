@@ -5,37 +5,48 @@
   padding: 0;
   box-sizing: border-box;
 }
-
 // CSS Reset Ends
-
 // Colours
 $primaryBlack: #1f1f1f;
 $primaryTeal: #27ACAB;
-$primaryWhite: #fff;
-
-// Global Settings
+$primaryWhite: #fff; // Global Settings
 
 body {
   background-color: $primaryBlack;
 }
-
-
 // Typography
 
-.mainHeader {
+.main-header {
   color: #fff;
   text-decoration: underline;
   text-decoration-thickness: 5px;
   text-decoration-color: $primaryTeal;
   padding-top: 80px;
+  margin-bottom: 20px;
 }
 
-// -----------------  SECTIONS ----------------------
+.comment-container-header {
+  color: $primaryTeal;
+}
 
+.comment-username {
+  color: $primaryTeal;
+}
+
+.comment-text {
+  color: $primaryWhite;
+}
+
+.comment-time {
+  color: grey;
+  font-size: 0.8em;
+}
+// -----------------  SECTIONS ----------------------
 // Navbar
+
 .navbar {
   background-color: $primaryBlack;
-  width:100%;
+  width: 100%;
   position: fixed;
 }
 
@@ -45,9 +56,7 @@ body {
   position: fixed;
   right: 100px;
 }
-
 // Navbar Ends
-
 // Hamburger Menu Overlay
 
 .wrapper {
@@ -69,12 +78,12 @@ body {
   clip-path: circle(75%);
 }
 
-#active:checked ~ .menu-btn{
+#active:checked ~ .menu-btn {
   background: $primaryWhite;
   color: $primaryTeal;
 }
 
-#active:checked ~ .menu-btn i:before{
+#active:checked ~ .menu-btn i:before {
   content: "\f00d";
 }
 
@@ -133,7 +142,6 @@ body {
   transition: transform 0.3s ease-in-out;
 }
 
-
 .wrapper ul li a:hover {
   color: $primaryWhite;
 }
@@ -142,7 +150,7 @@ body {
   position: fixed;
   display: flex;
   justify-content: center;
-  bottom: 0px;
+  bottom: 0;
   padding-top: 20px;
   padding-bottom: 20px;
   background-color: $primaryBlack;
@@ -152,7 +160,6 @@ body {
 #menu-logo-img {
   height: 100px;
 }
-
 // Hamburger Menu Overlay ends
 
 .card {
@@ -162,4 +169,58 @@ body {
 
 .card-text {
   color: $primaryWhite;
+}
+// Card Overlay
+
+.fa-expand {
+  font-size: 20px;
+  color: $primaryWhite;
+}
+
+.fa-heart-o {
+  font-size: 20px;
+  color: $primaryTeal;
+}
+
+.like-counter {
+  font-size: 20px;
+  color: $primaryWhite;
+}
+
+.card {
+  border-radius: 9px;
+background: linear-gradient(145deg, #212121, #1c1c1c);
+box-shadow:  5px 5px 10px #181818,
+             -5px -5px 10px #262626;
+}
+
+.card {
+  img {
+    position: relative;
+  }
+}
+
+.overlay-container {
+  position: absolute;
+  top: 30%;
+  left: 15%;
+  backdrop-filter: blur(15px) saturate(200%);
+  -webkit-backdrop-filter: blur(15px) saturate(200%);
+  background-color: rgba(31, 31, 31, 0.44);
+  border-radius: 12px;
+  height: 60px;
+}
+
+.overlay-username {
+  color: $primaryTeal;
+  margin: 1px;
+}
+
+.overlay-imagename {
+  color: $primaryWhite;
+}
+
+.overlay-profile-image {
+  margin-top: 5px;
+  margin-right: 10px;
 }
