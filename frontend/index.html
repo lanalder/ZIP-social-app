@@ -12,19 +12,47 @@
 </head>
 
 <body>
-  <input type="checkbox" id="active"></input>
-  <label for="active" class="menu-btn"><i class="fa fa-bars"></i></label>
-  <div class="wrapper">
-    <ul class="menu">
-      <h2>Menu</h2>
-      <li><a href="#">All Posts</a></li>
-      <li><a href="#">Register</a></li>
-      <li><a href="#">Login</a></li>
-    </ul>
-    <div id="menu-logo">
-      <img id="menu-logo-img" src="img/zip-full-logo.png" alt="ZIP Full Logo">
+  <!-- Fixed Nav Begins-->
+  <nav class="navbar">
+
+    <!-- Outer fluid container begins -->
+    <div class="container-fluid">
+
+      <!-- Nav logo container -->
+      <a class="navbar-brand" href="#">
+        <img src="img/zip-crop-logo.png" alt="ZIP Logo" height="50" class="d-inline-block align-text-top">
+      </a>
+      <!-- Nav logo container ends -->
+
+      <i class="fa fa-plus" id="addPostBtn"></i>
+
+      <!-- HAMBURGER MENU OVERLAY -->
+      <input type="checkbox" id="active"></input>
+      <label for="active" class="menu-btn"><i class="fa fa-bars"></i></label>
+      <div class="wrapper">
+        <ul class="menu">
+          <h2>Menu</h2>
+          <li><a href="#">All Posts</a></li>
+          <li><a href="#">Register</a></li>
+          <li><a href="#">Login</a></li>
+        </ul>
+        <!-- Hamburger logo container -->
+        <div id="menu-logo">
+          <img id="menu-logo-img" src="img/zip-full-logo.png" alt="ZIP Full Logo">
+        </div>
+        <!-- Hamburger logo container ends -->
+
+      </div>
+      <!-- HAMBURGER ENDS -->
+
     </div>
-  </div>
+    <!-- Outer fluid container ends -->
+
+  </nav>
+  <!-- Fixed Nav ends -->
+
+  
+
 
   <script src="node_modules/jquery/dist/jquery.min.js" charset="utf-8"></script>
   <script src="node_modules/@popperjs/core/dist/umd/popper.min.js" charset="utf-8"></script>
