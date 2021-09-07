@@ -1,11 +1,30 @@
-// CSS RESET
+// CSS Reset
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
-// Nav Overlay
+
+// CSS Reset Ends
+
+
+body {
+  background-color: #1f1f1f;
+}
+
+.navbar {
+  background-color: #1f1f1f;
+}
+
+#addPostBtn {
+  color: #27ACAB;
+  font-size: 20px;
+  position: fixed;
+  right: 100px;
+}
+
+// Hamburger Menu Overlay
 
 .wrapper {
   position: fixed;
@@ -14,7 +33,7 @@
   height: 100%;
   width: 100%;
   background: linear-gradient(90deg, #27ACAB, #02434A);
-  clip-path: circle(25px at calc(100% - 45px) 45px);
+  clip-path: circle(15px at calc(100% - 40px) 40px);
   transition: all 0.3s ease-in-out;
 }
 
@@ -38,7 +57,7 @@
 .menu-btn {
   position: absolute;
   right: 20px;
-  top: 20px;
+  top: 15px;
   z-index: 2;
   text-align: center;
   line-height: 50px;
@@ -110,3 +129,5 @@
 #menu-logo-img {
   height: 100px;
 }
+
+// Hamburger Menu Overlay ends
