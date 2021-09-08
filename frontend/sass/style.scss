@@ -193,11 +193,13 @@ body {
   box-shadow: 5px 5px 10px #181818, -5px -5px 10px #262626;
 }
 
-.card {
-  img {
-    position: relative;
-  }
+.card-img-top{
+  width: 150px;
+  height: 400px;
+  object-fit: cover;
 }
+
+
 
 .fa-chevron-down {
   color: $primaryTeal;
@@ -205,7 +207,7 @@ body {
 
 .overlay-container {
   position: absolute;
-  top: 30%;
+  top: 300px;
   left: 15%;
   backdrop-filter: blur(15px) saturate(200%);
   -webkit-backdrop-filter: blur(15px) saturate(200%);
