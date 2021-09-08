@@ -5,25 +5,58 @@
   padding: 0;
   box-sizing: border-box;
 }
-
 // CSS Reset Ends
-
+// Colours
+$primaryBlack: #1f1f1f;
+$primaryTeal: #27ACAB;
+$primaryWhite: #fff; // Global Settings
 
 body {
-  background-color: #1f1f1f;
+  background-color: $primaryBlack;
+}
+// Typography
+
+.main-header {
+  color: #fff;
+  text-decoration: underline;
+  text-decoration-thickness: 5px;
+  text-decoration-color: $primaryTeal;
+  padding-top: 80px;
+  margin-bottom: 20px;
 }
 
+.comment-container-header {
+  color: $primaryTeal;
+}
+
+.comment-username {
+  color: $primaryTeal;
+}
+
+.comment-text {
+  color: $primaryWhite;
+}
+
+.comment-time {
+  color: grey;
+  font-size: 0.8em;
+}
+// -----------------  SECTIONS ----------------------
+// Navbar
+
 .navbar {
-  background-color: #1f1f1f;
+  background-color: $primaryBlack;
+  width: 100%;
+  position: fixed;
 }
 
 #addPostBtn {
-  color: #27ACAB;
+  color: $primaryTeal;
   font-size: 20px;
   position: fixed;
   right: 100px;
 }
-
+// Navbar Ends
 // Hamburger Menu Overlay
 
 .wrapper {
@@ -45,17 +78,17 @@ body {
   clip-path: circle(75%);
 }
 
-#active:checked ~ .menu-btn{
-  background: #fff;
-  color: #27ACAB;
+#active:checked ~ .menu-btn {
+  background: $primaryWhite;
+  color: $primaryTeal;
 }
 
-#active:checked ~ .menu-btn i:before{
+#active:checked ~ .menu-btn i:before {
   content: "\f00d";
 }
 
 .menu-btn {
-  position: absolute;
+  position: fixed;
   right: 20px;
   top: 15px;
   z-index: 2;
@@ -65,14 +98,14 @@ body {
   width: 50px;
   border-radius: 50%;
   color: #fff;
-  background: #1f1f1f;
+  background: $primaryBlack;
   font-size: 20px;
   cursor: pointer;
 }
 
 .wrapper ul {
   position: absolute;
-  top: 50%;
+  top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
   list-style: none;
@@ -80,7 +113,7 @@ body {
 }
 
 .wrapper ul h2 {
-  color: #fff;
+  color: $primaryWhite;
 }
 
 .wrapper ul li {
@@ -88,10 +121,9 @@ body {
 }
 
 .wrapper ul li a {
-  color: #000;
+  color: $primaryBlack;
   text-decoration: none;
   font-size: 1.5em;
-  // padding: 5px 50px;
   position: relative;
   line-height: 1.5em;
   transition: all 0.3s ease-in-out;
@@ -103,31 +135,120 @@ body {
   left: 0;
   width: 100%;
   height: 50px;
-  background: #fff;
+  background: $primaryWhite;
   border-radius: 50px;
   transform: scaleY(0);
   z-index: -1;
   transition: transform 0.3s ease-in-out;
 }
 
-
 .wrapper ul li a:hover {
-  color: #fff;
+  color: $primaryWhite;
 }
 
 #menu-logo {
   position: fixed;
   display: flex;
   justify-content: center;
-  bottom: 0px;
+  bottom: 0;
   padding-top: 20px;
   padding-bottom: 20px;
-  background-color: #1f1f1f;
+  background-color: $primaryBlack;
   width: 100%;
 }
 
 #menu-logo-img {
   height: 100px;
 }
-
 // Hamburger Menu Overlay ends
+
+.card {
+  z-index: -99;
+  background-color: $primaryBlack;
+}
+
+.card-text {
+  color: $primaryWhite;
+}
+// Card Overlay
+
+.fa-expand {
+  font-size: 20px;
+  color: $primaryWhite;
+}
+
+.fa-heart-o {
+  font-size: 20px;
+  color: $primaryTeal;
+}
+
+.like-counter {
+  font-size: 20px;
+  color: $primaryWhite;
+}
+
+.card {
+  border-radius: 9px;
+  background-color: $primaryBlack;
+  box-shadow: 5px 5px 10px #181818, -5px -5px 10px #262626;
+}
+
+.card {
+  img {
+    position: relative;
+  }
+}
+
+.fa-chevron-down {
+  color: $primaryTeal;
+}
+
+.overlay-container {
+  position: absolute;
+  top: 30%;
+  left: 15%;
+  backdrop-filter: blur(15px) saturate(200%);
+  -webkit-backdrop-filter: blur(15px) saturate(200%);
+  background-color: rgba(31, 31, 31, 0.44);
+  border-radius: 12px;
+  height: 60px;
+}
+
+.overlay-username {
+  color: $primaryTeal;
+  margin: 1px;
+}
+
+.overlay-imagename {
+  color: $primaryWhite;
+}
+
+.overlay-profile-image {
+  margin-top: 5px;
+  margin-right: 10px;
+}
+// Modal
+.modal {
+  background-color: rgba(0,0,0, .75);
+}
+
+.modal-header {
+    border-bottom: 0 none;
+}
+
+.modal-footer {
+    border-top: 0 none;
+}
+
+.modal-content {
+  background-color: $primaryBlack;
+}
+
+.modal-title,
+.modal-body {
+  color: $primaryWhite
+}
+
+#closeModal {
+  color: $primaryTeal;
+}

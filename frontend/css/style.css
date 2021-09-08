@@ -9,8 +9,36 @@ body {
   background-color: #1f1f1f;
 }
 
+.main-header {
+  color: #fff;
+  text-decoration: underline;
+  text-decoration-thickness: 5px;
+  text-decoration-color: #27ACAB;
+  padding-top: 80px;
+  margin-bottom: 20px;
+}
+
+.comment-container-header {
+  color: #27ACAB;
+}
+
+.comment-username {
+  color: #27ACAB;
+}
+
+.comment-text {
+  color: #fff;
+}
+
+.comment-time {
+  color: grey;
+  font-size: 0.8em;
+}
+
 .navbar {
   background-color: #1f1f1f;
+  width: 100%;
+  position: fixed;
 }
 
 #addPostBtn {
@@ -49,7 +77,7 @@ body {
 }
 
 .menu-btn {
-  position: absolute;
+  position: fixed;
   right: 20px;
   top: 15px;
   z-index: 2;
@@ -66,7 +94,7 @@ body {
 
 .wrapper ul {
   position: absolute;
-  top: 50%;
+  top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
   list-style: none;
@@ -82,7 +110,7 @@ body {
 }
 
 .wrapper ul li a {
-  color: #000;
+  color: #1f1f1f;
   text-decoration: none;
   font-size: 1.5em;
   position: relative;
@@ -111,7 +139,7 @@ body {
   position: fixed;
   display: flex;
   justify-content: center;
-  bottom: 0px;
+  bottom: 0;
   padding-top: 20px;
   padding-bottom: 20px;
   background-color: #1f1f1f;
@@ -120,6 +148,94 @@ body {
 
 #menu-logo-img {
   height: 100px;
+}
+
+.card {
+  z-index: -99;
+  background-color: #1f1f1f;
+}
+
+.card-text {
+  color: #fff;
+}
+
+.fa-expand {
+  font-size: 20px;
+  color: #fff;
+}
+
+.fa-heart-o {
+  font-size: 20px;
+  color: #27ACAB;
+}
+
+.like-counter {
+  font-size: 20px;
+  color: #fff;
+}
+
+.card {
+  border-radius: 9px;
+  background-color: #1f1f1f;
+  box-shadow: 5px 5px 10px #181818, -5px -5px 10px #262626;
+}
+
+.card img {
+  position: relative;
+}
+
+.fa-chevron-down {
+  color: #27ACAB;
+}
+
+.overlay-container {
+  position: absolute;
+  top: 30%;
+  left: 15%;
+  backdrop-filter: blur(15px) saturate(200%);
+  -webkit-backdrop-filter: blur(15px) saturate(200%);
+  background-color: rgba(31, 31, 31, 0.44);
+  border-radius: 12px;
+  height: 60px;
+}
+
+.overlay-username {
+  color: #27ACAB;
+  margin: 1px;
+}
+
+.overlay-imagename {
+  color: #fff;
+}
+
+.overlay-profile-image {
+  margin-top: 5px;
+  margin-right: 10px;
+}
+
+.modal {
+  background-color: rgba(0, 0, 0, 0.75);
+}
+
+.modal-header {
+  border-bottom: 0 none;
+}
+
+.modal-footer {
+  border-top: 0 none;
+}
+
+.modal-content {
+  background-color: #1f1f1f;
+}
+
+.modal-title,
+.modal-body {
+  color: #fff;
+}
+
+#closeModal {
+  color: #27ACAB;
 }
 
 /*# sourceMappingURL=style.css.map */
