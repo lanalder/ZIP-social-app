@@ -176,12 +176,16 @@ body {
 
 .card {
   border-radius: 9px;
-  background: linear-gradient(145deg, #212121, #1c1c1c);
+  background-color: #1f1f1f;
   box-shadow: 5px 5px 10px #181818, -5px -5px 10px #262626;
 }
 
 .card img {
   position: relative;
+}
+
+.fa-chevron-down {
+  color: #27ACAB;
 }
 
 .overlay-container {
@@ -207,6 +211,31 @@ body {
 .overlay-profile-image {
   margin-top: 5px;
   margin-right: 10px;
+}
+
+.modal {
+  background-color: rgba(0, 0, 0, 0.75);
+}
+
+.modal-header {
+  border-bottom: 0 none;
+}
+
+.modal-footer {
+  border-top: 0 none;
+}
+
+.modal-content {
+  background-color: #1f1f1f;
+}
+
+.modal-title,
+.modal-body {
+  color: #fff;
+}
+
+#closeModal {
+  color: #27ACAB;
 }
 
 /*# sourceMappingURL=style.css.map */
