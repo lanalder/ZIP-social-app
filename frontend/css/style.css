@@ -182,6 +182,7 @@ body {
 
 .card img {
   position: relative;
+  object-fit: cover;
 }
 
 .fa-chevron-down {
