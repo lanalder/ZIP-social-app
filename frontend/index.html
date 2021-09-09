@@ -206,6 +206,11 @@
         Launch add modal
       </button>
 
+      <!-- Button to trigger add modal -->
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal">
+        Launch edit modal
+      </button>
+
     </div>
 
 
@@ -269,6 +274,41 @@
       </div>
     </div>
     <!-- Add Modal Ends -->
+
+    <!-- Edit Modal -->
+    <div id="editModal" class="modal fade" role="dialog">
+      <div class="modal-dialog modal-dialog-centered">
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Edit Post</h4>
+            <button type="button" id="closeModal" class="btn btn-default" data-bs-dismiss="modal">Close</button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="form-group form-margin">
+                <label for="editImageName">Edit Image Name</label>
+                <input type="name" class="form-control add" id="editImageName" aria-describedby="emailHelp" placeholder="Edit Image Name">
+                <small class="form-text text-muted"></small>
+              </div>
+              <div class="form-group form-margin">
+                <label for="editFileID">Edit Google File Id</label>
+                <input type="url" class="form-control add" id="editFileID" aria-describedby="emailHelp" placeholder="Edit Your Google File ID">
+                <small class="form-text text-muted"></small>
+              </div>
+              <div class="form-group form-margin">
+                <label for="editImageDescription">Edit Image Description</label>
+                <textarea class="form-control" id="editImageDescription" rows="3" placeholder="Edit Your Image Description"></textarea>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer d-flex justify-content-center">
+            <button id="deleteConfirmBtn" class="btn btn-primary" data-bs-dismiss="modal">Confirm Edit</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Edit Modal Ends -->
 
 
 
