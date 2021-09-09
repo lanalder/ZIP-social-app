@@ -18,6 +18,10 @@ body {
   margin-bottom: 20px;
 }
 
+label {
+  color: #27ACAB;
+}
+
 .comment-container-header {
   color: #27ACAB;
 }
@@ -33,6 +37,16 @@ body {
 .comment-time {
   color: grey;
   font-size: 0.8em;
+}
+
+.btn-primary {
+  background-color: #27ACAB;
+  color: #fff;
+  border-color: #27ACAB;
+}
+
+.form-margin {
+  margin-bottom: 20px;
 }
 
 .navbar {
@@ -180,8 +194,9 @@ body {
   box-shadow: 5px 5px 10px #181818, -5px -5px 10px #262626;
 }
 
-.card img {
-  position: relative;
+.card-img-top {
+  width: 150px;
+  height: 400px;
   object-fit: cover;
 }
 
@@ -191,7 +206,7 @@ body {
 
 .overlay-container {
   position: absolute;
-  top: 30%;
+  top: 300px;
   left: 15%;
   backdrop-filter: blur(15px) saturate(200%);
   -webkit-backdrop-filter: blur(15px) saturate(200%);
@@ -237,6 +252,19 @@ body {
 
 #closeModal {
   color: #27ACAB;
+}
+
+.log-reg-form {
+  margin-bottom: 30px;
+}
+
+.log-reg-card {
+  padding-left: 50px;
+  padding-right: 20px;
+}
+
+.reg-btn {
+  margin-bottom: 100px;
 }
 
 /*# sourceMappingURL=style.css.map */
