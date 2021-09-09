@@ -18,6 +18,10 @@ body {
   margin-bottom: 20px;
 }
 
+label {
+  color: #27ACAB;
+}
+
 .comment-container-header {
   color: #27ACAB;
 }
@@ -33,6 +37,16 @@ body {
 .comment-time {
   color: grey;
   font-size: 0.8em;
+}
+
+.btn-primary {
+  background-color: #27ACAB;
+  color: #fff;
+  border-color: #27ACAB;
+}
+
+.form-margin {
+  margin-bottom: 20px;
 }
 
 .navbar {
@@ -238,6 +252,19 @@ body {
 
 #closeModal {
   color: #27ACAB;
+}
+
+.log-reg-form {
+  margin-bottom: 30px;
+}
+
+.log-reg-card {
+  padding-left: 50px;
+  padding-right: 20px;
+}
+
+.reg-btn {
+  margin-bottom: 100px;
 }
 
 /*# sourceMappingURL=style.css.map */

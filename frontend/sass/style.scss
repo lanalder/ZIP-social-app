@@ -5,15 +5,20 @@
   padding: 0;
   box-sizing: border-box;
 }
+
 // CSS Reset Ends
+
+// ---------- GLOBAL -------------
+
 // Colours
 $primaryBlack: #1f1f1f;
 $primaryTeal: #27ACAB;
-$primaryWhite: #fff; // Global Settings
+$primaryWhite: #fff;
 
 body {
   background-color: $primaryBlack;
 }
+
 // Typography
 
 .main-header {
@@ -23,6 +28,10 @@ body {
   text-decoration-color: $primaryTeal;
   padding-top: 80px;
   margin-bottom: 20px;
+}
+
+label {
+  color: $primaryTeal;
 }
 
 .comment-container-header {
@@ -42,7 +51,21 @@ body {
   font-size: 0.8em;
 }
 
-// -----------------  SECTIONS ----------------------
+// Buttons
+
+.btn-primary {
+  background-color: $primaryTeal;
+  color: $primaryWhite;
+  border-color: $primaryTeal;
+}
+
+// Modal Form margins
+.form-margin {
+  margin-bottom: 20px;
+}
+
+// -----------------  SECTIONAL STYLISATION ----------------------
+
 // Navbar
 
 .navbar {
@@ -57,7 +80,8 @@ body {
   position: fixed;
   right: 100px;
 }
-// Navbar Ends
+
+
 // Hamburger Menu Overlay
 
 .wrapper {
@@ -161,7 +185,8 @@ body {
 #menu-logo-img {
   height: 100px;
 }
-// Hamburger Menu Overlay ends
+
+// Post Cards
 
 .card {
   z-index: -99;
@@ -171,7 +196,8 @@ body {
 .card-text {
   color: $primaryWhite;
 }
-// Card Overlay
+
+// Card Overlays
 
 .fa-expand {
   font-size: 20px;
@@ -199,8 +225,6 @@ body {
   height: 400px;
   object-fit: cover;
 }
-
-
 
 .fa-chevron-down {
   color: $primaryTeal;
@@ -230,7 +254,8 @@ body {
   margin-top: 5px;
   margin-right: 10px;
 }
-// Modal
+
+// Modals
 .modal {
   background-color: rgba(0,0,0, .75);
 }
@@ -254,4 +279,19 @@ body {
 
 #closeModal {
   color: $primaryTeal;
+}
+
+// Login/Register
+
+.log-reg-form {
+  margin-bottom: 30px;
+}
+
+.log-reg-card {
+  padding-left: 50px; //overides padding from bootstrap
+  padding-right: 20px;
+}
+
+.reg-btn {
+  margin-bottom: 100px;
 }
