@@ -39,10 +39,22 @@ label {
   font-size: 0.8em;
 }
 
+.total-posts-like-counters {
+  font-size: 20px;
+  color: #fff;
+}
+
 .btn-primary {
   background-color: #27ACAB;
   color: #fff;
   border-color: #27ACAB;
+  border-radius: 9px;
+  box-shadow: 5px 5px 10px #181818, -5px -5px 10px #262626;
+}
+
+.btn-danger {
+  border-radius: 9px;
+  box-shadow: 5px 5px 10px #181818, -5px -5px 10px #262626;
 }
 
 .form-margin {
@@ -164,6 +176,10 @@ label {
   height: 100px;
 }
 
+#albumOutput {
+  margin-top: 20px;
+}
+
 .card {
   z-index: -99;
   background-color: #1f1f1f;
@@ -173,19 +189,24 @@ label {
   color: #fff;
 }
 
-.fa-expand {
-  font-size: 20px;
+.fa-expand, .fa-pencil, .fa-trash-o {
+  font-size: 30px;
   color: #fff;
 }
 
-.fa-heart-o {
-  font-size: 20px;
+.fa-heart-o, .fa-picture-o {
+  font-size: 30px;
   color: #27ACAB;
 }
 
 .like-counter {
   font-size: 20px;
   color: #fff;
+}
+
+.interaction-icon {
+  margin-top: 10px;
+  margin-bottom: 0;
 }
 
 .card {
@@ -207,12 +228,18 @@ label {
 .overlay-container {
   position: absolute;
   top: 300px;
-  left: 15%;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
   backdrop-filter: blur(15px) saturate(200%);
   -webkit-backdrop-filter: blur(15px) saturate(200%);
   background-color: rgba(31, 31, 31, 0.44);
   border-radius: 12px;
   height: 60px;
+  width: 200px;
+  padding-left: 5px;
+  padding-right: 5px;
 }
 
 .overlay-username {
