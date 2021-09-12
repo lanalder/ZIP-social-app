@@ -30,25 +30,17 @@ body {
   margin-bottom: 20px;
 }
 
+.myprofile-header {
+  color: #fff;
+  text-decoration: underline;
+  text-decoration-thickness: 5px;
+  text-decoration-color: $primaryTeal;
+  margin-bottom: 20px;
+}
+
+
 label {
   color: $primaryTeal;
-}
-
-.comment-container-header {
-  color: $primaryTeal;
-}
-
-.comment-username {
-  color: $primaryTeal;
-}
-
-.comment-text {
-  color: $primaryWhite;
-}
-
-.comment-time {
-  color: grey;
-  font-size: 0.8em;
 }
 
 .total-posts-like-counters {
@@ -78,6 +70,11 @@ label {
 
 // -----------------  SECTIONAL STYLISATION ----------------------
 
+.profile-image{
+  margin-top: 80px;
+  margin-bottom: 5px;
+}
+
 // Navbar
 
 .navbar {
@@ -92,6 +89,8 @@ label {
   position: fixed;
   right: 100px;
 }
+
+
 
 
 // Hamburger Menu Overlay
@@ -216,24 +215,19 @@ label {
 
 // Card Overlays
 
-.fa-expand, .fa-pencil, .fa-trash-o, {
+.fa-expand, .fa-pencil, .fa-trash-o, .fa-heart-o, .fa-commenting-o {
   font-size: 30px;
   color: $primaryWhite;
 }
 
-.fa-heart-o, .fa-picture-o  {
+.fa-heart, .fa-picture-o  {
   font-size: 30px;
   color: $primaryTeal;
 }
 
-.like-counter {
+.like-counter, .comment-counter {
   font-size: 20px;
   color: $primaryWhite;
-}
-
-.interaction-icon {
-  margin-top: 10px;
-  margin-bottom: 0;
 }
 
 .card {
@@ -281,6 +275,29 @@ label {
 .overlay-profile-image {
   margin-top: 5px;
   margin-right: 10px;
+}
+
+// Comments
+
+.comment-container {
+  margin-top: 10px;
+}
+
+.comment-container-header {
+  color: $primaryTeal;
+}
+
+.comment-username {
+  color: $primaryTeal;
+}
+
+.comment-text {
+  color: $primaryWhite;
+}
+
+.comment-time {
+  color: grey;
+  font-size: 0.8em;
 }
 
 // Modals
