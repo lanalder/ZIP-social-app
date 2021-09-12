@@ -30,25 +30,22 @@ body {
   margin-bottom: 20px;
 }
 
+.myprofile-header {
+  color: #fff;
+  text-decoration: underline;
+  text-decoration-thickness: 5px;
+  text-decoration-color: $primaryTeal;
+  margin-bottom: 20px;
+}
+
+
 label {
   color: $primaryTeal;
 }
 
-.comment-container-header {
-  color: $primaryTeal;
-}
-
-.comment-username {
-  color: $primaryTeal;
-}
-
-.comment-text {
+.total-posts-like-counters {
+  font-size: 20px;
   color: $primaryWhite;
-}
-
-.comment-time {
-  color: grey;
-  font-size: 0.8em;
 }
 
 // Buttons
@@ -57,6 +54,13 @@ label {
   background-color: $primaryTeal;
   color: $primaryWhite;
   border-color: $primaryTeal;
+  border-radius: 9px;
+  box-shadow: 5px 5px 10px #181818, -5px -5px 10px #262626;
+}
+
+.btn-danger {
+  border-radius: 9px;
+  box-shadow: 5px 5px 10px #181818, -5px -5px 10px #262626;
 }
 
 // Modal Form margins
@@ -65,6 +69,11 @@ label {
 }
 
 // -----------------  SECTIONAL STYLISATION ----------------------
+
+.profile-image{
+  margin-top: 80px;
+  margin-bottom: 5px;
+}
 
 // Navbar
 
@@ -80,6 +89,8 @@ label {
   position: fixed;
   right: 100px;
 }
+
+
 
 
 // Hamburger Menu Overlay
@@ -186,6 +197,11 @@ label {
   height: 100px;
 }
 
+// All Album Outputs
+#albumOutput {
+  margin-top: 20px;
+}
+
 // Post Cards
 
 .card {
@@ -199,17 +215,17 @@ label {
 
 // Card Overlays
 
-.fa-expand {
-  font-size: 20px;
+.fa-expand, .fa-pencil, .fa-trash-o, .fa-heart-o, .fa-commenting-o {
+  font-size: 30px;
   color: $primaryWhite;
 }
 
-.fa-heart-o {
-  font-size: 20px;
+.fa-heart, .fa-picture-o  {
+  font-size: 30px;
   color: $primaryTeal;
 }
 
-.like-counter {
+.like-counter, .comment-counter {
   font-size: 20px;
   color: $primaryWhite;
 }
@@ -233,12 +249,18 @@ label {
 .overlay-container {
   position: absolute;
   top: 300px;
-  left: 15%;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
   backdrop-filter: blur(15px) saturate(200%);
   -webkit-backdrop-filter: blur(15px) saturate(200%);
   background-color: rgba(31, 31, 31, 0.44);
   border-radius: 12px;
   height: 60px;
+  width: 200px;
+  padding-left: 5px;
+  padding-right: 5px;
 }
 
 .overlay-username {
@@ -253,6 +275,29 @@ label {
 .overlay-profile-image {
   margin-top: 5px;
   margin-right: 10px;
+}
+
+// Comments
+
+.comment-container {
+  margin-top: 10px;
+}
+
+.comment-container-header {
+  color: $primaryTeal;
+}
+
+.comment-username {
+  color: $primaryTeal;
+}
+
+.comment-text {
+  color: $primaryWhite;
+}
+
+.comment-time {
+  color: grey;
+  font-size: 0.8em;
 }
 
 // Modals
