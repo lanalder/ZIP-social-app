@@ -54,9 +54,10 @@
   <div class="background-container">
 
     <!-- Page Header -->
-    <h2 class="main-header text-center">My Profile</h2>
+    <div class="large-profile-img d-flex justify-content-center"><img class="rounded-circle profile-image text-center" src="img/seal.png" alt="" width="150" height="150"></div>
+    <h2 class="myprofile-header text-center">My Profile</h2>
 
-    <p class="total-posts-like-counters text-center"><i class="fa fa-picture-o" aria-hidden="true"></i> 25 <i class="fa fa-heart-o" aria-hidden="true"></i> 155</p>
+    <p class="total-posts-like-counters text-center"><i class="fa fa-picture-o" aria-hidden="true"></i> 25 <i class="fa fa-heart" aria-hidden="true"></i> 155</p>
 
     <!-- All Posts Output -->
     <div class="container">
@@ -68,121 +69,37 @@
             <img class="card-img-top" src="img/seal.png" alt="" style="width: 100%">
             <!-- Card Overlay -->
             <div class="card-img-overlay d-flex">
-              <!-- Likes & Expand Overlay -->
-              <div class="like-expand-container text-wrap">
+              <div class="expand-container text-wrap">
                 <i class="fa fa-expand" aria-hidden="true"></i>
+              </div>
+              <!-- Username & Image name Overlay -->
+              <div class="col-8 overlay-container d-flex justify-content-center">
+                <img class="rounded-circle overlay-profile-image" src="img/seal.png" alt="" width="50" height="50">
+                <div class="overlay-text-container">
+                  <h4 class="overlay-username d-block">Username</h4>
+                  <p class="overlay-imagename d-block">Image Name</p>
+                </div>
+              </div>
+            </div>
+            <!-- Card Overlay ends -->
+            <div class="card-body">
+              <!-- Likes & Expand Overlay -->
+              <div class="like-comment-container d-flex justify-content-between">
                 <p class="like-counter interaction-icon"><i class="fa fa-heart-o" aria-hidden="true"></i> 155</p>
-                <p class="interaction-icon"><i class="fa fa-pencil" aria-hidden="true"></i></p>
+                <p class="comment-counter interaction-icon"><i class="fa fa-commenting-o" aria-hidden="true"></i> 11</p>
+                <p class="interaction-icon edit-btn"><i class="fa fa-pencil" aria-hidden="true"></i></p>
                 <p class="interaction-icon"><i class="fa fa-trash-o" aria-hidden="true"></i></p>
               </div>
-              <!-- Username & Image name Overlay -->
-              <div class="col-8 overlay-container d-flex justify-content-center">
-                <img class="rounded-circle overlay-profile-image" src="img/seal.png" alt="" width="50" height="50">
-                <div class="overlay-text-container">
-                  <h4 class="overlay-username d-block">Username</h4>
-                  <p class="overlay-imagename d-block">Image Name</p>
-                </div>
-              </div>
-            </div>
-            <!-- Card Overlay ends -->
-            <div class="card-body">
               <!-- Image Description -->
               <p class="card-text">A short description of the image posted above</p>
-              <div class="comment-toggler">
-                <h5 class="comment-container-header text-center">Comments <i class="fa fa-chevron-down" aria-hidden="true"></i></h5>
-              </div>
 
               <!-- Comment container begins -->
-              <div class="comment-container">
+              <div class="comment-container border-bottom">
                 <h6 class="comment-username">User Name</h6>
                 <p class="comment-text">A comment from a user maxed out at 160 Characters</p>
                 <p class="comment-time">Last updated 3 mins ago</p>
               </div>
-              <!-- Comment container ends -->
-
-            </div>
-            <!-- Card body ends -->
-          </div>
-          <!-- Card md4 ends -->
-        </div>
-        <!-- Card 1 ends -->
-
-        <!-- Card 1 -->
-        <div class="col-md-4">
-          <div class="card mb-4">
-            <img class="card-img-top" src="img/zip-crop-logo.png" alt="" style="width: 100%">
-            <!-- Card Overlay -->
-            <div class="card-img-overlay d-flex">
-              <!-- Likes & Expand Overlay -->
-              <div class="like-expand-container text-wrap">
-                <i class="fa fa-expand" aria-hidden="true"></i>
-                <p class="like-counter"><i class="fa fa-heart-o" aria-hidden="true"></i> 155</p>
-              </div>
-              <!-- Username & Image name Overlay -->
-              <div class="col-8 overlay-container d-flex justify-content-center">
-                <img class="rounded-circle overlay-profile-image" src="img/seal.png" alt="" width="50" height="50">
-                <div class="overlay-text-container">
-                  <h4 class="overlay-username d-block">Username</h4>
-                  <p class="overlay-imagename d-block">Image Name</p>
-                </div>
-              </div>
-            </div>
-            <!-- Card Overlay ends -->
-            <div class="card-body">
-              <!-- Image Description -->
-              <p class="card-text">A short description of the image posted above</p>
-              <div class="comment-toggler">
-                <h5 class="comment-container-header text-center">Comments <i class="fa fa-chevron-down" aria-hidden="true"></i></h5>
-              </div>
-
-              <!-- Comment container begins -->
-              <div class="comment-container">
-                <h6 class="comment-username">User Name</h6>
-                <p class="comment-text">A comment from a user maxed out at 160 Characters</p>
-                <p class="comment-time">Last updated 3 mins ago</p>
-              </div>
-              <!-- Comment container ends -->
-
-            </div>
-            <!-- Card body ends -->
-          </div>
-          <!-- Card md4 ends -->
-        </div>
-        <!-- Card 1 ends -->
-
-
-
-        <!-- Card 1 -->
-        <div class="col-md-4">
-          <div class="card mb-4">
-            <img class="card-img-top" src="img/seal.png" alt="" style="width: 100%">
-
-            <!-- Card Overlay -->
-            <div class="card-img-overlay d-flex">
-              <!-- Likes & Expand Overlay -->
-              <div class="like-expand-container text-wrap">
-                <i class="fa fa-expand" aria-hidden="true"></i>
-                <p class="like-counter"><i class="fa fa-heart-o" aria-hidden="true"></i> 155</p>
-              </div>
-              <!-- Username & Image name Overlay -->
-              <div class="col-8 overlay-container d-flex justify-content-center">
-                <img class="rounded-circle overlay-profile-image" src="img/seal.png" alt="" width="50" height="50">
-                <div class="overlay-text-container">
-                  <h4 class="overlay-username d-block">Username</h4>
-                  <p class="overlay-imagename d-block">Image Name</p>
-                </div>
-              </div>
-            </div>
-            <!-- Card Overlay ends -->
-            <div class="card-body">
-              <!-- Image Description -->
-              <p class="card-text">A short description of the image posted above</p>
-              <div class="comment-toggler">
-                <h5 class="comment-container-header text-center">Comments <i class="fa fa-chevron-down" aria-hidden="true"></i></h5>
-              </div>
-
-              <!-- Comment container begins -->
-              <div class="comment-container">
+              <div class="comment-container border-bottom">
                 <h6 class="comment-username">User Name</h6>
                 <p class="comment-text">A comment from a user maxed out at 160 Characters</p>
                 <p class="comment-time">Last updated 3 mins ago</p>
