@@ -141,7 +141,7 @@ app.post('/newUser', (req, res) => {
 
 app.post('/loginUser', (req, res) => {
   User.findOne({
-    username: req.body.Username
+    username: req.body.username
   }, (err, userExists) => {
     if (userExists) {
       if (bcrypt.compareSync(req.body.password, userExists.password)) {

@@ -66,7 +66,7 @@
             <!-- Card Overlay -->
             <div class="card-img-overlay d-flex">
               <div class="expand-container text-wrap">
-                <i class="fa fa-expand" aria-hidden="true"></i>
+                <i class="fa fa-expand" aria-hidden="true" data-bs-toggle="modal" data-bs-target="#viewFullImageModal"></i>
               </div>
               <!-- Username & Image name Overlay -->
               <div class="col-8 overlay-container d-flex justify-content-center">
@@ -88,7 +88,7 @@
               <p class="card-text">A short description of the image posted above</p>
 
               <!-- Comment container begins -->
-              <div class="comments-output">
+              <div class="comments-output display-none">
                 <div class="comment-container border-bottom">
                   <h6 class="comment-username">User Name</h6>
                   <p class="comment-text">A comment from a user maxed out at 160 Characters</p>
@@ -99,17 +99,16 @@
                   <p class="comment-text">A comment from a user maxed out at 160 Characters</p>
                   <p class="comment-time">Last updated 3 mins ago</p>
                 </div>
+                <!-- Comment Input Area -->
+                <div class="form-group mb-3">
+                  <label for="newComment" class="form-label new-comment-label">
+                    <h6>Post New Comment</h6>
+                  </label>
+                  <textarea class="form-control" id="newComment" rows="3" maxlength="160" placeholder="Maximum 160 Characters"></textarea>
+                  <p class="text-end send-comment-btn"><i class="fa fa-paper-plane text-end" aria-hidden="true"></i></p>
+                </div>
               </div>
-              <!-- Comment Input Area -->
-
-              <div class="form-group mb-3">
-                <label for="newComment" class="form-label new-comment-label">
-                  <h6>Post New Comment</h6>
-                </label>
-                <textarea class="form-control" id="newComment" rows="3" maxlength="160" placeholder="Maximum 160 Characters"></textarea>
-                <p class="text-end send-comment-btn"><i class="fa fa-paper-plane text-end" aria-hidden="true"></i></p>
-
-              </div>
+              <!-- Comment Output Ends -->
             </div>
             <!-- Card body ends -->
           </div>
@@ -119,11 +118,6 @@
 
         <!-- Album Output Ends -->
       </div>
-
-      <!-- Button to Full Image add modal -->
-      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#viewFullImageModal">
-        Launch image modal
-      </button>
 
     </div>
     <!-- Container Ends -->
@@ -183,7 +177,7 @@
     <script src="node_modules/jquery/dist/jquery.min.js" charset="utf-8"></script>
     <script src="node_modules/@popperjs/core/dist/umd/popper.min.js" charset="utf-8"></script>
     <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js" charset="utf-8"></script>
-    <script src="js/logout.min.js"></script>
+    <script src="js/index.min.js"></script>
 </body>
 
 </html>

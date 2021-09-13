@@ -75,7 +75,7 @@ module.exports = function(grunt) {
 
 
   // Default task(s).
-  grunt.registerTask('default', ['sass', 'watch', 'htmllint']);
+  grunt.registerTask('default', ['uglify','sass', 'watch', 'htmllint']);
   grunt.registerTask('prod', ['uglify']);
   grunt.registerTask('cssvalidate', ['csslint', 'jshint']);
   grunt.registerTask('jslint', ['jshint']);

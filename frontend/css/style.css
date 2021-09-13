@@ -5,6 +5,10 @@
   box-sizing: border-box;
 }
 
+.display-none {
+  display: none;
+}
+
 body {
   background-color: #1f1f1f;
 }
