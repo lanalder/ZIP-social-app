@@ -61,6 +61,7 @@ label {
   background-color: #1f1f1f;
   width: 100%;
   position: fixed;
+  z-index: 10;
 }
 
 #addPostBtn {
@@ -72,6 +73,7 @@ label {
 
 .wrapper {
   position: fixed;
+  z-index: 10;
   top: 0;
   left: 0;
   height: 100%;
@@ -102,7 +104,7 @@ label {
   position: fixed;
   right: 20px;
   top: 15px;
-  z-index: 2;
+  z-index: 20;
   text-align: center;
   line-height: 50px;
   height: 50px;
@@ -176,8 +178,8 @@ label {
   margin-top: 20px;
 }
 
-.card {
-  z-index: -99;
+.card-body {
+  z-index: 1;
   background-color: #1f1f1f;
 }
 
