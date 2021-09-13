@@ -10,8 +10,6 @@ const express = require('express'),
   Comment = require('./models/comments.js'),
   port = 8080;
 
-// ---------------------------- set up ----------------------------
-
 app.use((req, res, next) => {
   console.log(`${req.method} request ${req.url}`);
   next();
@@ -39,8 +37,6 @@ mongoose.connect(`mongodb+srv://${config.MONGO_USER}:${config.MONGO_PASSWORD}@cl
 });
 
 app.listen(port, () => console.log(`Fullstack app is listening on port ${port}`));
-
-// ---------------------------- set up ENDS ----------------------------
 
 app.post('/postPost', (req, res) => {
   const newPost = new Post({
@@ -118,20 +114,43 @@ app.post('/newUser', (req, res) => {
     username: req.body.username,
   }, (err, userExists) => {
     if (userExists) {
-      res.send('Username already exists, please choose another');
+      res.send('username already taken. pls use a different username.');
     } else {
       const hash = bcrypt.hashSync(req.body.password);
-      const user = new User({
+      const newUser = new User({
         _id: new mongoose.Types.ObjectId,
         username: req.body.username,
+        profl_pic: req.body.email,
         password: hash,
         email: req.body.email,
-        profl_pic: req.body.profl_pic,
-        acc_type: 0,
+        acc_type: false,
         stats: {
-
+          posts: 0,
+          likes: 0
         }
-      })
+      });
+      newUser.save()
+        .then(result => {
+          res.send(result);
+        }).catch(err => {
+          res.send(err);
+        });
     }
   })
+});
+
+app.post('/loginUser', (req, res) => {
+  User.findOne({
+    username: req.body.username
+  }, (err, userExists) => {
+    if (userExists) {
+      if (bcrypt.compareSync(req.body.password, userExists.password)) {
+        res.send(userExists);
+      } else {
+        res.send('not authorised');
+      }
+    } else {
+      res.send('user not found. please register :)')
+    }
+  });
 });
