@@ -127,7 +127,7 @@ label {
   position: fixed;
   right: 20px;
   top: 15px;
-  z-index: 2;
+  z-index: 1;
   text-align: center;
   line-height: 50px;
   height: 50px;
@@ -205,7 +205,7 @@ label {
 // Post Cards
 
 .card {
-  z-index: -99;
+  z-index: -2;
   background-color: $primaryBlack;
 }
 
