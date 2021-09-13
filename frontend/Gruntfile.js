@@ -9,9 +9,9 @@ module.exports = function(grunt) {
       },
       build: {
         files: {
-          'js/album.min.js' : ['js/album.js'],
-          'js/login.min.js' : ['js/login.js'],
-          'js/logout.min.js' : ['js/logout.js']
+          'js/myprofile.min.js' : ['js/myprofile.js'],
+          'js/login-reg.min.js' : ['js/login-reg.js'],
+          'js/index.min.js' : ['js/index.js']
         }
       }
     }, // Uglify ends
@@ -27,7 +27,7 @@ module.exports = function(grunt) {
     }, // Sass ends
     watch: {
       scripts: {
-        files: ['js/*.js', 'sass/style.scss', 'index.html'],
+        files: ['js/index.js','js/login-reg.js', 'js/myprofile.js', 'sass/style.scss', 'index.html'],
         tasks: ['uglify', 'sass', 'jshint'],
         options: {
           spawn: false,
@@ -51,7 +51,7 @@ module.exports = function(grunt) {
     },
     // css lint finishes
     jshint: {
-      all: ['Gruntfile.js', 'js/album.js', 'js/login.js', 'js/logout.js'],
+      all: ['Gruntfile.js', 'js/index.js', 'js/myprofile.js', 'js/login-reg.js'],
       options: {
         esversion: 6
       }
