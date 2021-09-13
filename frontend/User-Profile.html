@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="node_modules/fontawesome-4.7/css/font-awesome.css">
   <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="css/style.css">
-  <title>ZIP Wildlife Photgraphy - My Profile</title>
+  <title>ZIP Wildlife Photgraphy - Feed</title>
 </head>
 
 <body>
@@ -33,7 +33,8 @@
         <ul class="menu">
           <h2>Menu</h2>
           <li><a href="index.html">Feed</a></li>
-          <li><a href="login.html">Login/Register</a></li>
+          <li><a href="#">Register</a></li>
+          <li><a href="login.html">Login</a></li>
         </ul>
         <!-- Hamburger logo container -->
         <div id="menu-logo">
@@ -53,10 +54,7 @@
   <div class="background-container">
 
     <!-- Page Header -->
-    <div class="large-profile-img d-flex justify-content-center"><img class="rounded-circle profile-image text-center" src="img/seal.png" alt="" width="150" height="150"></div>
-    <h2 class="myprofile-header text-center">My Profile</h2>
-
-    <p class="total-posts-like-counters text-center"><i class="fa fa-picture-o" aria-hidden="true"></i> 25 <i class="fa fa-heart" aria-hidden="true"></i> 155</p>
+    <h2 class="main-header text-center">User Profile</h2>
 
     <!-- All Posts Output -->
     <div class="container">
@@ -68,8 +66,10 @@
             <img class="card-img-top" src="img/seal.png" alt="" style="width: 100%">
             <!-- Card Overlay -->
             <div class="card-img-overlay d-flex">
-              <div class="expand-container text-wrap">
+              <!-- Likes & Expand Overlay -->
+              <div class="like-expand-container text-wrap">
                 <i class="fa fa-expand" aria-hidden="true"></i>
+                <p class="like-counter"><i class="fa fa-heart-o" aria-hidden="true"></i> 155</p>
               </div>
               <!-- Username & Image name Overlay -->
               <div class="col-8 overlay-container d-flex justify-content-center">
@@ -82,23 +82,103 @@
             </div>
             <!-- Card Overlay ends -->
             <div class="card-body">
-              <!-- Likes & Expand Overlay -->
-              <div class="like-comment-container d-flex justify-content-between">
-                <p class="like-counter interaction-icon"><i class="fa fa-heart-o" aria-hidden="true"></i> 155</p>
-                <p class="comment-counter interaction-icon"><i class="fa fa-commenting-o" aria-hidden="true"></i> 11</p>
-                <p class="interaction-icon edit-btn"><i class="fa fa-pencil" aria-hidden="true"></i></p>
-                <p class="interaction-icon"><i class="fa fa-trash-o" aria-hidden="true"></i></p>
-              </div>
               <!-- Image Description -->
               <p class="card-text">A short description of the image posted above</p>
+              <div class="comment-toggler">
+                <h5 class="comment-container-header text-center">Comments <i class="fa fa-chevron-down" aria-hidden="true"></i></h5>
+              </div>
 
               <!-- Comment container begins -->
-              <div class="comment-container border-bottom">
+              <div class="comment-container">
                 <h6 class="comment-username">User Name</h6>
                 <p class="comment-text">A comment from a user maxed out at 160 Characters</p>
                 <p class="comment-time">Last updated 3 mins ago</p>
               </div>
-              <div class="comment-container border-bottom">
+              <!-- Comment container ends -->
+
+            </div>
+            <!-- Card body ends -->
+          </div>
+          <!-- Card md4 ends -->
+        </div>
+        <!-- Card 1 ends -->
+
+        <!-- Card 1 -->
+        <div class="col-md-4">
+          <div class="card mb-4">
+            <img class="card-img-top" src="img/zip-crop-logo.png" alt="" style="width: 100%">
+            <!-- Card Overlay -->
+            <div class="card-img-overlay d-flex">
+              <!-- Likes & Expand Overlay -->
+              <div class="like-expand-container text-wrap">
+                <i class="fa fa-expand" aria-hidden="true"></i>
+                <p class="like-counter"><i class="fa fa-heart-o" aria-hidden="true"></i> 155</p>
+              </div>
+              <!-- Username & Image name Overlay -->
+              <div class="col-8 overlay-container d-flex justify-content-center">
+                <img class="rounded-circle overlay-profile-image" src="img/seal.png" alt="" width="50" height="50">
+                <div class="overlay-text-container">
+                  <h4 class="overlay-username d-block">Username</h4>
+                  <p class="overlay-imagename d-block">Image Name</p>
+                </div>
+              </div>
+            </div>
+            <!-- Card Overlay ends -->
+            <div class="card-body">
+              <!-- Image Description -->
+              <p class="card-text">A short description of the image posted above</p>
+              <div class="comment-toggler">
+                <h5 class="comment-container-header text-center">Comments <i class="fa fa-chevron-down" aria-hidden="true"></i></h5>
+              </div>
+
+              <!-- Comment container begins -->
+              <div class="comment-container">
+                <h6 class="comment-username">User Name</h6>
+                <p class="comment-text">A comment from a user maxed out at 160 Characters</p>
+                <p class="comment-time">Last updated 3 mins ago</p>
+              </div>
+              <!-- Comment container ends -->
+
+            </div>
+            <!-- Card body ends -->
+          </div>
+          <!-- Card md4 ends -->
+        </div>
+        <!-- Card 1 ends -->
+
+
+
+        <!-- Card 1 -->
+        <div class="col-md-4">
+          <div class="card mb-4">
+            <img class="card-img-top" src="img/seal.png" alt="" style="width: 100%">
+
+            <!-- Card Overlay -->
+            <div class="card-img-overlay d-flex">
+              <!-- Likes & Expand Overlay -->
+              <div class="like-expand-container text-wrap">
+                <i class="fa fa-expand" aria-hidden="true"></i>
+                <p class="like-counter"><i class="fa fa-heart-o" aria-hidden="true"></i> 155</p>
+              </div>
+              <!-- Username & Image name Overlay -->
+              <div class="col-8 overlay-container d-flex justify-content-center">
+                <img class="rounded-circle overlay-profile-image" src="img/seal.png" alt="" width="50" height="50">
+                <div class="overlay-text-container">
+                  <h4 class="overlay-username d-block">Username</h4>
+                  <p class="overlay-imagename d-block">Image Name</p>
+                </div>
+              </div>
+            </div>
+            <!-- Card Overlay ends -->
+            <div class="card-body">
+              <!-- Image Description -->
+              <p class="card-text">A short description of the image posted above</p>
+              <div class="comment-toggler">
+                <h5 class="comment-container-header text-center">Comments <i class="fa fa-chevron-down" aria-hidden="true"></i></h5>
+              </div>
+
+              <!-- Comment container begins -->
+              <div class="comment-container">
                 <h6 class="comment-username">User Name</h6>
                 <p class="comment-text">A comment from a user maxed out at 160 Characters</p>
                 <p class="comment-time">Last updated 3 mins ago</p>
@@ -129,11 +209,6 @@
       <!-- Button to trigger add modal -->
       <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal">
         Launch edit modal
-      </button>
-
-      <!-- Button to Full Image add modal -->
-      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#viewFullImageModal">
-        Launch image modal
       </button>
 
     </div>
@@ -193,7 +268,7 @@
             </form>
           </div>
           <div class="modal-footer d-flex justify-content-center">
-            <button id="deleteConfirmBtn" class="btn btn-primary add-btn" data-bs-dismiss="modal">Add Post</button>
+            <button id="deleteConfirmBtn" class="btn btn-primary" data-bs-dismiss="modal">Add Post</button>
           </div>
         </div>
       </div>
@@ -234,23 +309,6 @@
       </div>
     </div>
     <!-- Edit Modal Ends -->
-
-    <!-- View Full Image Modal -->
-    <div id="viewFullImageModal" class="modal fade" role="dialog">
-      <div class="modal-dialog modal-xl modal-dialog-centered">
-        <!-- Modal content-->
-        <div class="modal-content">
-          <div class="modal-header">
-            <h4 class="modal-title">Image Name</h4>
-            <button type="button" id="closeModal" class="btn btn-default" data-bs-dismiss="modal">Close</button>
-          </div>
-          <div class="modal-body">
-            <img class="fullImage" src="img/penguin.jpeg" alt="" style="width: 100%">
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- View Full Image Modal Ends -->
 
 
 
