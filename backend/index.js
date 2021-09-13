@@ -47,7 +47,8 @@ app.post('/postPost', (req, res) => {
     _id: new mongoose.Types.ObjectId,
     author: req.body.username,
     caption: req.body.caption,
-    imgUrl: req.body.imgUrl,
+    likes: 0,
+    img_url: req.body.img_url,
     user_id: req.body.user_id
   });
   newPost.save()
@@ -57,4 +58,80 @@ app.post('/postPost', (req, res) => {
     .catch(err => {
       res.send(err);
     });
+});
+
+app.get('/allPosts', (req, res) => {
+  Post.find({})
+    .then(result => {
+      res.send(result);
+    }).catch(err => {
+      res.send(err);
+    });
+});
+
+app.post('/createComment', (req, res) => {
+  const newComment = new Comment({
+    _id: new mongoose.Types.ObjectId,
+    author: req.body.username,
+    text: req.body.text,
+    time: new Date(),
+    user_id: req.body.user_id,
+    post_id: req.body.post_id
+  });
+  newComment.save()
+    .then(result => {
+      res.send(result);
+    }).catch(err => {
+      res.send(err);
+    });
+});
+
+app.get('/seeComments/:id', (req, res) => {
+  const post = req.params.id;
+  Comment.find({
+    post_id: post,
+  }, (err, comments) => {
+    if (comments) {
+      res.send(comments);
+    } else {
+      res.send(err);
+    }
+  });
+});
+
+// app.get('/seeComments/:id', (req, res) => {
+//   const post = req.params.id;
+//   // Comment.aggregate([
+//   //   { $match: { post_id: req.params.id } }
+//   // ])
+//   Comment.find({
+//     post_id: post
+//   }).then(result => {
+//     res.send(result);
+//   }).catch(err => {
+//     res.send(err);
+//   });
+// });
+
+app.post('/newUser', (req, res) => {
+  User.findOne({
+    username: req.body.username,
+  }, (err, userExists) => {
+    if (userExists) {
+      res.send('Username already exists, please choose another');
+    } else {
+      const hash = bcrypt.hashSync(req.body.password);
+      const user = new User({
+        _id: new mongoose.Types.ObjectId,
+        username: req.body.username,
+        password: hash,
+        email: req.body.email,
+        profl_pic: req.body.profl_pic,
+        acc_type: 0,
+        stats: {
+
+        }
+      })
+    }
+  })
 });

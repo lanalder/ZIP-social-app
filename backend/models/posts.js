@@ -4,11 +4,12 @@ const postSchema = new mongoose.Schema({
   _id: mongoose.Schema.Types.ObjectID,
   author: String,
   caption: String,
-  imgUrl: String,
+  likes: Number,
+  img_url: String,
   user_id: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Users'
+    ref: 'User'
   }
 });
 
-module.exports = mongoose.model('Posts', postSchema);
+module.exports = mongoose.model('Post', postSchema);
