@@ -33,7 +33,6 @@
         <ul class="menu">
           <h2>Menu</h2>
           <li><a href="index.html">Feed</a></li>
-          <li><a href="myprofile.html">My Profile</a></li>
           <li><a href="login.html">Login/Register</a></li>
         </ul>
         <!-- Hamburger logo container -->
@@ -111,8 +110,30 @@
         <!-- Album Output Ends -->
       </div>
 
+      <!-- Button to Full Image add modal -->
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#viewFullImageModal">
+        Launch image modal
+      </button>
+
     </div>
     <!-- Container Ends -->
+
+    <!-- View Full Image Modal -->
+    <div id="viewFullImageModal" class="modal fade" role="dialog">
+      <div class="modal-dialog modal-xl modal-dialog-centered">
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Image Name</h4>
+            <button type="button" id="closeModal" class="btn btn-default" data-bs-dismiss="modal">Close</button>
+          </div>
+          <div class="modal-body">
+            <img class="fullImage" src="img/penguin.jpeg" alt="" style="width: 100%">
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- View Full Image Modal Ends -->
 
     <script src="node_modules/jquery/dist/jquery.min.js" charset="utf-8"></script>
     <script src="node_modules/@popperjs/core/dist/umd/popper.min.js" charset="utf-8"></script>
