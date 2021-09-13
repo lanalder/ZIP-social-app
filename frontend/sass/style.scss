@@ -220,7 +220,7 @@ label {
   color: $primaryWhite;
 }
 
-.fa-heart, .fa-picture-o  {
+.fa-heart, .fa-picture-o, .fa-paper-plane  {
   font-size: 30px;
   color: $primaryTeal;
 }
@@ -298,6 +298,14 @@ label {
 .comment-time {
   color: grey;
   font-size: 0.8em;
+}
+
+.new-comment-label {
+  margin-top: 10px;
+}
+
+.send-comment-btn {
+  margin-top: 10px;
 }
 
 // Modals

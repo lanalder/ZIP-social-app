@@ -98,8 +98,14 @@
                 <p class="comment-text">A comment from a user maxed out at 160 Characters</p>
                 <p class="comment-time">Last updated 3 mins ago</p>
               </div>
-              <!-- Comment container ends -->
+              <div class="form-group mb-3">
+                <label for="newComment" class="form-label new-comment-label"><h6>Post New Comment</h6></label>
+                <textarea class="form-control" id="newComment" rows="3" maxlength="160" placeholder="Maximum 160 Characters"></textarea>
+                <p class="text-end send-comment-btn"><i class="fa fa-paper-plane text-end" aria-hidden="true"></i></p>
 
+
+              </div>
+              <!-- Comment container ends -->
             </div>
             <!-- Card body ends -->
           </div>
@@ -134,6 +140,41 @@
       </div>
     </div>
     <!-- View Full Image Modal Ends -->
+
+    <!-- Add Modal -->
+    <div id="addModal" class="modal fade" role="dialog">
+      <div class="modal-dialog modal-dialog-centered">
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Add Post</h4>
+            <button type="button" id="closeModal" class="btn btn-default" data-bs-dismiss="modal">Close</button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="form-group form-margin">
+                <label for="addImageName">Image Name</label>
+                <input type="name" class="form-control add" id="addImageName" aria-describedby="emailHelp" placeholder="Add Image Name">
+                <small class="form-text text-muted"></small>
+              </div>
+              <div class="form-group form-margin">
+                <label for="addFileID">Google File Id</label>
+                <input type="url" class="form-control add" id="addFileID" aria-describedby="emailHelp" placeholder="Add Your Google File ID">
+                <small class="form-text text-muted"></small>
+              </div>
+              <div class="form-group form-margin">
+                <label for="imageDescriptionInput">Image Description</label>
+                <textarea class="form-control" id="imageDescriptionInput" rows="3" placeholder="Add Your Image Description"></textarea>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer d-flex justify-content-center">
+            <button id="deleteConfirmBtn" class="btn btn-primary add-btn" data-bs-dismiss="modal">Add Post</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Add Modal Ends -->
 
     <script src="node_modules/jquery/dist/jquery.min.js" charset="utf-8"></script>
     <script src="node_modules/@popperjs/core/dist/umd/popper.min.js" charset="utf-8"></script>
