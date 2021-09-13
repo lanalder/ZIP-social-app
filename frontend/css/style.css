@@ -18,25 +18,16 @@ body {
   margin-bottom: 20px;
 }
 
+.myprofile-header {
+  color: #fff;
+  text-decoration: underline;
+  text-decoration-thickness: 5px;
+  text-decoration-color: #27ACAB;
+  margin-bottom: 20px;
+}
+
 label {
   color: #27ACAB;
-}
-
-.comment-container-header {
-  color: #27ACAB;
-}
-
-.comment-username {
-  color: #27ACAB;
-}
-
-.comment-text {
-  color: #fff;
-}
-
-.comment-time {
-  color: grey;
-  font-size: 0.8em;
 }
 
 .total-posts-like-counters {
@@ -59,6 +50,11 @@ label {
 
 .form-margin {
   margin-bottom: 20px;
+}
+
+.profile-image {
+  margin-top: 80px;
+  margin-bottom: 5px;
 }
 
 .navbar {
@@ -189,24 +185,19 @@ label {
   color: #fff;
 }
 
-.fa-expand, .fa-pencil, .fa-trash-o {
+.fa-expand, .fa-pencil, .fa-trash-o, .fa-heart-o, .fa-commenting-o {
   font-size: 30px;
   color: #fff;
 }
 
-.fa-heart-o, .fa-picture-o {
+.fa-heart, .fa-picture-o, .fa-paper-plane {
   font-size: 30px;
   color: #27ACAB;
 }
 
-.like-counter {
+.like-counter, .comment-counter {
   font-size: 20px;
   color: #fff;
-}
-
-.interaction-icon {
-  margin-top: 10px;
-  margin-bottom: 0;
 }
 
 .card {
@@ -254,6 +245,35 @@ label {
 .overlay-profile-image {
   margin-top: 5px;
   margin-right: 10px;
+}
+
+.comment-container {
+  margin-top: 10px;
+}
+
+.comment-container-header {
+  color: #27ACAB;
+}
+
+.comment-username {
+  color: #27ACAB;
+}
+
+.comment-text {
+  color: #fff;
+}
+
+.comment-time {
+  color: grey;
+  font-size: 0.8em;
+}
+
+.new-comment-label {
+  margin-top: 10px;
+}
+
+.send-comment-btn {
+  margin-top: 10px;
 }
 
 .modal {
