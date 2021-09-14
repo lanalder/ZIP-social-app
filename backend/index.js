@@ -74,6 +74,23 @@ app.post('/createComment', (req, res) => {
     user_id: req.body.user_id,
     post_id: req.body.post_id
   });
+  Post.findOne(
+    {
+      _id: req.body.post_id
+    },
+    {
+      $inc: {
+        'stats.comments': 1
+      }
+    }
+  );
+  // Post.findOne({
+  //   _id: req.body.post_id
+  // }, (err, postExists) => {
+  //   if (postExists) {
+  //     postExists
+  //   }
+  // })
   newComment.save()
     .then(result => {
       res.send(result);
