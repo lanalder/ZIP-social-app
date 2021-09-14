@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="node_modules/fontawesome-4.7/css/font-awesome.css">
+  <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <title>ZIP Wildlife Photgraphy - User Profile</title>
+</head>
+
+<body>
+  <!-- Fixed Nav Begins-->
+  <nav class="navbar">
+
+    <!-- Outer fluid container begins -->
+    <div class="container-fluid">
+
+      <!-- Nav logo container -->
+      <a class="navbar-brand" href="#">
+        <img src="img/zip-crop-logo.png" alt="ZIP Logo" height="50" class="d-inline-block align-text-top">
+      </a>
+      <!-- Nav logo container ends -->
+
+      <i class="fa fa-plus display-none" id="addPostBtn"></i>
+
+      <!-- HAMBURGER MENU OVERLAY -->
+      <input type="checkbox" id="active"></input>
+      <label for="active" class="menu-btn"><i class="fa fa-bars"></i></label>
+      <div class="wrapper">
+        <ul class="menu">
+          <h2>Menu</h2>
+          <li><a href="index.html">Feed</a></li>
+          <li><a class="login-logout" href="login.html">Login/Register</a></li>
+        </ul>
+        <!-- Hamburger logo container -->
+        <div id="menu-logo">
+          <img id="menu-logo-img" src="img/zip-full-logo.png" alt="ZIP Full Logo">
+        </div>
+        <!-- Hamburger logo container ends -->
+
+      </div>
+      <!-- Hamburger ends -->
+
+    </div>
+    <!-- Outer fluid container ends -->
+
+  </nav>
+  <!-- Fixed Nav ends -->
+
+  <div class="background-container">
+
+    <!-- Page Header -->
+    <div class="large-profile-img d-flex justify-content-center"><img class="rounded-circle profile-image text-center" src="img/seal.png" alt="" width="150" height="150"></div>
+    <h2 class="myprofile-header text-center">Other User</h2>
+
+    <p class="total-posts-like-counters text-center"><i class="fa fa-picture-o" aria-hidden="true"></i> 25 <i class="fa fa-heart" aria-hidden="true"></i> 155</p>
+
+    <!-- All Posts Output -->
+    <div class="container">
+
+      <div class="row" id="albumOutput">
+        <!-- Card 1 -->
+        <div class="col-md-4">
+          <div class="card mb-4">
+            <img class="card-img-top" src="img/seal.png" alt="" style="width: 100%">
+            <!-- Card Overlay -->
+            <div class="card-img-overlay d-flex">
+              <div class="expand-container text-wrap">
+                <i class="fa fa-expand" aria-hidden="true" data-bs-toggle="modal" data-bs-target="#viewFullImageModal"></i>
+              </div>
+              <!-- Username & Image name Overlay -->
+              <div class="col-8 overlay-container d-flex justify-content-center">
+                <img class="rounded-circle overlay-profile-image" src="img/seal.png" alt="" width="50" height="50">
+                <div class="overlay-text-container">
+                  <h4 class="overlay-username d-block">Username</h4>
+                  <p class="overlay-imagename d-block">Image Name</p>
+                </div>
+              </div>
+            </div>
+            <!-- Card Overlay ends -->
+            <div class="card-body">
+              <!-- Likes & Expand Overlay -->
+              <div class="like-comment-container d-flex justify-content-between">
+                <p class="like-counter interaction-icon"><i class="fa fa-heart-o" aria-hidden="true"></i> 155</p>
+                <p class="comment-counter interaction-icon"><i class="fa fa-commenting-o" aria-hidden="true"></i> 11</p>
+              </div>
+              <!-- Image Description -->
+              <p class="card-text">A short description of the image posted above</p>
+
+              <!-- Comment container begins -->
+              <div class="comments-output display-none">
+                <div class="comment-container border-bottom">
+                  <h6 class="comment-username">User Name</h6>
+                  <p class="comment-text">A comment from a user maxed out at 160 Characters</p>
+                  <p class="comment-time">Last updated 3 mins ago</p>
+                </div>
+                <div class="comment-container border-bottom">
+                  <h6 class="comment-username">User Name</h6>
+                  <p class="comment-text">A comment from a user maxed out at 160 Characters</p>
+                  <p class="comment-time">Last updated 3 mins ago</p>
+                </div>
+                <!-- Comment Input Area -->
+                <div class="form-group mb-3">
+                  <label for="newComment" class="form-label new-comment-label">
+                    <h6>Post New Comment</h6>
+                  </label>
+                  <textarea class="form-control" id="newComment" rows="3" maxlength="160" placeholder="Maximum 160 Characters"></textarea>
+                  <p class="text-end send-comment-btn"><i class="fa fa-paper-plane text-end" aria-hidden="true"></i></p>
+                </div>
+              </div>
+              <!-- Comment Output Ends -->
+            </div>
+            <!-- Card body ends -->
+          </div>
+          <!-- Card md4 ends -->
+        </div>
+        <!-- Card 1 ends -->
+
+        <!-- Album Output Ends -->
+      </div>
+
+
+      <!-- Button to trigger delete modal -->
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#deleteModal">
+        Launch delete modal
+      </button>
+
+      <!-- Button to trigger add modal -->
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal">
+        Launch add modal
+      </button>
+
+      <!-- Button to trigger add modal -->
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal">
+        Launch edit modal
+      </button>
+
+      <!-- Button to Full Image add modal -->
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#viewFullImageModal">
+        Launch image modal
+      </button>
+
+    </div>
+
+
+    <!-- Delete Modal -->
+    <div id="deleteModal" class="modal fade" role="dialog">
+      <div class="modal-dialog modal-dialog-centered">
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Delete Post</h4>
+            <button type="button" id="closeModal" class="btn btn-default" data-bs-dismiss="modal">Close</button>
+          </div>
+          <div class="modal-body">
+            <p>Please enter your password to confirm deletion</p>
+            <form>
+              <div class="form-group">
+                <label for="inputDeletePassword">Password</label>
+                <input type="password" class="form-control" id="inputDeletePassword" placeholder="Password">
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer d-flex justify-content-center">
+            <button id="deleteConfirmBtn" class="btn btn-danger" data-bs-dismiss="modal">Delete Post</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Delete Modal Ends -->
+
+    <!-- Add Modal -->
+    <div id="addModal" class="modal fade" role="dialog">
+      <div class="modal-dialog modal-dialog-centered">
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Add Post</h4>
+            <button type="button" id="closeModal" class="btn btn-default" data-bs-dismiss="modal">Close</button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="form-group form-margin">
+                <label for="addImageName">Image Name</label>
+                <input type="name" class="form-control add" id="addImageName" aria-describedby="emailHelp" placeholder="Add Image Name">
+                <small class="form-text text-muted"></small>
+              </div>
+              <div class="form-group form-margin">
+                <label for="addFileID">Google File Id</label>
+                <input type="url" class="form-control add" id="addFileID" aria-describedby="emailHelp" placeholder="Add Your Google File ID">
+                <small class="form-text text-muted"></small>
+              </div>
+              <div class="form-group form-margin">
+                <label for="imageDescriptionInput">Image Description</label>
+                <textarea class="form-control" id="imageDescriptionInput" rows="3" placeholder="Add Your Image Description"></textarea>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer d-flex justify-content-center">
+            <button id="deleteConfirmBtn" class="btn btn-primary add-btn" data-bs-dismiss="modal">Add Post</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Add Modal Ends -->
+
+    <!-- Edit Modal -->
+    <div id="editModal" class="modal fade" role="dialog">
+      <div class="modal-dialog modal-dialog-centered">
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Edit Post</h4>
+            <button type="button" id="closeModal" class="btn btn-default" data-bs-dismiss="modal">Close</button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="form-group form-margin">
+                <label for="editImageName">Edit Image Name</label>
+                <input type="name" class="form-control add" id="editImageName" aria-describedby="emailHelp" placeholder="Edit Image Name">
+                <small class="form-text text-muted"></small>
+              </div>
+              <div class="form-group form-margin">
+                <label for="editFileID">Edit Google File Id</label>
+                <input type="url" class="form-control add" id="editFileID" aria-describedby="emailHelp" placeholder="Edit Your Google File ID">
+                <small class="form-text text-muted"></small>
+              </div>
+              <div class="form-group form-margin">
+                <label for="editImageDescription">Edit Image Description</label>
+                <textarea class="form-control" id="editImageDescription" rows="3" placeholder="Edit Your Image Description"></textarea>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer d-flex justify-content-center">
+            <button id="deleteConfirmBtn" class="btn btn-primary" data-bs-dismiss="modal">Confirm Edit</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Edit Modal Ends -->
+
+    <!-- View Full Image Modal -->
+    <div id="viewFullImageModal" class="modal fade" role="dialog">
+      <div class="modal-dialog modal-xl modal-dialog-centered">
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Image Name</h4>
+            <button type="button" id="closeModal" class="btn btn-default" data-bs-dismiss="modal">Close</button>
+          </div>
+          <div class="modal-body">
+            <img class="fullImage" src="img/penguin.jpeg" alt="" style="width: 100%">
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- View Full Image Modal Ends -->
+
+
+
+
+
+
+
+    <!-- Container Ends -->
+    <script src="node_modules/jquery/dist/jquery.min.js" charset="utf-8"></script>
+    <script src="node_modules/@popperjs/core/dist/umd/popper.min.js" charset="utf-8"></script>
+    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js" charset="utf-8"></script>
+    <script src="js/logout.min.js"></script>
+    <script src="js/myprofile.min.js"></script>
+</body>
+
+</html>
