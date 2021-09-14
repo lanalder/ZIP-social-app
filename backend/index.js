@@ -265,19 +265,19 @@ app.post('/newUser', (req, res) => {
       res.send('username already taken. pls use a different username.');
     } else {
       const hash = bcrypt.hashSync(req.body.password);
-      const newUser = new User({
+      const user = new User({
         _id: new mongoose.Types.ObjectId,
         username: req.body.username,
-        profl_pic: req.body.email,
         password: hash,
         email: req.body.email,
-        acc_type: false,
+        profl_pic: 'null',
+        acc_type: 0,
         stats: {
           posts: 0,
           likes: 0
         }
       });
-      newUser.save()
+      user.save()
         .then(result => {
           res.send(result);
         }).catch(err => {
