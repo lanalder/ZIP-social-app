@@ -220,6 +220,10 @@ label {
   background-color: $primaryBlack;
 }
 
+.comments-output {
+  z-index: 1;
+}
+
 .card-text {
   color: $primaryWhite;
 }
@@ -286,6 +290,10 @@ label {
 .overlay-profile-image {
   margin-top: 5px;
   margin-right: 10px;
+}
+
+.active-icon {
+  color: $primaryTeal !important;
 }
 
 .comment-container {

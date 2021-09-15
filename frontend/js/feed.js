@@ -61,10 +61,8 @@ $(document).ready(function(){
         clickedCard = e.target.classList[0];
 
         if (e.target.classList.contains('comment')) {
-          console.log('c');
           openComments(btn);
         } else if (e.target.classList.contains('like')) {
-          console.log('l');
           likes(btn);
         } // else if edit etc.
 
@@ -172,7 +170,7 @@ $(document).ready(function(){
                 <img class="card-img-top" src="${item.img_url}" alt="" style="width: 100%">
                 <div class="card-img-overlay d-flex">
                   <div class="expand-container text-wrap">
-                    <i class="fa fa-expand ${item._id}" aria-hidden="true" data-bs-toggle="modal" data-bs-target="#viewFullImageModal"></i>
+                    <i class="${item._id} fa fa-expand" aria-hidden="true" data-bs-toggle="modal" data-bs-target="#viewFullImageModal"></i>
                   </div>
                   <div class="col-8 overlay-container d-flex justify-content-center">
                     <img class="rounded-circle overlay-profile-image" src="${item.author[0].profl_pic}" alt="" width="50" height="50">
