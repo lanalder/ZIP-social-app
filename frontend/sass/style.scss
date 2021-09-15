@@ -216,6 +216,10 @@ label {
   background-color: $primaryBlack;
 }
 
+.comments-output {
+  z-index: 1;
+}
+
 .card-text {
   color: $primaryWhite;
 }
@@ -285,7 +289,7 @@ label {
 }
 
 // Comments
-.comments-expanded {
+.active-icon {
   color: $primaryTeal !important;
 }
 
