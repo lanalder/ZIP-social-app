@@ -201,6 +201,24 @@ app.post('/likePost/:id', (req, res) => {
   });
 });
 
+app.get('/hasLiked/:id', (req, res) => {
+  Post.aggregate([
+    {
+      $match: {
+        $in: {
+          {
+            'stats.likes': {
+              $all: [ user_id ]
+            }
+          }
+        }
+      }
+    }
+  ], (err, val) => {
+    res.send(val);
+  });
+});
+
 app.post('/unlikePost', (req, res) => {
   Post.updateOne({
       _id: req.params.id
@@ -227,6 +245,8 @@ app.post('/unlikePost', (req, res) => {
     res.send(err);
   });
 });
+
+
 
 // ---------- likes END ----------
 

@@ -187,6 +187,10 @@ label {
   background-color: #1f1f1f;
 }
 
+.comments-output {
+  z-index: 1;
+}
+
 .card-text {
   color: #fff;
 }
@@ -253,7 +257,7 @@ label {
   margin-right: 10px;
 }
 
-.comments-expanded {
+.active-icon {
   color: #27ACAB !important;
 }
 
