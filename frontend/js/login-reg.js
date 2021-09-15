@@ -40,8 +40,8 @@ $(document).ready(function() {
     // idk if u can set items alr set so this a safety precaution
     sessionStorage.clear();
 
-    sessionStorage.setItem('userID', user['_id']);
-    sessionStorage.setItem('userName', user['username']);
+    sessionStorage.setItem('user_id', user['_id']);
+    sessionStorage.setItem('username', user['username']);
   };
 
   // --------------- helper functions END ---------------

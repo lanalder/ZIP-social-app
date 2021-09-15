@@ -111,6 +111,7 @@ $(document).ready(function(){
     });
   };
 
+  // Allows user to check like button and store that value as true in DB
   const likes = (postClicked) => {
     if (sessionStorage.getItem('user_id')) {
       $.ajax({
@@ -122,12 +123,32 @@ $(document).ready(function(){
         // i found out today that dataType refers to the response & not the request, so when we say json here it auto passes response object through json parser
         dataType: 'json'
       }).done(cool => {
-        console.log(cool);
+        console.dir(postClicked);
         // upd8 HTML here
+        postClicked.firstChild.classList.toggle('fa-heart-o');
+        postClicked.firstChild.classList.toggle('fa-heart');
+        postClicked.firstChild.classList.toggle('active-icon');
       });
     } else {
       alert('Please login or register to interact with posts :)');
     }
+  };
+
+  // Checks if user has previously like a post
+  const likeState = (post, iconClass) => {
+    $.ajax({
+      url: `${url}/hasLiked/${post}`,
+      type: 'GET',
+      dataType: 'json',
+      data: {
+        user_id: sessionStorage.getItem('user_id')
+      },
+      success(val) {
+        if (val) {
+          iconClass = 'fa-heart active-icon';
+        }
+      }
+    });
   };
 
   const cards = () => {
@@ -141,8 +162,11 @@ $(document).ready(function(){
         this.innerHTML = '';
 
         for (let i = posts.length - 1; i >= 0; i -= 1) {
-
+          let iconClass = 'fa-heart-o';
           const item = posts[i];
+          if (sessionStorage.getItem('user_id')) {
+            likeState(item._id, iconClass);
+          }
             this.innerHTML += `<div class="col-md-4">
               <div class="card mb-4">
                 <img class="card-img-top" src="${item.img_url}" alt="" style="width: 100%">
@@ -161,7 +185,7 @@ $(document).ready(function(){
                 <div class="card-body">
                   <div class="like-comment-container d-flex justify-content-between">
 
-                    <p class="${item._id} like interaction-icon like-counter interaction-icon"><i class="${item._id} fa fa-heart-o like" aria-hidden="true"></i> ${item.stats.likes.length}</p>
+                    <p class="${item._id} like interaction-icon like-counter interaction-icon"><i class="${item._id} fa ${iconClass} like" aria-hidden="true"></i> ${item.stats.likes.length}</p>
 
                     <p class="${item._id} comment interaction-icon comment-counter interaction-icon"><i class="${item._id} comment fa fa-commenting-o" aria-hidden="true"></i> ${item.stats.comments}</p>
 
@@ -176,6 +200,8 @@ $(document).ready(function(){
                 </div>
               </div>
             </div>`;
+          // })
+
         } // end of loop
         informedModal();
       }
