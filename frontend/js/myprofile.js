@@ -72,9 +72,9 @@ $(document).ready(function() {
   //   // array populated by all the relevant card buttons (view/edit/delete)
   //   Array.from(document.querySelectorAll('#passProjectAlong')).forEach((btn) => {
   //
-      btn.addEventListener('click', function(e) {
-        // var to hold project id
-        clickedCard = e.target.classList[0];
+      // btn.addEventListener('click', function(e) {
+      //   // var to hold project id
+      //   clickedCard = e.target.classList[0];
   //
   //       // conditional since while edit just needs user input data now we have clickedCard, view needs the whole project object to populate the view modal...
   //       if (e.target.classList.contains('giveUsAGeez')) {
