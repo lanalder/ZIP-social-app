@@ -54,7 +54,7 @@ app.post('/postPost', (req, res) => {
     stats: {
       likes: [],
       comments: 0
-    }
+    },
     user_id: req.body.user_id
   });
   newPost.save()
@@ -83,6 +83,17 @@ app.get('/allPosts', (req, res) => {
     }).catch(err => {
       res.send(err);
     });
+});
+
+app.get('/userPosts/:id', (req, res) => {
+  // id should be username
+  Post.find({
+    user_id: req.params.id
+  }).then(result => {
+    res.send(result);
+  }).catch(err => {
+    res.send(err);
+  });
 });
 
 app.patch('/editPost', (req, res) => {
@@ -265,19 +276,19 @@ app.post('/newUser', (req, res) => {
       res.send('username already taken. pls use a different username.');
     } else {
       const hash = bcrypt.hashSync(req.body.password);
-      const newUser = new User({
+      const user = new User({
         _id: new mongoose.Types.ObjectId,
         username: req.body.username,
-        profl_pic: req.body.email,
         password: hash,
         email: req.body.email,
-        acc_type: false,
+        profl_pic: 'null',
+        acc_type: 0,
         stats: {
           posts: 0,
           likes: 0
         }
       });
-      newUser.save()
+      user.save()
         .then(result => {
           res.send(result);
         }).catch(err => {
