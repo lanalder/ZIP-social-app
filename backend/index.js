@@ -174,7 +174,7 @@ app.get('/userOfPost/:id', (req, res) => {
 
 // ---------- likes ----------
 
-app.post('/likePost', (req, res) => {
+app.post('/likePost/:id', (req, res) => {
   Post.updateOne({
       _id: req.params.id
     },
