@@ -77,7 +77,46 @@ app.post('/postPost', (req, res) => {
 });
 
 app.get('/allPosts', (req, res) => {
-  Post.find({})
+  Post.aggregate([
+    {
+      $lookup: {
+        from: 'users',
+        localField: 'user_id',
+        foreignField: '_id',
+        // let: {
+        //   id: '_id'
+        // },
+        // pipeline: [
+        //   // { $project:
+        //   //   {
+        //   //     u_id: {
+        //   //       '$toObjectId': '$$id'
+        //   //     }
+        //   //   }
+        //   // },
+        //   { $match:
+        //     { $expr:
+        //       { $eq:
+        //         [{ '$toObjectId': '$user_id' }, { '$toObjectId': '$id' } ]
+        //       }
+          //     { $and:
+          //       [
+          //         { $eq: [ '$user', '_id'] }
+          //       ]
+          //     }
+          //   }
+          // },
+          // { $project:
+          //   {
+          //     _id: 0
+        //     }
+        //   }
+        // ],
+        as: 'author'
+      }
+    }
+  ])
+  // Post.find()
     .then(result => {
       res.send(result);
     }).catch(err => {
@@ -96,7 +135,7 @@ app.get('/userPosts/:id', (req, res) => {
   });
 });
 
-app.patch('/editPost', (req, res) => {
+app.patch('/editPost/:id', (req, res) => {
   // gotta do the find first so can verify user is editing own project (another secondary check)
   Post.findById(req.body.post_id, (err, post) => {
     if (post['user_id'] == req.body.user_id) {
@@ -122,6 +161,16 @@ app.patch('/editPost', (req, res) => {
 });
 
 // ---------- post things END ----------
+
+app.get('/userOfPost/:id', (req, res) => {
+  User.findOne({
+    _id: req.params.id
+  }).then(result => {
+    res.send(result);
+  }).catch(err => {
+    res.send(err);
+  });
+});
 
 // ---------- likes ----------
 
