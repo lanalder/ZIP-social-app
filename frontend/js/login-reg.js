@@ -70,6 +70,8 @@ $(document).ready(function() {
             if (user !== 'username taken already. pls use a different username.') {
               alert('registered! and auto. logged in :)');
               trackingDevice(user);
+              // may mess up array post-cond
+              window.location.href = 'index.html';
             } else {
               alert('username already taken...');
             }
@@ -122,6 +124,7 @@ $(document).ready(function() {
               alert('You are now logged in');
               $('#loginUsername').val('');
               $('#loginPassword').val('');
+              window.location.href = 'index.html';
             }
           },
           error() { console.log('error: cannot call api'); }
