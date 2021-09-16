@@ -52,6 +52,10 @@ label {
   box-shadow: 5px 5px 10px #181818, -5px -5px 10px #262626;
 }
 
+.active-icon {
+  color: #27ACAB !important;
+}
+
 .form-margin {
   margin-bottom: 20px;
 }
