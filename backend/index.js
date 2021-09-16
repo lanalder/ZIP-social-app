@@ -78,59 +78,39 @@ app.post('/postPost', (req, res) => {
 
 app.get('/allPosts', (req, res) => {
   Post.aggregate([
-    {
-      $lookup: {
+    { $lookup: {
         from: 'users',
         localField: 'user_id',
         foreignField: '_id',
-        // let: {
-        //   id: '_id'
-        // },
-        // pipeline: [
-        //   // { $project:
-        //   //   {
-        //   //     u_id: {
-        //   //       '$toObjectId': '$$id'
-        //   //     }
-        //   //   }
-        //   // },
-        //   { $match:
-        //     { $expr:
-        //       { $eq:
-        //         [{ '$toObjectId': '$user_id' }, { '$toObjectId': '$id' } ]
-        //       }
-          //     { $and:
-          //       [
-          //         { $eq: [ '$user', '_id'] }
-          //       ]
-          //     }
-          //   }
-          // },
-          // { $project:
-          //   {
-          //     _id: 0
-        //     }
-        //   }
-        // ],
         as: 'author'
       }
     }
-  ])
-  // Post.find()
-    .then(result => {
-      res.send(result);
-    }).catch(err => {
-      res.send(err);
-    });
+  ]).then(result => {
+    res.send(result);
+  }).catch(err => {
+    res.send(err);
+  });
 });
 
 app.get('/userPosts/:id', (req, res) => {
-  // id should be username
-  Post.find({
-    user_id: req.params.id
-  }).then(result => {
+  const ObjectId = mongoose.Types.ObjectId;
+  Post.aggregate([
+    { $match:
+      { user_id: ObjectId(req.params.id) }
+    },
+    { $lookup:
+      {
+        from: 'users',
+        localField: 'user_id',
+        foreignField: '_id',
+        as: 'author'
+      }
+    }
+  ]).then(result => {
+    console.log(result);
     res.send(result);
   }).catch(err => {
+    console.log(err);
     res.send(err);
   });
 });
@@ -202,17 +182,104 @@ app.post('/likePost/:id', (req, res) => {
 });
 
 app.get('/hasLiked/:id', (req, res) => {
-  Post.findOne({
-    _id: req.params.id,
-    { $in:
-      [ req.body.user_id, '$stats.likes' ]
+  User.findOne({
+    _id: req.params.id
+  }, (err, user) => {
+    if (err) {
+      console.log(err);
     }
-  })
+    Post.aggregate([
+      { $match:
+        { $expr:
+          { $in: [ user._id, '$stats.likes' ] }
+        }
+      },
+      { $project:
+        { _id: 1 }
+      }
+    ]).then(result => {
+       res.send(result);
+     }).catch(err => {
+       res.send(err);
+     });
+  });
+
+  // Post.find(
+  //   {
+  //     'stats.likes':
+  //     {
+  //       $in: [req.params.user_id, 'stats.likes']
+  //     }
+  //   }, (err, val) => {
+  //     if (err) {
+  //       console.log(err);
+  //     }
+  //     console.log(val);
+  //     res.send(val);
+  //   }
+  // )
+
+
+  // Post.findOne(
+  //   {
+  //     _id: req.params.id
+  //   },
+  //   {
+  //     stats:
+  //     {
+  //       $in:
+  //       [
+  //         req.params.user_id, '$stats.likes'
+  //       ]
+  //     }
+  //     // 'stats.likes': req.params.user_id
+  //   }, (err, val) => {
+  //     if (val) {
+  //       console.log(val);
+  //       res.send(val);
+  //     } else {
+  //       console.log(err, val);
+  //       res.send(val);
+  //     }
+  //   }
+  // )
+
+
+  // Post.aggregate([
+  //   {
+  //     $project:
+  //     {
+  //       _id: req.params.id,
+  //       liked:
+  //       {
+  //         $cond:
+  //         {
+  //           if: { $in: [ req.params.user_id, '$stats.likes' ] }, then: true, else: false
+  //         }
+  //       }
+  //     }
+  //   }
+  // ])
+
+
+  // console.log(req.params);
+  // const user = req.params.user_id;
+  // Post.find({
+  //   _id: req.params._id,
+  //   user: { $in: ['stats.likes'] }
+  // }, (err, val) => {
+  //   if (err) {
+  //     console.log(err);
+  //   } else {
+  //     console.log(val);
+  //     res.send(val);
+  //   }
+  // });
   // Post.aggregate([
   //   { $match:
-  //     {
-  //
-  //     }
+  //     // {
+  //     //
+  //     // }
   //     { $expr:
   //       { $in:
   //         [ req.body.user_id, '$stats.likes']
@@ -223,12 +290,12 @@ app.get('/hasLiked/:id', (req, res) => {
   //     }
   //   }
   // ])
-  .then(result => {
-    res.send(result);
-  }).catch(err => {
-    res.send(err);
-  });
-
+  // .then(result => {
+  //   console.log(result);
+  //   res.send(result);
+  // }).catch(err => {
+  //   res.send(err);
+  // });
 
 
   // Post.aggregate([
@@ -289,7 +356,7 @@ app.post('/unlikePost', (req, res) => {
 app.post('/createComment', (req, res) => {
   const newComment = new Comment({
     _id: new mongoose.Types.ObjectId,
-    author: req.body.username,
+    author: req.body.author,
     text: req.body.text,
     time: new Date(),
     user_id: req.body.user_id,
