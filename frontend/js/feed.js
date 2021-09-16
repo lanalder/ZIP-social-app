@@ -220,7 +220,10 @@ $(document).ready(function(){
           <p class="${clickedCard} post-comment text-end send-comment-btn"><i class="${clickedCard} post-comment fa fa-paper-plane text-end" aria-hidden="true"></i></p>
         </div>`
 
-        postComment();
+        Array.from(document.querySelectorAll('.post-comment')).forEach((btn) => {
+          btn.addEventListener('click', postComment, false);
+        });
+        // postComment();
       },
       error(error) { console.log(error); }
     });
