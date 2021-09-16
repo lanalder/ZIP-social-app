@@ -152,6 +152,7 @@ $(document).ready(function(){
       },
       success(val) {
         if (val) {
+          console.log(val);
           iconClass = 'fa-heart active-icon';
         }
       }
@@ -168,8 +169,13 @@ $(document).ready(function(){
 
         this.innerHTML = '';
 
+        let iconClass = 'fa-heart-o';
+        likeState(posts[0]._id, iconClass);
+        console.log(iconClass);
+
+
+
         for (let i = posts.length - 1; i >= 0; i -= 1) {
-          let iconClass = 'fa-heart-o';
           const item = posts[i];
           // if (sessionStorage.getItem('user_id')) {
           //   likeState(item._id, iconClass);
