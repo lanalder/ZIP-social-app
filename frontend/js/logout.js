@@ -4,7 +4,7 @@ $(document).ready(function() {
   window.setTimeout(() => {
 
     // if they are, we want login btn to be logout when logged in and the link to be disabled to the login screen when clicked
-    if (sessionStorage.getItem('userID')) {
+    if (sessionStorage.getItem('user_id')) {
       document.querySelector('.login-logout').innerHTML = 'Logout';
       document.querySelector('.login-logout').href = window.location.href;
 
