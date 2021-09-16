@@ -235,6 +235,14 @@ label {
   color: $primaryWhite;
 }
 
+.fa-expand {
+  backdrop-filter: blur(15px) saturate(200%);
+  -webkit-backdrop-filter: blur(15px) saturate(200%);
+  background-color: rgba(31, 31, 31, 0.44);
+  border-radius: 30%;
+  padding: 10px;
+}
+
 .fa-heart, .fa-picture-o, .fa-paper-plane  {
   font-size: 30px;
   color: $primaryTeal;
