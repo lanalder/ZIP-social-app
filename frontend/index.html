@@ -153,7 +153,7 @@
             <form>
               <div class="form-group form-margin">
                 <label for="addImageName">Image Name</label>
-                <input type="name" class="form-control add" id="addImageName" aria-describedby="emailHelp" placeholder="Add Image Name">
+                <input type="name" class="form-control add" id="addImageName" aria-describedby="emailHelp" maxlength="15" placeholder="Add Image Name">
                 <small class="form-text text-muted"></small>
               </div>
               <div class="form-group form-margin">
@@ -163,7 +163,7 @@
               </div>
               <div class="form-group form-margin">
                 <label for="imageDescriptionInput">Image Description</label>
-                <textarea class="form-control add" id="imageDescriptionInput" rows="3" placeholder="Add Your Image Description"></textarea>
+                <textarea class="form-control add" id="imageDescriptionInput" rows="3" maxlength="160" placeholder="Add Your Image Description"></textarea>
               </div>
             </form>
           </div>
@@ -174,6 +174,67 @@
       </div>
     </div>
     <!-- Add Modal Ends -->
+
+    <!-- Edit Modal -->
+    <div id="editModal" class="modal fade" role="dialog">
+      <div class="modal-dialog modal-dialog-centered">
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Edit Post</h4>
+            <button type="button" id="closeModal" class="btn btn-default" data-bs-dismiss="modal">Close</button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="form-group form-margin">
+                <label for="editImageName">Edit Image Name</label>
+                <input type="name" class="form-control edit" id="editImageName" aria-describedby="emailHelp" maxlength="15" placeholder="Edit Image Name">
+                <small class="form-text text-muted"></small>
+              </div>
+              <div class="form-group form-margin">
+                <label for="editFileID">Edit Google File Id</label>
+                <input type="url" class="form-control edit" id="editFileID" aria-describedby="emailHelp" placeholder="Edit Your Google File ID">
+                <small class="form-text text-muted"></small>
+              </div>
+              <div class="form-group form-margin">
+                <label for="editImageDescription">Edit Image Description</label>
+                <textarea class="form-control edit" id="editImageDescription" rows="3" maxlength="160" placeholder="Edit Your Image Description"></textarea>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer d-flex justify-content-center">
+            <button id="editConfirmBtn" class="btn btn-primary" data-bs-dismiss="modal">Confirm Edit</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Edit Modal Ends -->
+
+    <!-- Delete Modal -->
+    <div id="deleteModal" class="modal fade" role="dialog">
+      <div class="modal-dialog modal-dialog-centered">
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Delete Post</h4>
+            <button type="button" id="closeModal" class="btn btn-default" data-bs-dismiss="modal">Close</button>
+          </div>
+          <div class="modal-body">
+            <p>Please enter your password to confirm deletion</p>
+            <form>
+              <div class="form-group">
+                <label for="inputDeletePassword">Password</label>
+                <input type="password" class="form-control" id="inputDeletePassword" placeholder="Password">
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer d-flex justify-content-center">
+            <button id="deleteConfirmBtn" class="btn btn-danger" data-bs-dismiss="modal">Delete Post</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Delete Modal Ends -->
 
     <script src="node_modules/jquery/dist/jquery.min.js" charset="utf-8"></script>
     <script src="node_modules/@popperjs/core/dist/umd/popper.min.js" charset="utf-8"></script>
