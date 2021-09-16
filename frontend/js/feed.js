@@ -1,13 +1,10 @@
 $(document).ready(function(){
 
   let url,
-  // to be populated with user input values when adding / editing projects
-   inputVals = new Array(6),
-   // the object to be sent in HTTP request, populated by values of array above (these two aren't just the same object as it's easier to have an array when validating values & aligning them with DOM input fields)
+   inputVals = new Array(5),
    submitData = {},
    clickedCard;
 
-   // outline for key names for request's body, adhering to db schema
   const schemaProperties = ['title', 'descript', 'img_url', 'user_id', 'author'];
 
   // --------------- initialise backend ---------------
@@ -23,33 +20,24 @@ $(document).ready(function(){
     error(error) { console.log(error); }
   });
 
-
   // --------------- backend initialisation ENDS ---------------
 
   // --------------- helper functions ---------------
 
-  // ensure user is logged in and has filled out every input field
   const validateMe = () => {
-    // if not logged in, get wrecked
     if (!sessionStorage.getItem('user_id')) {
       alert('Please login to perform this action');
       return false;
-
-      // return boolean based on if every input field has been filled out
     } else {
       return (inputVals.every(x => x));
     }
   };
 
-  // pair user inputs / user account / project id and make a nice little object which we can send in our requests
   const setFieldsToSend = () => {
-    // return data object which aligns user inputs and schema properties so that the db stores things as it should
-    for (let i = 0; i < 6; i++) {
+    for (let i = 0; i < 5; i++) {
       Object.defineProperty(submitData, schemaProperties[i], {
         value: inputVals[i],
-        // enumerable = iterable, necessary for json.stringify, that it doesn't default to true is prolly why Object.methods r so dangerous but anyway
         enumerable: true,
-        // ugh same with configurable, i've learnt my lesson and will listen 2 best practices next time
         configurable: true
       });
     }
@@ -70,9 +58,9 @@ $(document).ready(function(){
         //   // editPost(btn)
         // } else if (e.target.classList.contains('add')) {
         //   // addPost(btn)
-        } else if (e.target.classList.contains('delete')) {
-          deletePost(btn)
-          console.log(e.target);
+        // } else if (e.target.classList.contains('delete')) {
+        //   deletePost(btn)
+        //   console.log(e.target);
         }
 
       }, false);
@@ -83,43 +71,8 @@ $(document).ready(function(){
 
   // --------------- misc for now  ---------------
 
-  const openComments = (postClicked) => {
-    console.log(postClicked);
-    $.ajax({
-      url: `${url}/seeComments/${clickedCard}`,
-      type: 'GET',
-      dataType: 'json',
-      // lollll it works tho
-      context: postClicked.parentElement.parentElement.parentElement,
-      success(comments) {
-
-        // not decrementing loop bc we can sort comments by date in backend
-        for (let i = 0; i < comments.length; i++) {
-          const item = comments[i];
-
-          this.innerHTML += `
-          <div class="comment-container border-bottom">
-            <h6 class="comment-username">${item.author}</h6>
-            <p class="comment-text">${item.text}</p>
-            <p class="comment-time">${item.time}</p>
-          </div>`
-        } // end of loop
-
-        this.innerHTML += `
-        <div class="form-group mb-3">
-          <label for="newComment" class="form-label new-comment-label">
-            <h6>Post New Comment</h6>
-          </label>
-          <textarea class="form-control" id="newComment" rows="3" maxlength="160" placeholder="Maximum 160 Characters"></textarea>
-          <p class="text-end send-comment-btn"><i class="fa fa-paper-plane text-end" aria-hidden="true"></i></p>
-        </div>`
-      },
-      error(error) { console.log(error); }
-    });
-  };
-
   // Allows user to check like button and store that value as true in DB
-  const likes = (postClicked) => {
+  const likes = (icon) => {
     if (sessionStorage.getItem('user_id')) {
       $.ajax({
         url: `${url}/likePost/${clickedCard}`,
@@ -130,33 +83,13 @@ $(document).ready(function(){
         // i found out today that dataType refers to the response & not the request, so when we say json here it auto passes response object through json parser
         dataType: 'json'
       }).done(cool => {
-        console.dir(postClicked);
-        // upd8 HTML here
-        postClicked.firstChild.classList.toggle('fa-heart-o');
-        postClicked.firstChild.classList.toggle('fa-heart');
-        postClicked.firstChild.classList.toggle('active-icon');
+        icon.firstChild.classList.toggle('fa-heart-o');
+        icon.firstChild.classList.toggle('fa-heart');
+        icon.firstChild.classList.toggle('active-icon');
       });
     } else {
       alert('Please login or register to interact with posts :)');
     }
-  };
-
-  // Checks if user has previously like a post
-  const likeState = (post, iconClass) => {
-    $.ajax({
-      url: `${url}/hasLiked/${post}`,
-      type: 'GET',
-      dataType: 'json',
-      data: {
-        user_id: sessionStorage.getItem('user_id')
-      },
-      success(val) {
-        if (val) {
-          console.log(val);
-          iconClass = 'fa-heart active-icon';
-        }
-      }
-    });
   };
 
   const cards = () => {
@@ -164,67 +97,139 @@ $(document).ready(function(){
       url: `${url}/allPosts`,
       type: 'GET',
       dataType: 'json',
-      context: document.querySelector('#albumOutput'),
       success(posts) {
+        const user = sessionStorage.getItem('user_id');
 
-        this.innerHTML = '';
+        $.ajax({
+          url: `${url}/hasLiked/${user}`,
+          type: 'GET',
+          dataType: 'json',
+          context: document.querySelector('#albumOutput'),
+          success(liked) {
+            let iconClass;
+            liked = liked.map((each) => {
+              return each = Object.values(each);
+            }).flat();
+            this.innerHTML = '';
 
-        let iconClass = 'fa-heart-o';
-        likeState(posts[0]._id, iconClass);
-        console.log(iconClass);
+            for (let i = posts.length - 1; i >= posts.length - 20; i -= 1) {
+              const item = posts[i];
+              const author = item.author[0];
 
+              if (liked.includes(item._id)) {
+                iconClass = 'fa-heart active-icon';
+              } else {
+                iconClass = 'fa-heart-o';
+              }
 
-
-        for (let i = posts.length - 1; i >= 0; i -= 1) {
-          const item = posts[i];
-          // if (sessionStorage.getItem('user_id')) {
-          //   likeState(item._id, iconClass);
-          // }
-            this.innerHTML += `<div class="col-md-4">
-              <div class="card mb-4">
-                <img class="card-img-top" src="${item.img_url}" alt="" style="width: 100%">
-                <div class="card-img-overlay d-flex">
-                  <div class="expand-container text-wrap">
-                    <i class="${item._id} interaction-icon view fa fa-expand" aria-hidden="true" data-bs-toggle="modal" data-bs-target="#viewFullImageModal"></i>
+              this.innerHTML += `<div class="col-md-4">
+                <div class="card mb-4">
+                  <img class="card-img-top" src="${item.img_url}" alt="" style="width: 100%">
+                  <div class="card-img-overlay d-flex">
+                    <div class="expand-container text-wrap">
+                      <i class="${item._id} interaction-icon view fa fa-expand" aria-hidden="true" data-bs-toggle="modal" data-bs-target="#viewFullImageModal"></i>
+                    </div>
+                    <div class="col-8 overlay-container d-flex justify-content-center">
+                      <img class="rounded-circle overlay-profile-image" src="${author.profl_pic}" alt="" width="50" height="50">
+                      <div class="overlay-text-container">
+                        <h4 class="overlay-username d-block">${author.username}</h4>
+                        <p class="overlay-imagename d-block">${item.title}</p>
+                      </div>
+                    </div>
                   </div>
-                  <div class="col-8 overlay-container d-flex justify-content-center">
-                    <img class="rounded-circle overlay-profile-image" src="${item.author[0].profl_pic}" alt="" width="50" height="50">
-                    <div class="overlay-text-container">
-                      <h4 class="overlay-username d-block">${item.author[0].username}</h4>
-                      <p class="overlay-imagename d-block">${item.title}</p>
+                  <div class="card-body">
+                    <div class="like-comment-container d-flex justify-content-between">
+                      <p class="${item._id} like interaction-icon like-counter interaction-icon"><i class="${item._id} fa ${iconClass} like" aria-hidden="true"></i> ${item.stats.likes.length}</p>
+                      <p class="${item._id} comment interaction-icon comment-counter interaction-icon"><i class="${item._id} comment fa fa-commenting-o" aria-hidden="true"></i> ${item.stats.comments}</p>
+                      <p class="${item._id} edit interaction-icon"><i class="${item._id} edit fa fa-pencil" aria-hidden="true" data-bs-toggle="modal" data-bs-target="#editModal"></i></p>
+                      <p class="${item._id} delete interaction-icon"><i class="${item._id} delete fa fa-trash-o" aria-hidden="true" data-bs-toggle="modal" data-bs-target="#deleteModal""></i></p>
+                    </div>
+                    <p class="card-text">${item.descript}</p>
+                    <div class="comments-output">
                     </div>
                   </div>
                 </div>
-                <div class="card-body">
-                  <div class="like-comment-container d-flex justify-content-between">
+              </div>`;
+            } // end of post loop
 
-                    <p class="${item._id} like interaction-icon like-counter interaction-icon"><i class="${item._id} fa ${iconClass} like" aria-hidden="true"></i> ${item.stats.likes.length}</p>
+            informedModal();
 
-                    <p class="${item._id} comment interaction-icon comment-counter interaction-icon"><i class="${item._id} comment fa fa-commenting-o" aria-hidden="true"></i> ${item.stats.comments}</p>
-
-                    <p class="${item._id} edit interaction-icon"><i class="${item._id} edit fa fa-pencil" aria-hidden="true" data-bs-toggle="modal" data-bs-target="#editModal"></i></p>
-
-                    <p class="${item._id} delete interaction-icon"><i class="${item._id} delete fa fa-trash-o" aria-hidden="true" data-bs-toggle="modal" data-bs-target="#deleteModal""></i></p>
-
-                  </div>
-                  <p class="card-text">${item.descript}</p>
-                  <div class="comments-output">
-                  </div>
-                </div>
-              </div>
-            </div>`;
-          // })
-
-        } // end of loop
-        informedModal();
+          }, error(err) {
+            console.log(err);
+          }
+        });
       }
     })
   };
 
   // --------------- misc ENDS  ---------------
 
-  // // --------------- add project ---------------
-  //
+  // --------------- comments ---------------
+
+  const postComment = () => {
+    Array.from(document.querySelectorAll('.post-comment')).forEach((btn) => {
+      btn.addEventListener('click', function(e) {
+        if (sessionStorage.getItem('user_id')) {
+          $.ajax({
+            url: `${url}/createComment`,
+            type: 'POST',
+            dataType: 'json',
+            data: {
+              author: sessionStorage.getItem('username'),
+              text: document.querySelector('#newComment').value,
+              user_id: sessionStorage.getItem('user_id'),
+              post_id: e.target.classList[0]
+            },
+            complete() {
+              openComments(e.target);
+            }
+          });
+        } else {
+          alert('Please login or register to interact with posts :)');
+        }
+      }, false);
+    });
+  };
+
+  const openComments = (icon) => {
+    $.ajax({
+      url: `${url}/seeComments/${clickedCard}`,
+      type: 'GET',
+      dataType: 'json',
+      // lollll it works tho
+      context: icon.parentElement.parentElement.parentElement,
+      success(comments) {
+        // not decrementing loop bc we can sort comments by date in backend
+        for (let i = 0; i < comments.length; i++) {
+          const item = comments[i];
+
+          this.innerHTML += `
+          <div class="comment-container border-bottom">
+            <a href="/myprofle#${item.user_id}"<h6 class="comment-username">${item.author}</h6></a>
+            <p class="comment-text">${item.text}</p>
+            <p class="comment-time">${item.time}</p>
+          </div>`
+        } // end of loop
+
+        this.innerHTML += `
+        <div class="form-group mb-3" style="z-index: 1">
+          <label for="newComment" class="form-label new-comment-label">
+            <h6>Post New Comment</h6>
+          </label>
+          <textarea class="form-control" id="newComment" rows="3" maxlength="160" placeholder="Maximum 160 Characters"></textarea>
+          <p class="${clickedCard} post-comment text-end send-comment-btn"><i class="${clickedCard} post-comment fa fa-paper-plane text-end" aria-hidden="true"></i></p>
+        </div>`
+
+        postComment();
+      },
+      error(error) { console.log(error); }
+    });
+  };
+
+  // --------------- comments END ---------------
+
+  // --------------- add project ---------------
+
   document.querySelector('#addPostBtn').addEventListener('click', function(e) {
 
     // inp fields stored in an array
@@ -232,9 +237,11 @@ $(document).ready(function(){
       inputVals[index] = $(inputField).val();
     });
 
+    inputVals[3] = sessionStorage.getItem('user_id');
+    inputVals[4] = sessionStorage.getItem('username');
+
     // array nicely aligned to schema keys so it resembles a proper db object
     setFieldsToSend();
-    console.log(submitData);
 
     if (validateMe()) {
       $.ajax({
@@ -256,11 +263,11 @@ $(document).ready(function(){
       return;
     }
   }, false);
-  //
-  // // --------------- add project ENDS ---------------
-  //
-  // // --------------- edit project ---------------
-  //
+
+  // --------------- add project ENDS ---------------
+
+  // --------------- edit project ---------------
+
   document.querySelector('#editConfirmBtn').addEventListener('click', function(e) {
 
     // same deal
@@ -297,7 +304,7 @@ $(document).ready(function(){
   //
   // --------------- delete project ---------------
 
-  const deletePost = (post) => {
+  // const deletePost = (post) => {
     document.querySelector('#deleteConfirmBtn').addEventListener('click', function(e) {
 
       // can't delete if not logged in
@@ -325,10 +332,10 @@ $(document).ready(function(){
         }
       });
     }, false);
-  }
+  // }
 
   // --------------- delete project ENDS ---------------
-  //
+
   // --------------- view project ---------------
 
   const viewImage = (post) => {
