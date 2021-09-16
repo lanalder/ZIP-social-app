@@ -1,6 +1,6 @@
 const express = require('express'),
   app = express();
-bodyParser = require('body-parser'),
+  bodyParser = require('body-parser'),
   mongoose = require('mongoose'),
   cors = require('cors'),
   bcrypt = require('bcryptjs'),
@@ -28,15 +28,15 @@ app.use(cors());
 app.get('/', (req, res) => res.send('hello from the backend'));
 
 mongoose.connect(`mongodb+srv://${config.MONGO_USER}:${config.MONGO_PASSWORD}@cluster0.${config.MONGO_CLUSTER_NAME}.mongodb.net/ZIP?retryWrites=true&w=majority`, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+})
   .then(() => {
     console.log('db connected yeahh');
   })
   .catch(err => {
     console.log(`errorrr oh no DBConnectionError: ${err.message}`);
-  });
+});
 
 app.listen(port, () => console.log(`Fullstack app is listening on port ${port}`));
 
@@ -60,12 +60,12 @@ app.post('/postPost', (req, res) => {
   newPost.save()
     .then(result => {
       User.updateOne({
-        _id: req.body.user_id
-      }, {
-        $inc: {
-          'stats.posts': 1
+          _id: req.body.user_id
+        },
+        {
+          $inc: { 'stats.posts': 1 }
         }
-      }).then(result => {
+      ).then(result => {
         res.send(result);
       }).catch(err => {
         res.send(err);
@@ -77,7 +77,8 @@ app.post('/postPost', (req, res) => {
 });
 
 app.get('/allPosts', (req, res) => {
-  Post.aggregate([{
+  Post.aggregate([
+    {
       $lookup: {
         from: 'users',
         localField: 'user_id',
@@ -98,23 +99,24 @@ app.get('/allPosts', (req, res) => {
         //       { $eq:
         //         [{ '$toObjectId': '$user_id' }, { '$toObjectId': '$id' } ]
         //       }
-        //     { $and:
-        //       [
-        //         { $eq: [ '$user', '_id'] }
-        //       ]
-        //     }
-        //   }
-        // },
-        // { $project:
-        //   {
-        //     _id: 0
+          //     { $and:
+          //       [
+          //         { $eq: [ '$user', '_id'] }
+          //       ]
+          //     }
+          //   }
+          // },
+          // { $project:
+          //   {
+          //     _id: 0
         //     }
         //   }
         // ],
         as: 'author'
       }
-    }])
-    // Post.find()
+    }
+  ])
+  // Post.find()
     .then(result => {
       res.send(result);
     }).catch(err => {
@@ -145,8 +147,8 @@ app.patch('/editPost/:id', (req, res) => {
         // unsure if stats needs to be in this or can remain unedited from just leaving it out, hope so
       };
       Post.updateOne({
-          _id: req.body.post_id
-        }, editedPost)
+        _id: req.body.post_id
+      }, editedPost)
         .then(result => {
           res.send(result);
         }).catch(err => {
@@ -174,21 +176,21 @@ app.get('/userOfPost/:id', (req, res) => {
 
 app.post('/likePost/:id', (req, res) => {
   Post.updateOne({
-    _id: req.params.id
-  }, {
-    // addToSet > push since add only adds user if user not alr in arr, just a secondary check so user can't like twice
-    $addToSet: {
-      'stats.likes': req.body.user_id
+      _id: req.params.id
+    },
+    {
+      // addToSet > push since add only adds user if user not alr in arr, just a secondary check so user can't like twice
+      $addToSet: { 'stats.likes': req.body.user_id }
     }
-  }).then(post => {
+  ).then(post => {
     User.updateOne({
-      // user who gets likes stats +1 isn't the user who liked the post, but the user of the post author (if this doesn't work, follow deleteComment pattern (err, post)). also on beulla's, targets fields like: doc['field'] so that might work? or b synonymous not sure yet
-      _id: post.user_id
-    }, {
-      $inc: {
-        'stats.likes': 1
+        // user who gets likes stats +1 isn't the user who liked the post, but the user of the post author (if this doesn't work, follow deleteComment pattern (err, post)). also on beulla's, targets fields like: doc['field'] so that might work? or b synonymous not sure yet
+        _id: post.user_id
+      },
+      {
+        $inc: { 'stats.likes': 1 }
       }
-    }).then(result => {
+    ).then(result => {
       // remember 2 upd8 html content to reflect new like
       res.send(result);
     }).catch(err => {
@@ -200,9 +202,35 @@ app.post('/likePost/:id', (req, res) => {
 });
 
 app.get('/hasLiked/:id', (req, res) => {
-  Post.findById(req.params.id, (err, post) => {
-
+  Post.findOne({
+    _id: req.params.id,
+    { $in:
+      [ req.body.user_id, '$stats.likes' ]
+    }
   })
+  // Post.aggregate([
+  //   { $match:
+  //     {
+  //
+  //     }
+  //     { $expr:
+  //       { $in:
+  //         [ req.body.user_id, '$stats.likes']
+  //       }
+  //       // { $and:
+  //       //   [ '$_id', req.params.id ]
+  //       // }
+  //     }
+  //   }
+  // ])
+  .then(result => {
+    res.send(result);
+  }).catch(err => {
+    res.send(err);
+  });
+
+
+
   // Post.aggregate([
   //   // {
   //   //   $match: {
@@ -227,21 +255,21 @@ app.get('/hasLiked/:id', (req, res) => {
 
 app.post('/unlikePost', (req, res) => {
   Post.updateOne({
-    _id: req.params.id
-  }, {
-    // i do wonder if syntax a bit off here since likes maybe nested nested object? prolly not but if buggy may b this
-    $pull: {
-      'stats.likes': req.body.user_id
+      _id: req.params.id
+    },
+    {
+      // i do wonder if syntax a bit off here since likes maybe nested nested object? prolly not but if buggy may b this
+      $pull: { 'stats.likes': req.body.user_id }
     }
-  }).then(post => {
+  ).then(post => {
     User.updateOne({
-      // user who gets likes stats +1 isn't the user who liked the post, but the user of the post author (if this doesn't work, follow deleteComment pattern (err, post))
-      _id: post.user_id
-    }, {
-      $inc: {
-        'stats.likes': -1
+        // user who gets likes stats +1 isn't the user who liked the post, but the user of the post author (if this doesn't work, follow deleteComment pattern (err, post))
+        _id: post.user_id
+      },
+      {
+        $inc: { 'stats.likes': -1 }
       }
-    }).then(result => {
+    ).then(result => {
       // remember 2 upd8 html content to reflect new like
       res.send(result);
     }).catch(err => {
@@ -271,12 +299,12 @@ app.post('/createComment', (req, res) => {
   newComment.save()
     .then(result => {
       Post.updateOne({
-        _id: req.body.post_id
-      }, {
-        $inc: {
-          'stats.comments': 1
+          _id: req.body.post_id
+        },
+        {
+          $inc: { 'stats.comments': 1 }
         }
-      }).then(result => {
+      ).then(result => {
         res.send(result);
       }).catch(err => {
         res.send(err);
@@ -318,12 +346,12 @@ app.delete('/deleteComment/:id', (req, res) => {
   }, (err, comment) => {
     if (comment && comment['user_id'] == req.body.user_id) {
       Post.updateOne({
-        _id: comment.post_id
-      }, {
-        $inc: {
-          'stats.comments': -1
+          _id: comment.post_id
+        },
+        {
+          $inc: { 'stats.comments': -1 }
         }
-      }).then(result => {
+      ).then(result => {
         Comment.deleteOne({
           _id: req.params.id
           // i rly dk why beulla had err here? implies it's the catch when that can;t be right
