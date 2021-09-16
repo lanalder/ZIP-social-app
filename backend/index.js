@@ -200,17 +200,29 @@ app.post('/likePost/:id', (req, res) => {
 });
 
 app.get('/hasLiked/:id', (req, res) => {
-  Post.aggregate([{
-    $match: {
-      $in: {
-        'stats.likes': {
-          $all: [user_id]
-        }
-      }
-    }
-  }], (err, val) => {
-    res.send(val);
-  });
+  Post.findById(req.params.id, (err, post) => {
+
+  })
+  // Post.aggregate([
+  //   // {
+  //   //   $match: {
+  //   //     $in: {
+  //   //       {
+  //   //         'stats.likes': {
+  //   //           $all: [ user_id ]
+  //   //         }
+  //   //       }
+  //   //     }
+  //   //   }
+  //   // }
+  //   {
+  //     let: {
+  //       user_id: 'user_id'
+  //     }
+  //   }
+  // ], (err, val) => {
+  //   res.send(val);
+  // });
 });
 
 app.post('/unlikePost', (req, res) => {
