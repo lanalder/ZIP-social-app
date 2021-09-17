@@ -8,7 +8,8 @@ const express = require('express'),
   Post = require('./models/posts.js'),
   User = require('./models/users.js'),
   Comment = require('./models/comments.js'),
-  port = 8080;
+  port = 8080,
+  ObjectId = mongoose.Types.ObjectId;
 
 // ---------- set up ----------
 
@@ -84,16 +85,39 @@ app.get('/allPosts', (req, res) => {
         foreignField: '_id',
         as: 'author'
       }
+    // },
+    // { $lookup: {
+    //     from: 'comments',
+    //     localField: 'post_id',
+    //     foreignField: '_id',
+    //     as: 'stats.comments'
+    //   }
     }
   ]).then(result => {
+    console.log(result);
     res.send(result);
   }).catch(err => {
+    console.log(err);
     res.send(err);
   });
 });
 
+// app.get('/allPosts', (req, res) => {
+//   Post.aggregate([
+//     {
+//       $lookup: {
+//
+//       }
+//     }
+//   ]).then(result => {
+//     console.log(result);
+//     res.send(result);
+//   }).catch(err => {
+//     res.send(err);
+//   });
+// });
+
 app.get('/userPosts/:id', (req, res) => {
-  const ObjectId = mongoose.Types.ObjectId;
   Post.aggregate([
     { $match:
       { user_id: ObjectId(req.params.id) }
@@ -362,7 +386,6 @@ app.post('/createComment', (req, res) => {
     user_id: req.body.user_id,
     post_id: req.body.post_id
   });
-  // both .save + .update are promises (necessarily)! and those are scary. but promises inside promises, need 1 (one) result ever sent, and catch errors on everything that can go wrong. funky, bc i would've worried that first result of save wouldn't have properly gone through, and while second result of upd8 is one that http response responds with, both seem to have been passed to mongo
   newComment.save()
     .then(result => {
       Post.updateOne({
@@ -372,7 +395,8 @@ app.post('/createComment', (req, res) => {
           $inc: { 'stats.comments': 1 }
         }
       ).then(result => {
-        res.send(result);
+        // assume that'll work -- can just add that (but a post?)
+        res.send(newComment);
       }).catch(err => {
         res.send(err);
       });
@@ -393,20 +417,6 @@ app.get('/seeComments/:id', (req, res) => {
   });
 });
 
-// app.get('/seeComments/:id', (req, res) => {
-//   const post = req.params.id;
-//   // Comment.aggregate([
-//   //   { $match: { post_id: req.params.id } }
-//   // ])
-//   Comment.find({
-//     post_id: post
-//   }).then(result => {
-//     res.send(result);
-//   }).catch(err => {
-//     res.send(err);
-//   });
-// });
-
 app.delete('/deleteComment/:id', (req, res) => {
   Comment.findOne({
     _id: req.params.id
@@ -421,7 +431,6 @@ app.delete('/deleteComment/:id', (req, res) => {
       ).then(result => {
         Comment.deleteOne({
           _id: req.params.id
-          // i rly dk why beulla had err here? implies it's the catch when that can;t be right
         }, err => {
           res.send('deleted');
         });
