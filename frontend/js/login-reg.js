@@ -58,6 +58,9 @@ $(document).ready(function() {
         inputVals[index] = $(inputField).val();
       });
 
+      const googleDriveID = document.querySelector('.fileID').value;
+      inputVals[2]= `${googleDriveLink}${googleDriveID}`;
+
       setFieldsToSend(0);
 
       if (inputVals.every(x => x)) {
