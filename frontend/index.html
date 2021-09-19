@@ -24,7 +24,7 @@
       </a>
       <!-- Nav logo container ends -->
 
-      <i class="fa fa-plus display-none" id="addPostBtn"></i>
+      <i class="fa fa-plus display-none" data-bs-toggle="modal" data-bs-target="#addModal" id="addPostBtn"></i>
 
       <!-- HAMBURGER MENU OVERLAY -->
       <input type="checkbox" id="active"></input>
@@ -168,7 +168,7 @@
             </form>
           </div>
           <div class="modal-footer d-flex justify-content-center">
-            <button id="deleteConfirmBtn" class="btn btn-primary add-btn" data-bs-dismiss="modal">Add Post</button>
+            <button id="addConfirmBtn" class="btn btn-primary add-btn" data-bs-dismiss="modal">Add Post</button>
           </div>
         </div>
       </div>
@@ -239,7 +239,7 @@
     <script src="node_modules/jquery/dist/jquery.min.js" charset="utf-8"></script>
     <script src="node_modules/@popperjs/core/dist/umd/popper.min.js" charset="utf-8"></script>
     <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js" charset="utf-8"></script>
-    <script src="js/logout.min.js"></script>
+    <script src="js/logout.js"></script>
     <script src="js/feed.js"></script>
 </body>
 

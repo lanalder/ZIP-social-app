@@ -1,7 +1,7 @@
 $(document).ready(function(){
 
   let url,
-   inputVals = new Array(5),
+   inputVals = new Array(4),
    submitData = {},
    clickedCard,
    // getters used so val isn't stagnant, every time accessed ensures val is up to date with current sessionStorage
@@ -15,7 +15,7 @@ $(document).ready(function(){
    }
 
   // for doc fields to post
-  const schemaProperties = ['title', 'descript', 'img_url', 'user_id', 'author'],
+  const schemaProperties = ['title', 'img_url', 'descript', 'user_id'],
     postCont = document.querySelector('#albumOutput');
 
   $.ajax({
@@ -32,7 +32,7 @@ $(document).ready(function(){
 
   // validating function for add / edit post, ensures i. user is authenticated and ii. all input fields have content
   const validateMe = () => {
-    if (!sessionStorage.getItem('user_id')) {
+    if (!authUser.id) {
       alert('Please login to perform this action');
       return false;
     } else {
@@ -42,7 +42,7 @@ $(document).ready(function(){
 
   // aligns fields with user inputs to create a document to post
   const setFieldsToSend = () => {
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 4; i++) {
       Object.defineProperty(submitData, schemaProperties[i], {
         value: inputVals[i],
         enumerable: true,
@@ -91,7 +91,8 @@ $(document).ready(function(){
       url: endpoint,
       type: method,
       dataType: 'json',
-      data: data,
+      data: JSON.stringify(data),
+      contentType: 'application/json',
       success(response) {
         callback(response);
       }, error(err) {
@@ -129,7 +130,7 @@ $(document).ready(function(){
     for (let i = posts.length - 1; i >= posts.length - 20; i -= 1) {
       // the html below accesses post array element heapss of times, so it's more performant to store that element in a const here (same with author, which is user doc)
       const item = posts[i],
-        author = posts[i].author[0];
+       author = posts[i].author[0];
       // change post like state if user has liked post in past
       if (liked && liked.includes(item._id)) {
         iconClass = 'fa-heart active-icon';
@@ -152,7 +153,7 @@ $(document).ready(function(){
             <div class="col-8 overlay-container d-flex justify-content-center">
               <img class="rounded-circle overlay-profile-image" src="${author.profl_pic}" alt="" width="50" height="50">
               <div class="overlay-text-container">
-                <h4 class="overlay-username d-block">${author.username}</h4>
+                <a href="myprofile.html#${item.user_id}"><h4 class="overlay-username d-block">${author.username}</h4></a>
                 <p class="overlay-imagename d-block">${item.title}</p>
               </div>
             </div>
@@ -251,22 +252,27 @@ $(document).ready(function(){
     });
   };
 
-  document.querySelector('#addPostBtn').addEventListener('click', function(e) {
+  document.querySelector('#addConfirmBtn').addEventListener('click', function(e) {
     Array.from(document.querySelectorAll('.addField')).forEach((inputField, index) => {
       inputVals[index] = $(inputField).val();
     });
+
     inputVals[3] = sessionStorage.getItem('user_id');
-    inputVals[4] = sessionStorage.getItem('username');
+
     setFieldsToSend();
+
+
     if (validateMe()) {
-      writeRequests(`${url}/postPost`, 'POST', JSON.stringify(submitData), function(response) {
+      writeRequests(`${url}/postPost`, 'POST', submitData, function(response) {
         if (response) {
+          console.log(response);
           alert('Your project has been successfully added!');
           window.location.reload();
         } else {
           alert('You are not authorised to perform this action');
         }
       });
+      console.log('hello?');
     } else {
       alert('Please fill out all fields');
       return;
@@ -277,9 +283,14 @@ $(document).ready(function(){
     Array.from(document.querySelectorAll('.editField')).forEach((inputField, index) => {
       inputVals[index] = $(inputField).val();
     });
+    inputVals[3] = sessionStorage.getItem('user_id');
+
+
     setFieldsToSend();
+    console.log(inputVals, inputVals.every(x => x), submitData);
+
     if (validateMe()) {
-      writeRequests(`${url}/editPost/${clickedCard}`, 'PATCH', JSON.stringify(submitData), function(response) {
+      writeRequests(`${url}/editPost/${clickedCard}`, 'PATCH', submitData, function(response) {
         if (response == '401: user has no permission to update') {
           alert(response);
         } else {
@@ -294,20 +305,27 @@ $(document).ready(function(){
   }, false);
 
   document.querySelector('#deleteConfirmBtn').addEventListener('click', function(e) {
-    const user = sessionStorage.getItem('user_id');
-    if (!user) {
+    if (!authUser.id) {
       alert('You do not have permission to delete this post');
       return;
     }
-    writeRequests(`${url}/deletePost/${clickedCard}`, 'DELETE', {
-      user_id: user
-    }, function(response) {
+    $.ajax({
+      url: `${url}/deletePost/${clickedCard}`,
+      type: 'DELETE',
+      data: {
+        user_id: authUser.id
+      },
+      success(response) {
+        console.log(response);
         if (response == 'deleted') {
           alert('Post has been deleted');
           window.location.reload();
         } else {
           alert('Post was not found');
         }
+      }, error(err) {
+        console.log(err);
+      }
     });
   }, false);
 

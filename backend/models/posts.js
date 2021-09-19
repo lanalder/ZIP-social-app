@@ -8,10 +8,10 @@ const postSchema = new mongoose.Schema({
   img_url: String,
   stats: {
     likes: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
-      }
+      // {
+      //   type: mongoose.Schema.Types.ObjectId,
+      //   ref: 'User'
+      // }
     ],
     comments: Number
   },
