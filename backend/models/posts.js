@@ -9,10 +9,8 @@ const postSchema = new mongoose.Schema({
   stats: {
     likes: [
       {
-        user_id: {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: 'User'
-        }
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
       }
     ],
     comments: Number
