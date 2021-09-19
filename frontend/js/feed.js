@@ -16,7 +16,8 @@ $(document).ready(function(){
 
   // for doc fields to post
   const schemaProperties = ['title', 'img_url', 'descript', 'user_id'],
-    postCont = document.querySelector('#albumOutput');
+    postCont = document.querySelector('#albumOutput'),
+    googleDriveLink = 'drive.google.com/uc?export=view&id=';
 
   $.ajax({
     url: 'config.json',

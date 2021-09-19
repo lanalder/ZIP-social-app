@@ -58,10 +58,8 @@ $(document).ready(function() {
         inputVals[index] = $(inputField).val();
       });
 
-      const googleDriveID = document.querySelector('.fileID').value;
-      inputVals[2]= `${googleDriveLink}${googleDriveID}`;
-
       setFieldsToSend(0);
+      console.log(submitData);
 
       if (inputVals.every(x => x)) {
         $.ajax({
@@ -70,11 +68,12 @@ $(document).ready(function() {
           data: JSON.stringify(submitData),
           contentType: 'application/json',
           success(user) {
+            console.log(user);
             if (user !== 'username taken already. pls use a different username.') {
               alert('registered! and auto. logged in :)');
               trackingDevice(user);
               // may mess up array post-cond
-              window.location.href = 'index.html';
+              // window.location.href = 'index.html';
             } else {
               alert('username already taken...');
             }
