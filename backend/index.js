@@ -42,7 +42,7 @@ app.listen(port, () => console.log(`Fullstack app is listening on port ${port}`)
 app.post('/postPost', (req, res) => {
   const newPost = new Post({
     _id: new mongoose.Types.ObjectId,
-    author: req.body.username,
+    author: '',
     title: req.body.title,
     descript: req.body.descript,
     img_url: req.body.image_url,
@@ -54,17 +54,19 @@ app.post('/postPost', (req, res) => {
   });
   newPost.save()
     .then(result => {
-      User.updateOne({
-          _id: req.body.user_id
-        },
-        {
-          $inc: { 'stats.posts': 1 }
-        }
-      ).then(result => {
+      console.log(newPost);
+      // User.updateOne({
+      //     _id: req.body.user_id
+      //   },
+      //   {
+      //     $inc: { 'stats.posts': 1 }
+      //   }
+      // ).then(result => {
+        console.log(result);
         res.send(result);
-      }).catch(err => {
-        res.send(err);
-      })
+      // }).catch(err => {
+      //   res.send(err);
+      // })
     })
     .catch(err => {
       res.send(err);
@@ -189,24 +191,42 @@ app.get('/hasLiked/:id', (req, res) => {
 });
 
 app.patch('/editPost/:id', (req, res) => {
-  Post.findById(req.body.post_id, (err, post) => {
+  Post.findById(req.params.id, (err, post) => {
     if (post.user_id == req.body.user_id) {
       const upd8Post = {
-        author: req.body.author,
+        author: '',
         title: req.body.title,
         descript: req.body.descript,
         img_url: req.body.img_url
       };
       Post.updateOne({
-        _id: req.body.post_id
-      }, editedPost)
+        _id: req.params.id
+      }, upd8Post)
         .then(result => {
+          console.log(result);
           res.send(result);
         }).catch(err => {
+          console.log(err);
           res.send(err);
         });
     } else {
       res.send('project not found');
+    }
+  });
+});
+
+app.delete('/deletePost/:id', (req, res) => {
+  Post.findOne({
+    _id: req.params.id
+  }, (err, post) => {
+    if (post && post.user_id == req.body.user_id) {
+      Post.deleteOne({
+        _id: req.params.id
+      }, err => {
+        res.send('deleted');
+      });
+    } else {
+        res.send('not found / unauthorised');
     }
   });
 });
@@ -275,11 +295,7 @@ app.delete('/deleteComment/:id', (req, res) => {
       res.send('not found / unauthorised');
     }
   });
-});
-
-// ---------- comments END ----------
-
-// ---------- users login etc ----------
+});-
 
 app.post('/newUser', (req, res) => {
   User.findOne({
