@@ -2,10 +2,10 @@ $(document).ready(function() {
 
   // follows pretty closely the pattern from album.js, more comments there
   let url,
-    inputVals = new Array(3),
+    inputVals = new Array(4),
     submitData = {};
 
-  const schemaProperties = ['email', 'username', 'password'];
+  const schemaProperties = ['email', 'profl_pic', 'username', 'password'];
 
   // --------------- initialise path 2 backend ---------------
 
@@ -26,8 +26,8 @@ $(document).ready(function() {
   // --------------- helper functions ---------------
 
   const setFieldsToSend = (existingUser) => {
-    // is argument is 1, we can skip email in submitData since this is a login; if 0, add email as well to the object we wanna post
-    for (let i = existingUser; i < 3; i++) {
+    // is argument is 2, we can skip email in submitData since this is a login; if 0, add email as well to the object we wanna post
+    for (let i = existingUser; i < 4; i++) {
       Object.defineProperty(submitData, schemaProperties[i], {
         value: inputVals[i],
         enumerable: true,
@@ -59,7 +59,7 @@ $(document).ready(function() {
       });
 
       setFieldsToSend(0);
-      console.log(submitData);
+    console.log(submitData);
 
       if (inputVals.every(x => x)) {
         $.ajax({
@@ -100,7 +100,7 @@ $(document).ready(function() {
       inputVals[1] = $('#loginUsername').val();
       inputVals[2] = $('#loginPassword').val();
 
-      setFieldsToSend(1);
+      setFieldsToSend(2);
 
       if (inputVals[1] == '' || inputVals[2] == '') {
         alert('pls enter all details thx xx');
