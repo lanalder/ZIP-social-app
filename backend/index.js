@@ -310,7 +310,7 @@ app.post('/newUser', (req, res) => {
         username: req.body.username,
         password: hash,
         email: req.body.email,
-        profl_pic: 'null',
+        profl_pic: req.body.profl_pic,
         acc_type: 0,
         stats: {
           posts: 0,
@@ -319,6 +319,7 @@ app.post('/newUser', (req, res) => {
       });
       user.save()
         .then(result => {
+          console.log(user, result);
           res.send(result);
         }).catch(err => {
           res.send(err);
