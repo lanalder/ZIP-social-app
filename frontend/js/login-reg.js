@@ -5,7 +5,7 @@ $(document).ready(function() {
     inputVals = new Array(4),
     submitData = {};
 
-  const schemaProperties = ['email', 'profl_pic', 'username', 'password'];
+  const schemaProperties = ['username', 'password', 'profl_pic', 'email'];
 
   // --------------- initialise path 2 backend ---------------
 
@@ -18,7 +18,9 @@ $(document).ready(function() {
       // again just a cb bc idrk how to use promises properly and i'm not even sure if they'd be good here? or like, every listener would have to be chained, which seems a bit silly especially when there's no need for them to chronologically ordered
       listeners();
     },
-    error(error) { console.log(error); }
+    error(error) {
+      console.log(error);
+    }
   });
 
   // --------------- backend initialisation ENDS ---------------
@@ -27,12 +29,18 @@ $(document).ready(function() {
 
   const setFieldsToSend = (existingUser) => {
     // is argument is 2, we can skip email in submitData since this is a login; if 0, add email as well to the object we wanna post
-    for (let i = existingUser; i < 4; i++) {
-      Object.defineProperty(submitData, schemaProperties[i], {
-        value: inputVals[i],
-        enumerable: true,
-        configurable: true } );
-      }
+    for (let i = 0; i < existingUser; i++) {
+      console.log(inputVals[i], i);
+      // if (i === 2) {
+        // return;
+      // } else {
+        Object.defineProperty(submitData, schemaProperties[i], {
+          value: inputVals[i],
+          enumerable: true,
+          configurable: true
+        });
+      // }
+    }
   };
 
   // store user login
@@ -58,8 +66,8 @@ $(document).ready(function() {
         inputVals[index] = $(inputField).val();
       });
 
-      setFieldsToSend(0);
-    console.log(submitData);
+      setFieldsToSend(4);
+      console.log(submitData);
 
       if (inputVals.every(x => x)) {
         $.ajax({
@@ -72,8 +80,7 @@ $(document).ready(function() {
             if (user !== 'username taken already. pls use a different username.') {
               alert('registered! and auto. logged in :)');
               trackingDevice(user);
-              // may mess up array post-cond
-              // window.location.href = 'index.html';
+              window.location.href = 'index.html';
             } else {
               alert('username already taken...');
             }
@@ -82,7 +89,9 @@ $(document).ready(function() {
               $(inputField).val('');
             });
           },
-          error() { console.log('error: cannot call api'); }
+          error() {
+            console.log('error: cannot call api');
+          }
         });
       } else {
         alert('pls enter all details');
@@ -97,12 +106,13 @@ $(document).ready(function() {
     document.querySelector('.login-btn').addEventListener('click', function(e) {
       e.preventDefault();
 
-      inputVals[1] = $('#loginUsername').val();
-      inputVals[2] = $('#loginPassword').val();
+      inputVals[0] = $('#loginUsername').val();
+      inputVals[1] = $('#loginPassword').val();
 
       setFieldsToSend(2);
+      console.log(submitData);
 
-      if (inputVals[1] == '' || inputVals[2] == '') {
+      if (inputVals[0] == '' || inputVals[1] == '') {
         alert('pls enter all details thx xx');
         return;
       } else {
@@ -129,14 +139,16 @@ $(document).ready(function() {
               window.location.href = 'index.html';
             }
           },
-          error() { console.log('error: cannot call api'); }
+          error() {
+            console.log('error: cannot call api');
+          }
         });
       }
     }, false);
 
     // --------------- login ENDS ---------------
 
-  // end of listeners wrapper func
+    // end of listeners wrapper func
   };
 
 });

@@ -12,7 +12,7 @@ $(document).ready(function(){
      get name() {
        return sessionStorage.getItem('username');
      }
-   }
+   };
 
   // for doc fields to post
   const schemaProperties = ['title', 'img_url', 'descript', 'user_id'],
@@ -112,23 +112,30 @@ $(document).ready(function(){
          liked = liked.map((each) => {
            return each = Object.values(each);
          }).flat();
-         console.log(liked);
-         genPosts(posts, liked);
+         readRequests(`${url}/getUser/${authUser.id}`, function(user) {
+           genPosts(posts, liked, user);
+         });
        });
      } else {
-       genPosts(posts, false);
+       genPosts(posts, false, false);
      }
    });
  };
 
   // generate posts (first param: post data, second param: posts previously liked by authenticated user)
-  const genPosts = (posts, liked) => {
+  const genPosts = (posts, liked, user) => {
     let iconClass,
       authEdit;
     postCont.innerHTML = '';
 
-    document.querySelector('.profile-image').src = posts[0].author[0].profl_pic;
-    document.querySelector('.myprofile-header').innerHTML = `${posts[0].author[0].username}`;
+
+
+    if (!posts.length) {
+      console.log(user);
+      document.querySelector('.profile-image').src = user.profl_pic;
+      document.querySelector('.myprofile-header').innerHTML = `${user.username}`;
+      return;
+    }
 
     for (let i = posts.length - 1; i >= 0; i -= 1) {
       // the html below accesses post array element heapss of times, so it's more performant to store that element in a const here (same with author, which is user doc)
@@ -237,7 +244,7 @@ $(document).ready(function(){
           <a href="/myprofle#${item.user_id}"<h6 class="comment-username">${item.author}</h6></a>
           <p class="comment-text">${item.text}</p>
           <p class="comment-time">${item.time}</p>
-        </div>`
+        </div>`;
       }
       // don't want nor need to add text field for new comment more than once
       if (!commentCont.lastElementChild.innerHTML) {
