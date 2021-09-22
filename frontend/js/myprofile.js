@@ -104,7 +104,7 @@ $(document).ready(function(){
 
   const getPosts = () => {
    let clickedUser = window.location.hash.substring(1);
-   if (clickedUser == 'me') {
+   if (clickedUser == 'me' || clickedUser == '') {
      console.log(clickedUser);
      clickedUser = authUser.id;
    }
@@ -284,7 +284,7 @@ $(document).ready(function(){
     Array.from(document.querySelectorAll('.addField')).forEach((inputField, index) => {
       inputVals[index] = $(inputField).val();
     });
-    inputVals[3] = sessionStorage.getItem('user_id');
+    inputVals[3] = authUser.id;
     setFieldsToSend();
     if (validateMe()) {
       writeRequests(`${url}/postPost`, 'POST', submitData, function(response) {
