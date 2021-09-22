@@ -141,7 +141,7 @@ $(document).ready(function(){
     for (let i = posts.length - 1; i >= 0; i -= 1) {
       // the html below accesses post array element heapss of times, so it's more performant to store that element in a const here (same with author, which is user doc)
       const item = posts[i];
-      
+
       // change post like state if user has liked post in past
       if (liked && liked.includes(item._id)) {
         iconClass = 'fa-heart active-icon';
@@ -283,12 +283,8 @@ $(document).ready(function(){
     Array.from(document.querySelectorAll('.addField')).forEach((inputField, index) => {
       inputVals[index] = $(inputField).val();
     });
-
     inputVals[3] = sessionStorage.getItem('user_id');
-
     setFieldsToSend();
-
-
     if (validateMe()) {
       writeRequests(`${url}/postPost`, 'POST', submitData, function(response) {
         if (response) {
@@ -298,7 +294,6 @@ $(document).ready(function(){
         } else {
           alert('You are not authorised to perform this action');
         }
-      });
       console.log('hello?');
     } else {
       alert('Please fill out all fields');
