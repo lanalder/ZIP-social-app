@@ -271,6 +271,18 @@ app.get('/seeComments/:id', (req, res) => {
   });
 });
 
+app.patch('/lz', (req ,res) => {
+  // Comment.remove({}).then(result => {res.send(result)}).catch(err => {res.send(err)});
+  Comment.find({}, (err, comments) => {
+    console.log(comments);
+    // comments.stats.comments = 0;
+    comments.updateOne({
+      'stats.comments': 0
+    }).then(result => {res.send(result)}).catch(err=>{res.send(err)});
+  }).then(result => {res.send(result)}).catch(err=>{res.send(err)});
+
+});
+
 app.delete('/deleteComment/:id', (req, res) => {
   Comment.findOne({
     _id: req.params.id
@@ -295,7 +307,17 @@ app.delete('/deleteComment/:id', (req, res) => {
       res.send('not found / unauthorised');
     }
   });
-});-
+});
+
+app.get('/getUser/:id', (req, res) => {
+  User.findOne({
+    _id: req.params.id
+  }, (err, user) => {
+    if (user) {
+      res.send(user);
+    }
+  })
+});
 
 app.post('/newUser', (req, res) => {
   User.findOne({

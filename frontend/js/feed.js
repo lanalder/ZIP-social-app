@@ -12,7 +12,8 @@ $(document).ready(function(){
      get name() {
        return sessionStorage.getItem('username');
      }
-   }
+   },
+   toggleComments = new Map();
 
   // for doc fields to post
   const schemaProperties = ['title', 'img_url', 'descript', 'user_id'],
@@ -133,6 +134,7 @@ $(document).ready(function(){
       const item = posts[i],
        author = posts[i].author[0];
       // change post like state if user has liked post in past
+      // if (liked && liked.includes(item._id)) {
       if (item.stats.likes.includes(authUser.id)) {
         iconClass = 'fa-heart active-icon';
       } else {
@@ -182,7 +184,8 @@ $(document).ready(function(){
     // first conditional: user authentication
     if (authUser.id) {
       // second conditional: unlike if already liked or like if not
-      if (icon.firstChild.classList.contains('active-icon')) {
+      if (icon.firstChild.classList.contains('fa-heart')) {
+        console.log('here?');
         unlikePost(icon);
       } else {
         writeRequests(`${url}/likePost/${clickedCard}`, 'POST', {
@@ -235,10 +238,19 @@ $(document).ready(function(){
           <a href="/myprofle#${item.user_id}"<h6 class="comment-username">${item.author}</h6></a>
           <p class="comment-text">${item.text}</p>
           <p class="comment-time">${item.time}</p>
-        </div>`
+        </div>`;
       }
       // don't want nor need to add text field for new comment more than once
       if (!commentCont.lastElementChild.innerHTML) {
+        // toggleComments++;
+        // toggleComments.push([clickedCard, 0]);
+        if (!toggleComments.has(clickedCard)) {
+          toggleComments.set(clickedCard, 0);
+        } else {
+          let incToggle = toggleComments.get(clickedCard);
+          incToggle += 1;
+          toggleComments.set(clickedCard, incToggle);
+        }
         commentCont.lastElementChild.innerHTML = `<div class="form-group mb-3" style="z-index: 1"> <label for="newComment" class="form-label new-comment-label"> <h6>Post New Comment</h6> </label>
           <textarea class="form-control" id="newComment" rows="3" maxlength="160" placeholder="Maximum 160 Characters"></textarea>
           <p class="${clickedCard} post-comment text-end send-comment-btn"><i class="${clickedCard} fa fa-paper-plane text-end" aria-hidden="true"></i></p>
@@ -250,7 +262,17 @@ $(document).ready(function(){
             postComment(e.target, icon);
           }, true);
       }
+
     });
+    if (toggleComments.has(clickedCard) && !(toggleComments.get(clickedCard) % 2)) {
+    // if (toggleComments % 2) {
+      commentCont.firstElementChild.innerHTML = '';
+      commentCont.lastElementChild.innerHTML = '';
+      let incToggle = toggleComments.get(clickedCard);
+      incToggle += 1;
+      toggleComments.set(clickedCard, incToggle);
+    }
+    console.log(toggleComments);
   };
 
   document.querySelector('#addConfirmBtn').addEventListener('click', function(e) {
