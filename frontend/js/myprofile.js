@@ -12,7 +12,8 @@ $(document).ready(function(){
      get name() {
        return sessionStorage.getItem('username');
      }
-   };
+   },
+   toggleComments = new Map();
 
   // for doc fields to post
   const schemaProperties = ['title', 'img_url', 'descript', 'user_id'],
@@ -128,10 +129,7 @@ $(document).ready(function(){
       authEdit;
     postCont.innerHTML = '';
 
-
-
     if (!posts.length) {
-      console.log(user);
       document.querySelector('.profile-image').src = user.profl_pic;
       document.querySelector('.myprofile-header').innerHTML = `${user.username}`;
       return;
@@ -216,28 +214,26 @@ $(document).ready(function(){
     });
   };
 
-  // post comment function (first param: send comment button which contains specific post id, second param: the comments open button which is a reference point for html changes / targets in openComments function, which needs to be a callback here in order to actually show the new comment once posted)
-  const postComment = (sendBtn, postRef) => {
-    if (authUser.id) {
-      writeRequests(`${url}/createComment`, 'POST', {
-        author:authUser.name,
-        text: document.querySelector('#newComment').value,
-        user_id: authUser.id,
-        post_id: sendBtn.classList[0]
-      }, function() {
-        openComments(postRef);
-      });
-    } else {
-      alert('Please login or register to interact with posts :)');
-    }
-  };
-
   // open / show comments (param from informedModal)
   const openComments = (icon) => {
-    const commentCont = icon.parentElement.parentElement.lastElementChild;
+    const commentCont = icon.parentElement.parentElement.lastElementChild,
+     incToggle = toggleComments.get(clickedCard) + 1;
+
+    if (!toggleComments.has(clickedCard)) {
+      toggleComments.set(clickedCard, 0);
+    } else {
+      toggleComments.set(clickedCard, incToggle);
+    }
+
+    if (toggleComments.get(clickedCard) % 2) {
+      commentCont.firstElementChild.innerHTML = '';
+      commentCont.lastElementChild.innerHTML = '';
+      return;
+    }
+
     readRequests(`${url}/seeComments/${clickedCard}`, function(comments) {
       commentCont.firstElementChild.innerHTML = '';
-      for (let i = 0; i < comments.length - 1; i++) {
+      for (let i = 0; i < comments.length; i++) {
         const item = comments[i];
         commentCont.firstElementChild.innerHTML += `
         <div class="${item._id} comment-output border-bottom">
@@ -260,6 +256,24 @@ $(document).ready(function(){
           }, true);
       }
     });
+  };
+
+  // post comment function (first param: send comment button which contains specific post id, second param: the comments open button which is a reference point for html changes / targets in openComments function, which needs to be a callback here in order to actually show the new comment once posted)
+  const postComment = (sendBtn, postRef) => {
+    if (authUser.id) {
+      const incToggle = toggleComments.get(sendBtn.classList[0]) + 1;
+      toggleComments.set(sendBtn.classList[0], incToggle);
+      writeRequests(`${url}/createComment`, 'POST', {
+        author: authUser.name,
+        text: document.querySelector('#newComment').value,
+        user_id: authUser.id,
+        post_id: sendBtn.classList[0]
+      }, function() {
+        openComments(postRef);
+      });
+    } else {
+      alert('Please login or register to interact with posts :)');
+    }
   };
 
   document.querySelector('#addConfirmBtn').addEventListener('click', function(e) {
