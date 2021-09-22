@@ -256,7 +256,6 @@ $(document).ready(function(){
 
   // post comment function (first param: send comment button which contains specific post id, second param: the comments open button which is a reference point for html changes / targets in openComments function, which needs to be a callback here in order to actually show the new comment once posted)
   const postComment = (sendBtn, postRef) => {
-    console.log(postRef);
     if (authUser.id) {
       const incToggle = toggleComments.get(sendBtn.classList[0]) + 1;
       toggleComments.set(sendBtn.classList[0], incToggle);
@@ -284,7 +283,6 @@ $(document).ready(function(){
     if (validateMe()) {
       writeRequests(`${url}/postPost`, 'POST', submitData, function(response) {
         if (response) {
-          console.log(response);
           alert('Your project has been successfully added!');
           setTimeout(function() {
             window.location.reload();
@@ -303,12 +301,8 @@ $(document).ready(function(){
     Array.from(document.querySelectorAll('.editField')).forEach((inputField, index) => {
       inputVals[index] = $(inputField).val();
     });
-    inputVals[3] = sessionStorage.getItem('user_id');
-
-
+    inputVals[3] = authUser.id;
     setFieldsToSend();
-    console.log(inputVals, inputVals.every(x => x), submitData);
-
     if (validateMe()) {
       writeRequests(`${url}/editPost/${clickedCard}`, 'PATCH', submitData, function(response) {
         if (response == '401: user has no permission to update') {
