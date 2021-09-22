@@ -294,7 +294,6 @@ $(document).ready(function(){
         } else {
           alert('You are not authorised to perform this action');
         }
-      console.log('hello?');
     } else {
       alert('Please fill out all fields');
       return;

@@ -279,14 +279,16 @@ $(document).ready(function(){
     Array.from(document.querySelectorAll('.addField')).forEach((inputField, index) => {
       inputVals[index] = $(inputField).val();
     });
-    inputVals[3] = sessionStorage.getItem('user_id');
+    inputVals[3] = authUser.id;
     setFieldsToSend();
     if (validateMe()) {
       writeRequests(`${url}/postPost`, 'POST', submitData, function(response) {
         if (response) {
           console.log(response);
           alert('Your project has been successfully added!');
-          window.location.reload();
+          setTimeout(function() {
+            window.location.reload();
+          }, 1000);
         } else {
           alert('You are not authorised to perform this action');
         }
