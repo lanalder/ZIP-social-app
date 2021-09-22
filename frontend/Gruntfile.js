@@ -9,8 +9,9 @@ module.exports = function(grunt) {
       },
       build: {
         files: {
-          'js/album.min.js' : ['js/album.js'],
-          'js/login.min.js' : ['js/login.js'],
+          'js/myprofile.min.js' : ['js/myprofile.js'],
+          'js/login-reg.min.js' : ['js/login-reg.js'],
+          'js/feed.min.js' : ['js/feed.js'],
           'js/logout.min.js' : ['js/logout.js']
         }
       }
@@ -27,7 +28,7 @@ module.exports = function(grunt) {
     }, // Sass ends
     watch: {
       scripts: {
-        files: ['js/*.js', 'sass/style.scss', 'index.html'],
+        files: ['js/index.js','js/login-reg.js', 'js/myprofile.js', 'js/logout.js', 'sass/style.scss', 'index.html'],
         tasks: ['uglify', 'sass', 'jshint'],
         options: {
           spawn: false,
@@ -51,7 +52,7 @@ module.exports = function(grunt) {
     },
     // css lint finishes
     jshint: {
-      all: ['Gruntfile.js', 'js/album.js', 'js/login.js', 'js/logout.js'],
+      all: ['Gruntfile.js', 'js/index.js', 'js/myprofile.js', 'js/login-reg.js', 'js/logout.js'],
       options: {
         esversion: 6
       }
@@ -75,7 +76,7 @@ module.exports = function(grunt) {
 
 
   // Default task(s).
-  grunt.registerTask('default', ['sass', 'watch', 'htmllint']);
+  grunt.registerTask('default', ['uglify','sass', 'watch', 'htmllint']);
   grunt.registerTask('prod', ['uglify']);
   grunt.registerTask('cssvalidate', ['csslint', 'jshint']);
   grunt.registerTask('jslint', ['jshint']);

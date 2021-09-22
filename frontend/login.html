@@ -24,7 +24,7 @@
       </a>
       <!-- Nav logo container ends -->
 
-      <i class="fa fa-plus" id="addPostBtn"></i>
+      <i class="fa fa-plus display-none" id="addPostBtn"></i>
 
       <!-- HAMBURGER MENU OVERLAY -->
       <input type="checkbox" id="active"></input>
@@ -33,7 +33,8 @@
         <ul class="menu">
           <h2>Menu</h2>
           <li><a href="index.html">Feed</a></li>
-          <li><a href="login.html">Login/Register</a></li>
+          <li class="profile-link"><a href="myprofile.html#me">My Profile</a></li>
+          <li><a class="login-logout" href="login.html">Login/Register</a></li>
         </ul>
         <!-- Hamburger logo container -->
         <div id="menu-logo">
@@ -78,11 +79,6 @@
       <div class="col-md-6 register-section log-reg-card">
         <h2 class="main-header text-center">Register</h2>
         <form>
-          <div class="form-group log-reg-form">
-            <label class="input-labels" for="newUserEmail">Email</label>
-            <input type="username" class="form-control newUser" id="newUserEmail" aria-describedby="emailHelp" placeholder="Email">
-            <small id="emailHelp" class="form-text text-muted"></small>
-          </div>
 
           <div class="form-group log-reg-form">
             <label class="input-labels" for="newUsername">Username</label>
@@ -94,6 +90,19 @@
             <label class="input-labels" for="newPassword">Password</label>
             <input type="password" class="form-control newUser" id="newPassword" placeholder="New Password">
           </div>
+
+          <div class="form-group log-reg-form">
+            <label class="input-labels" for="newProfilePic">Profile Pic</label>
+            <input type="username" class="form-control fileID newUser" id="newProfilePic" aria-describedby="emailHelp" placeholder="Google File link for your profile image">
+            <small id="emailHelp" class="form-text text-muted"></small>
+          </div>
+
+          <div class="form-group log-reg-form">
+            <label class="input-labels" for="newUserEmail">Email</label>
+            <input type="username" class="form-control newUser" id="newUserEmail" aria-describedby="emailHelp" placeholder="Email">
+            <small id="emailHelp" class="form-text text-muted"></small>
+          </div>
+
           <button type="button" class="btn btn-primary reg-btn">
             Register
           </button>
@@ -111,6 +120,7 @@
   <script src="node_modules/@popperjs/core/dist/umd/popper.min.js" charset="utf-8"></script>
   <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js" charset="utf-8"></script>
   <script src="js/logout.min.js"></script>
+  <script src="js/login-reg.js"></script>
 </body>
 
 </html>

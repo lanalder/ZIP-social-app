@@ -24,7 +24,7 @@
       </a>
       <!-- Nav logo container ends -->
 
-      <i class="fa fa-plus" id="addPostBtn"></i>
+      <i class="fa fa-plus display-none" data-bs-toggle="modal" data-bs-target="#addModal" id="addPostBtn"></i>
 
       <!-- HAMBURGER MENU OVERLAY -->
       <input type="checkbox" id="active"></input>
@@ -33,7 +33,8 @@
         <ul class="menu">
           <h2>Menu</h2>
           <li><a href="index.html">Feed</a></li>
-          <li><a href="login.html">Login/Register</a></li>
+          <li class="profile-link"><a href="myprofile.html#me">My Profile</a></li>
+          <li><a class="login-logout" href="login.html">Login/Register</a></li>
         </ul>
         <!-- Hamburger logo container -->
         <div id="menu-logo">
@@ -56,85 +57,14 @@
     <div class="large-profile-img d-flex justify-content-center"><img class="rounded-circle profile-image text-center" src="img/seal.png" alt="" width="150" height="150"></div>
     <h2 class="myprofile-header text-center">My Profile</h2>
 
-    <p class="total-posts-like-counters text-center"><i class="fa fa-picture-o" aria-hidden="true"></i> 25 <i class="fa fa-heart" aria-hidden="true"></i> 155</p>
-
     <!-- All Posts Output -->
     <div class="container">
 
       <div class="row" id="albumOutput">
-        <!-- Card 1 -->
-        <div class="col-md-4">
-          <div class="card mb-4">
-            <img class="card-img-top" src="img/seal.png" alt="" style="width: 100%">
-            <!-- Card Overlay -->
-            <div class="card-img-overlay d-flex">
-              <div class="expand-container text-wrap">
-                <i class="fa fa-expand" aria-hidden="true"></i>
-              </div>
-              <!-- Username & Image name Overlay -->
-              <div class="col-8 overlay-container d-flex justify-content-center">
-                <img class="rounded-circle overlay-profile-image" src="img/seal.png" alt="" width="50" height="50">
-                <div class="overlay-text-container">
-                  <h4 class="overlay-username d-block">Username</h4>
-                  <p class="overlay-imagename d-block">Image Name</p>
-                </div>
-              </div>
-            </div>
-            <!-- Card Overlay ends -->
-            <div class="card-body">
-              <!-- Likes & Expand Overlay -->
-              <div class="like-comment-container d-flex justify-content-between">
-                <p class="like-counter interaction-icon"><i class="fa fa-heart-o" aria-hidden="true"></i> 155</p>
-                <p class="comment-counter interaction-icon"><i class="fa fa-commenting-o" aria-hidden="true"></i> 11</p>
-                <p class="interaction-icon edit-btn"><i class="fa fa-pencil" aria-hidden="true"></i></p>
-                <p class="interaction-icon"><i class="fa fa-trash-o" aria-hidden="true"></i></p>
-              </div>
-              <!-- Image Description -->
-              <p class="card-text">A short description of the image posted above</p>
-
-              <!-- Comment container begins -->
-              <div class="comment-container border-bottom">
-                <h6 class="comment-username">User Name</h6>
-                <p class="comment-text">A comment from a user maxed out at 160 Characters</p>
-                <p class="comment-time">Last updated 3 mins ago</p>
-              </div>
-              <div class="comment-container border-bottom">
-                <h6 class="comment-username">User Name</h6>
-                <p class="comment-text">A comment from a user maxed out at 160 Characters</p>
-                <p class="comment-time">Last updated 3 mins ago</p>
-              </div>
-              <!-- Comment container ends -->
-
-            </div>
-            <!-- Card body ends -->
-          </div>
-          <!-- Card md4 ends -->
-        </div>
-        <!-- Card 1 ends -->
-
         <!-- Album Output Ends -->
       </div>
 
 
-      <!-- Button to trigger delete modal -->
-      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#deleteModal">
-        Launch delete modal
-      </button>
-
-      <!-- Button to trigger add modal -->
-      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal">
-        Launch add modal
-      </button>
-
-      <!-- Button to trigger add modal -->
-      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal">
-        Launch edit modal
-      </button>
-
-      <!-- Button to Full Image add modal -->
-      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#viewFullImageModal">
-        Launch image modal
-      </button>
 
     </div>
 
@@ -178,22 +108,22 @@
             <form>
               <div class="form-group form-margin">
                 <label for="addImageName">Image Name</label>
-                <input type="name" class="form-control add" id="addImageName" aria-describedby="emailHelp" placeholder="Add Image Name">
+                <input type="name" class="form-control addField" id="addImageName" aria-describedby="emailHelp" maxlength="15" placeholder="Add Image Name">
                 <small class="form-text text-muted"></small>
               </div>
               <div class="form-group form-margin">
-                <label for="addFileID">Google File Id</label>
-                <input type="url" class="form-control add" id="addFileID" aria-describedby="emailHelp" placeholder="Add Your Google File ID">
+                <label for="addFileID">Google File Link</label>
+                <input type="url" class="form-control addField" id="addFileID" aria-describedby="emailHelp" placeholder="Add Your Google File Link">
                 <small class="form-text text-muted"></small>
               </div>
               <div class="form-group form-margin">
                 <label for="imageDescriptionInput">Image Description</label>
-                <textarea class="form-control" id="imageDescriptionInput" rows="3" placeholder="Add Your Image Description"></textarea>
+                <textarea class="form-control addField" id="imageDescriptionInput" rows="3" maxlength="160" placeholder="Add Your Image Description"></textarea>
               </div>
             </form>
           </div>
           <div class="modal-footer d-flex justify-content-center">
-            <button id="deleteConfirmBtn" class="btn btn-primary add-btn" data-bs-dismiss="modal">Add Post</button>
+            <button id="addConfirmBtn" class="btn btn-primary add-btn" data-bs-dismiss="modal">Add Post</button>
           </div>
         </div>
       </div>
@@ -213,22 +143,22 @@
             <form>
               <div class="form-group form-margin">
                 <label for="editImageName">Edit Image Name</label>
-                <input type="name" class="form-control add" id="editImageName" aria-describedby="emailHelp" placeholder="Edit Image Name">
+                <input type="name" class="form-control editField" id="editImageName" aria-describedby="emailHelp" maxlength="15" placeholder="Edit Image Name">
                 <small class="form-text text-muted"></small>
               </div>
               <div class="form-group form-margin">
-                <label for="editFileID">Edit Google File Id</label>
-                <input type="url" class="form-control add" id="editFileID" aria-describedby="emailHelp" placeholder="Edit Your Google File ID">
+                <label for="editFileID">Edit Google File Link</label>
+                <input type="url" class="form-control editField" id="editFileID" aria-describedby="emailHelp" placeholder="Edit Your Google File Link">
                 <small class="form-text text-muted"></small>
               </div>
               <div class="form-group form-margin">
                 <label for="editImageDescription">Edit Image Description</label>
-                <textarea class="form-control" id="editImageDescription" rows="3" placeholder="Edit Your Image Description"></textarea>
+                <textarea class="form-control editFiled" id="editImageDescription" rows="3" maxlength="160" placeholder="Edit Your Image Description"></textarea>
               </div>
             </form>
           </div>
           <div class="modal-footer d-flex justify-content-center">
-            <button id="deleteConfirmBtn" class="btn btn-primary" data-bs-dismiss="modal">Confirm Edit</button>
+            <button id="editConfirmBtn" class="btn btn-primary" data-bs-dismiss="modal">Confirm Edit</button>
           </div>
         </div>
       </div>
@@ -241,7 +171,7 @@
         <!-- Modal content-->
         <div class="modal-content">
           <div class="modal-header">
-            <h4 class="modal-title">Image Name</h4>
+            <h4 class="modal-title view-title">Image Name</h4>
             <button type="button" id="closeModal" class="btn btn-default" data-bs-dismiss="modal">Close</button>
           </div>
           <div class="modal-body">
@@ -263,6 +193,7 @@
     <script src="node_modules/@popperjs/core/dist/umd/popper.min.js" charset="utf-8"></script>
     <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js" charset="utf-8"></script>
     <script src="js/logout.min.js"></script>
+    <script src="js/myprofile.js"></script>
 </body>
 
 </html>
