@@ -136,7 +136,7 @@ $(document).ready(function(){
        author = posts[i].author[0];
       // change post like state if user has liked post in past
       // if (liked && liked.includes(item._id)) {
-      if (liked && liked.includes(item._id)) {
+      if (liked &&liked.includes(item._id)) {
         iconClass = 'fa-heart active-icon';
       } else {
         iconClass = 'fa-heart-o';
@@ -208,6 +208,71 @@ $(document).ready(function(){
       const inc = parseInt(icon.textContent) - 1;
       icon.innerHTML = `<p class="${clickedCard} like interaction-icon like-counter interaction-icon"><i class="${clickedCard} fa fa-heart-o like" aria-hidden="true"></i> ${inc}</p>`;
     });
+  };
+
+  // open / show comments (param from informedModal)
+  const openComments = (icon) => {
+    const commentCont = icon.parentElement.parentElement.lastElementChild,
+     incToggle = toggleComments.get(clickedCard) + 1;
+
+    if (!toggleComments.has(clickedCard)) {
+      toggleComments.set(clickedCard, 0);
+    } else {
+      toggleComments.set(clickedCard, incToggle);
+    }
+
+    if (toggleComments.get(clickedCard) % 2) {
+      commentCont.firstElementChild.innerHTML = '';
+      commentCont.lastElementChild.innerHTML = '';
+      return;
+    }
+
+    readRequests(`${url}/seeComments/${clickedCard}`, function(comments) {
+      commentCont.firstElementChild.innerHTML = '';
+      for (let i = 0; i < comments.length; i++) {
+        const item = comments[i];
+        commentCont.firstElementChild.innerHTML += `
+        <div class="${item._id} comment-output border-bottom">
+          <a href="/myprofle#${item.user_id}"<h6 class="comment-username">${item.author}</h6></a>
+          <p class="comment-text">${item.text}</p>
+          <p class="comment-time">${item.time}</p>
+        </div>`;
+      }
+      // don't want nor need to add text field for new comment more than once
+      if (!commentCont.lastElementChild.innerHTML) {
+        commentCont.lastElementChild.innerHTML = `<div class="form-group mb-3" style="z-index: 1"> <label for="newComment" class="form-label new-comment-label"> <h6>Post New Comment</h6> </label>
+          <textarea class="form-control" id="newComment" rows="3" maxlength="160" placeholder="Maximum 160 Characters"></textarea>
+          <p class="${clickedCard} post-comment text-end send-comment-btn"><i class="${clickedCard} fa fa-paper-plane text-end" aria-hidden="true"></i></p>
+        </div>`;
+
+        // add post comment functionality to send comment icon generated here
+        document.querySelector('.post-comment')
+          .addEventListener('click', function(e) {
+            postComment(e.target, icon);
+          }, true);
+      }
+    });
+  };
+
+  // post comment function (first param: send comment button which contains specific post id, second param: the comments open button which is a reference point for html changes / targets in openComments function, which needs to be a callback here in order to actually show the new comment once posted)
+  const postComment = (sendBtn, postRef) => {
+    console.log(postRef);
+    if (authUser.id) {
+      const incToggle = toggleComments.get(sendBtn.classList[0]) + 1;
+      toggleComments.set(sendBtn.classList[0], incToggle);
+      writeRequests(`${url}/createComment`, 'POST', {
+        author: authUser.name,
+        text: document.querySelector('#newComment').value,
+        user_id: authUser.id,
+        post_id: sendBtn.classList[0]
+      }, function() {
+        const inc = parseInt(postRef.innerText) + 1;
+        postRef.innerHTML = `<p class="${sendBtn.classList[0]} comment interaction-icon comment-counter interaction-icon"><i class="${sendBtn.classList[0]} comment fa fa-commenting-o" aria-hidden="true"></i> ${inc}</p>`
+        openComments(postRef);
+      });
+    } else {
+      alert('Please login or register to interact with posts :)');
+    }
   };
 
   document.querySelector('#addConfirmBtn').addEventListener('click', function(e) {
