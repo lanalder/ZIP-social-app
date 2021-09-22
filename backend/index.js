@@ -45,7 +45,7 @@ app.post('/postPost', (req, res) => {
     author: '',
     title: req.body.title,
     descript: req.body.descript,
-    img_url: req.body.image_url,
+    img_url: req.body.img_url,
     stats: {
       likes: [],
       comments: 0
