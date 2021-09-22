@@ -136,7 +136,7 @@ $(document).ready(function(){
        author = posts[i].author[0];
       // change post like state if user has liked post in past
       // if (liked && liked.includes(item._id)) {
-      if (liked.includes(item._id)) {
+      if (liked && liked.includes(item._id)) {
         iconClass = 'fa-heart active-icon';
       } else {
         iconClass = 'fa-heart-o';
