@@ -12,7 +12,8 @@ $(document).ready(function(){
      get name() {
        return sessionStorage.getItem('username');
      }
-   }
+   },
+   toggleComments = new Map();
 
   // for doc fields to post
   const schemaProperties = ['title', 'img_url', 'descript', 'user_id'],
@@ -113,6 +114,7 @@ $(document).ready(function(){
           liked = liked.map((each) => {
             return each = Object.values(each);
           }).flat();
+          console.log(liked);
           // time to actually generate posts now we have all necessary data
           genPosts(posts, liked);
         });
@@ -133,7 +135,8 @@ $(document).ready(function(){
       const item = posts[i],
        author = posts[i].author[0];
       // change post like state if user has liked post in past
-      if (liked && liked.includes(item._id)) {
+      // if (liked && liked.includes(item._id)) {
+      if (liked.includes(item._id)) {
         iconClass = 'fa-heart active-icon';
       } else {
         iconClass = 'fa-heart-o';
@@ -182,7 +185,7 @@ $(document).ready(function(){
     // first conditional: user authentication
     if (authUser.id) {
       // second conditional: unlike if already liked or like if not
-      if (icon.firstChild.classList.contains('active-icon')) {
+      if (icon.firstChild.classList.contains('fa-heart')) {
         unlikePost(icon);
       } else {
         writeRequests(`${url}/likePost/${clickedCard}`, 'POST', {
@@ -207,62 +210,12 @@ $(document).ready(function(){
     });
   };
 
-  // post comment function (first param: send comment button which contains specific post id, second param: the comments open button which is a reference point for html changes / targets in openComments function, which needs to be a callback here in order to actually show the new comment once posted)
-  const postComment = (sendBtn, postRef) => {
-    if (authUser.id) {
-      writeRequests(`${url}/createComment`, 'POST', {
-        author:authUser.name,
-        text: document.querySelector('#newComment').value,
-        user_id: authUser.id,
-        post_id: sendBtn.classList[0]
-      }, function() {
-        openComments(postRef);
-      });
-    } else {
-      alert('Please login or register to interact with posts :)');
-    }
-  };
-
-  // open / show comments (param from informedModal)
-  const openComments = (icon) => {
-    const commentCont = icon.parentElement.parentElement.lastElementChild;
-    readRequests(`${url}/seeComments/${clickedCard}`, function(comments) {
-      commentCont.firstElementChild.innerHTML = '';
-      for (let i = 0; i < comments.length - 1; i++) {
-        const item = comments[i];
-        commentCont.firstElementChild.innerHTML += `
-        <div class="${item._id} comment-output border-bottom">
-          <a href="/myprofle#${item.user_id}"<h6 class="comment-username">${item.author}</h6></a>
-          <p class="comment-text">${item.text}</p>
-          <p class="comment-time">${item.time}</p>
-        </div>`
-      }
-      // don't want nor need to add text field for new comment more than once
-      if (!commentCont.lastElementChild.innerHTML) {
-        commentCont.lastElementChild.innerHTML = `<div class="form-group mb-3" style="z-index: 1"> <label for="newComment" class="form-label new-comment-label"> <h6>Post New Comment</h6> </label>
-          <textarea class="form-control" id="newComment" rows="3" maxlength="160" placeholder="Maximum 160 Characters"></textarea>
-          <p class="${clickedCard} post-comment text-end send-comment-btn"><i class="${clickedCard} fa fa-paper-plane text-end" aria-hidden="true"></i></p>
-        </div>`;
-
-        // add post comment functionality to send comment icon generated here
-        document.querySelector('.post-comment')
-          .addEventListener('click', function(e) {
-            postComment(e.target, icon);
-          }, true);
-      }
-    });
-  };
-
   document.querySelector('#addConfirmBtn').addEventListener('click', function(e) {
     Array.from(document.querySelectorAll('.addField')).forEach((inputField, index) => {
       inputVals[index] = $(inputField).val();
     });
-
     inputVals[3] = sessionStorage.getItem('user_id');
-
     setFieldsToSend();
-
-
     if (validateMe()) {
       writeRequests(`${url}/postPost`, 'POST', submitData, function(response) {
         if (response) {

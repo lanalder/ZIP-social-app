@@ -12,7 +12,8 @@ $(document).ready(function(){
      get name() {
        return sessionStorage.getItem('username');
      }
-   }
+   },
+   toggleComments = new Map();
 
   // for doc fields to post
   const schemaProperties = ['title', 'img_url', 'descript', 'user_id'],
@@ -112,30 +113,34 @@ $(document).ready(function(){
          liked = liked.map((each) => {
            return each = Object.values(each);
          }).flat();
-         console.log(liked);
-         genPosts(posts, liked);
+         readRequests(`${url}/getUser/${authUser.id}`, function(user) {
+           genPosts(posts, liked, user);
+         });
        });
      } else {
-       genPosts(posts, false);
+       genPosts(posts, false, false);
      }
    });
  };
 
   // generate posts (first param: post data, second param: posts previously liked by authenticated user)
-  const genPosts = (posts, liked) => {
+  const genPosts = (posts, liked, user) => {
     let iconClass,
       authEdit;
     postCont.innerHTML = '';
 
-    document.querySelector('.profile-image').src = posts[0].author[0].profl_pic;
-    document.querySelector('.myprofile-header').innerHTML = `${posts[0].author[0].username}`;
+    if (!posts.length) {
+      document.querySelector('.profile-image').src = user.profl_pic;
+      document.querySelector('.myprofile-header').innerHTML = `${user.username}`;
+      return;
+    }
 
     for (let i = posts.length - 1; i >= 0; i -= 1) {
       // the html below accesses post array element heapss of times, so it's more performant to store that element in a const here (same with author, which is user doc)
       const item = posts[i],
        author = posts[0].author[0];
       // change post like state if user has liked post in past
-      if (liked && liked.includes(item._id)) {
+      if (liked.includes(item._id)) {
         iconClass = 'fa-heart active-icon';
       } else {
         iconClass = 'fa-heart-o';
@@ -209,35 +214,33 @@ $(document).ready(function(){
     });
   };
 
-  // post comment function (first param: send comment button which contains specific post id, second param: the comments open button which is a reference point for html changes / targets in openComments function, which needs to be a callback here in order to actually show the new comment once posted)
-  const postComment = (sendBtn, postRef) => {
-    if (authUser.id) {
-      writeRequests(`${url}/createComment`, 'POST', {
-        author:authUser.name,
-        text: document.querySelector('#newComment').value,
-        user_id: authUser.id,
-        post_id: sendBtn.classList[0]
-      }, function() {
-        openComments(postRef);
-      });
-    } else {
-      alert('Please login or register to interact with posts :)');
-    }
-  };
-
   // open / show comments (param from informedModal)
   const openComments = (icon) => {
-    const commentCont = icon.parentElement.parentElement.lastElementChild;
+    const commentCont = icon.parentElement.parentElement.lastElementChild,
+     incToggle = toggleComments.get(clickedCard) + 1;
+
+    if (!toggleComments.has(clickedCard)) {
+      toggleComments.set(clickedCard, 0);
+    } else {
+      toggleComments.set(clickedCard, incToggle);
+    }
+
+    if (toggleComments.get(clickedCard) % 2) {
+      commentCont.firstElementChild.innerHTML = '';
+      commentCont.lastElementChild.innerHTML = '';
+      return;
+    }
+
     readRequests(`${url}/seeComments/${clickedCard}`, function(comments) {
       commentCont.firstElementChild.innerHTML = '';
-      for (let i = 0; i < comments.length - 1; i++) {
+      for (let i = 0; i < comments.length; i++) {
         const item = comments[i];
         commentCont.firstElementChild.innerHTML += `
         <div class="${item._id} comment-output border-bottom">
           <a href="/myprofle#${item.user_id}"<h6 class="comment-username">${item.author}</h6></a>
           <p class="comment-text">${item.text}</p>
           <p class="comment-time">${item.time}</p>
-        </div>`
+        </div>`;
       }
       // don't want nor need to add text field for new comment more than once
       if (!commentCont.lastElementChild.innerHTML) {
@@ -253,6 +256,24 @@ $(document).ready(function(){
           }, true);
       }
     });
+  };
+
+  // post comment function (first param: send comment button which contains specific post id, second param: the comments open button which is a reference point for html changes / targets in openComments function, which needs to be a callback here in order to actually show the new comment once posted)
+  const postComment = (sendBtn, postRef) => {
+    if (authUser.id) {
+      const incToggle = toggleComments.get(sendBtn.classList[0]) + 1;
+      toggleComments.set(sendBtn.classList[0], incToggle);
+      writeRequests(`${url}/createComment`, 'POST', {
+        author: authUser.name,
+        text: document.querySelector('#newComment').value,
+        user_id: authUser.id,
+        post_id: sendBtn.classList[0]
+      }, function() {
+        openComments(postRef);
+      });
+    } else {
+      alert('Please login or register to interact with posts :)');
+    }
   };
 
   document.querySelector('#addConfirmBtn').addEventListener('click', function(e) {
