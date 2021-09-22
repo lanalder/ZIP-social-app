@@ -97,8 +97,8 @@ $(document).ready(function() {
     document.querySelector('.login-btn').addEventListener('click', function(e) {
       e.preventDefault();
 
-      inputVals[1] = $('#loginUsername').val();
-      inputVals[2] = $('#loginPassword').val();
+      inputVals[2] = $('#loginUsername').val();
+      inputVals[3] = $('#loginPassword').val();
 
       setFieldsToSend(2);
 

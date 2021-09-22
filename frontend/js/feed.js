@@ -133,7 +133,7 @@ $(document).ready(function(){
       const item = posts[i],
        author = posts[i].author[0];
       // change post like state if user has liked post in past
-      if (liked && liked.includes(item._id)) {
+      if (item.stats.likes.includes(authUser.id)) {
         iconClass = 'fa-heart active-icon';
       } else {
         iconClass = 'fa-heart-o';
@@ -211,7 +211,7 @@ $(document).ready(function(){
   const postComment = (sendBtn, postRef) => {
     if (authUser.id) {
       writeRequests(`${url}/createComment`, 'POST', {
-        author:authUser.name,
+        author: authUser.name,
         text: document.querySelector('#newComment').value,
         user_id: authUser.id,
         post_id: sendBtn.classList[0]
