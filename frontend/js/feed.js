@@ -136,7 +136,7 @@ $(document).ready(function(){
        author = posts[i].author[0];
       // change post like state if user has liked post in past
       // if (liked && liked.includes(item._id)) {
-      if (liked &&liked.includes(item._id)) {
+      if (liked && liked.includes(item._id)) {
         iconClass = 'fa-heart active-icon';
       } else {
         iconClass = 'fa-heart-o';
@@ -185,14 +185,14 @@ $(document).ready(function(){
     // first conditional: user authentication
     if (authUser.id) {
       // second conditional: unlike if already liked or like if not
-      if (icon.firstChild.classList.contains('fa-heart')) {
+      if (icon.firstChild.classList.contains('active-icon')) {
         unlikePost(icon);
       } else {
         writeRequests(`${url}/likePost/${clickedCard}`, 'POST', {
           user_id: authUser.id
         }, function() {
           const inc = parseInt(icon.textContent) + 1;
-          icon.innerHTML = `<p class="${clickedCard} like interaction-icon like-counter interaction-icon"><i class="${clickedCard} fa fa-heart active-icon like" aria-hidden="true"></i> ${inc}</p>`;
+          icon.innerHTML = `<p class="${clickedCard} like interaction-icon like-counter active-icon interaction-icon"><i class="${clickedCard} fa fa-heart active-icon like" aria-hidden="true"></i> ${inc}</p>`;
         });
       }
     } else {
@@ -279,19 +279,20 @@ $(document).ready(function(){
     Array.from(document.querySelectorAll('.addField')).forEach((inputField, index) => {
       inputVals[index] = $(inputField).val();
     });
-    inputVals[3] = sessionStorage.getItem('user_id');
+    inputVals[3] = authUser.id;
     setFieldsToSend();
     if (validateMe()) {
       writeRequests(`${url}/postPost`, 'POST', submitData, function(response) {
         if (response) {
           console.log(response);
           alert('Your project has been successfully added!');
-          window.location.reload();
+          setTimeout(function() {
+            window.location.reload();
+          }, 1000);
         } else {
           alert('You are not authorised to perform this action');
         }
       });
-      console.log('hello?');
     } else {
       alert('Please fill out all fields');
       return;
