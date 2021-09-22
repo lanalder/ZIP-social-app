@@ -104,7 +104,8 @@ $(document).ready(function(){
 
   const getPosts = () => {
    let clickedUser = window.location.hash.substring(1);
-   if (clickedUser == 'me') {
+   if (clickedUser == 'me' || clickedUser == '') {
+     console.log(clickedUser);
      clickedUser = authUser.id;
    }
    readRequests(`${url}/userPosts/${clickedUser}`, function(posts) {
@@ -113,7 +114,7 @@ $(document).ready(function(){
          liked = liked.map((each) => {
            return each = Object.values(each);
          }).flat();
-         readRequests(`${url}/getUser/${authUser.id}`, function(user) {
+         readRequests(`${url}/getUser/${clickedUser}`, function(user) {
            genPosts(posts, liked, user);
          });
        });
@@ -283,17 +284,17 @@ $(document).ready(function(){
     Array.from(document.querySelectorAll('.addField')).forEach((inputField, index) => {
       inputVals[index] = $(inputField).val();
     });
-    inputVals[3] = sessionStorage.getItem('user_id');
+    inputVals[3] = authUser.id;
     setFieldsToSend();
     if (validateMe()) {
       writeRequests(`${url}/postPost`, 'POST', submitData, function(response) {
         if (response) {
-          console.log(response);
           alert('Your project has been successfully added!');
           window.location.reload();
         } else {
           alert('You are not authorised to perform this action');
         }
+      });
     } else {
       alert('Please fill out all fields');
       return;
