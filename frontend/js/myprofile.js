@@ -103,13 +103,15 @@ $(document).ready(function(){
   };
 
   const getPosts = () => {
+   // url hash stored user id to fetch, substring to get rid of hash character
    let clickedUser = window.location.hash.substring(1);
-   if (clickedUser == 'me') {
+   if (clickedUser == 'me' || clickedUser == '') {
      clickedUser = authUser.id;
    }
    readRequests(`${url}/userPosts/${clickedUser}`, function(posts) {
      if (authUser.id) {
         readRequests(`${url}/hasLiked/${authUser.id}`, function(liked) {
+         // each doc from response is in its own array so we gotta flatten that
          liked = liked.map((each) => {
            return each = Object.values(each);
          }).flat();
@@ -118,7 +120,9 @@ $(document).ready(function(){
          });
        });
      } else {
-       genPosts(posts, false, false);
+       readRequests(`${url}/getUser/${clickedUser}`, function(user) {
+         genPosts(posts, false, user);
+       });
      }
    });
  };
@@ -129,16 +133,17 @@ $(document).ready(function(){
       authEdit;
     postCont.innerHTML = '';
 
+    document.querySelector('.profile-image').src = user.profl_pic;
+    document.querySelector('.myprofile-header').innerHTML = `${user.username}`;
+
     if (!posts.length) {
-      document.querySelector('.profile-image').src = user.profl_pic;
-      document.querySelector('.myprofile-header').innerHTML = `${user.username}`;
       return;
     }
 
     for (let i = posts.length - 1; i >= 0; i -= 1) {
       // the html below accesses post array element heapss of times, so it's more performant to store that element in a const here (same with author, which is user doc)
-      const item = posts[i],
-       author = posts[0].author[0];
+      const item = posts[i];
+
       // change post like state if user has liked post in past
       if (liked && liked.includes(item._id)) {
         iconClass = 'fa-heart active-icon';
@@ -159,9 +164,9 @@ $(document).ready(function(){
               <i class="${item._id} interaction-icon view fa fa-expand" aria-hidden="true" data-bs-toggle="modal" data-bs-target="#viewFullImageModal"></i>
             </div>
             <div class="col-8 overlay-container d-flex justify-content-center">
-              <img class="rounded-circle overlay-profile-image" src="${author.profl_pic}" alt="" width="50" height="50">
+              <img class="rounded-circle overlay-profile-image" src="${user.profl_pic}" alt="" width="50" height="50">
               <div class="overlay-text-container">
-                <h4 class="overlay-username d-block">${author.username}</h4>
+                <h4 class="overlay-username d-block">${user.username}</h4>
                 <p class="overlay-imagename d-block">${item.title}</p>
               </div>
             </div>
@@ -280,23 +285,17 @@ $(document).ready(function(){
     Array.from(document.querySelectorAll('.addField')).forEach((inputField, index) => {
       inputVals[index] = $(inputField).val();
     });
-
-    inputVals[3] = sessionStorage.getItem('user_id');
-
+    inputVals[3] = authUser.id;
     setFieldsToSend();
-
-
     if (validateMe()) {
       writeRequests(`${url}/postPost`, 'POST', submitData, function(response) {
         if (response) {
-          console.log(response);
           alert('Your project has been successfully added!');
           window.location.reload();
         } else {
           alert('You are not authorised to perform this action');
         }
       });
-      console.log('hello?');
     } else {
       alert('Please fill out all fields');
       return;
