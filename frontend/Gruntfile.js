@@ -28,7 +28,7 @@ module.exports = function(grunt) {
     }, // Sass ends
     watch: {
       scripts: {
-        files: ['js/index.js','js/login-reg.js', 'js/myprofile.js', 'js/logout.js', 'sass/style.scss', 'index.html'],
+        files: ['js/feed.js','js/login-reg.js', 'js/myprofile.js', 'js/logout.js', 'sass/style.scss', 'index.html'],
         tasks: ['uglify', 'sass', 'jshint'],
         options: {
           spawn: false,
@@ -52,7 +52,7 @@ module.exports = function(grunt) {
     },
     // css lint finishes
     jshint: {
-      all: ['Gruntfile.js', 'js/index.js', 'js/myprofile.js', 'js/login-reg.js', 'js/logout.js'],
+      all: ['Gruntfile.js', 'js/feed.js', 'js/myprofile.js', 'js/login-reg.js', 'js/logout.js'],
       options: {
         esversion: 6
       }

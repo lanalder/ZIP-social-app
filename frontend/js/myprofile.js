@@ -103,6 +103,7 @@ $(document).ready(function(){
   };
 
   const getPosts = () => {
+   // url hash stored user id to fetch, substring to get rid of hash character
    let clickedUser = window.location.hash.substring(1);
    if (clickedUser == 'me' || clickedUser == '') {
      clickedUser = authUser.id;
@@ -110,10 +111,11 @@ $(document).ready(function(){
    readRequests(`${url}/userPosts/${clickedUser}`, function(posts) {
      if (authUser.id) {
         readRequests(`${url}/hasLiked/${authUser.id}`, function(liked) {
+         // each doc from response is in its own array so we gotta flatten that
          liked = liked.map((each) => {
            return each = Object.values(each);
          }).flat();
-         readRequests(`${url}/getUser/${clickedUser}`, function(user) {
+         readRequests(`${url}/getUser/${authUser.id}`, function(user) {
            genPosts(posts, liked, user);
          });
        });
