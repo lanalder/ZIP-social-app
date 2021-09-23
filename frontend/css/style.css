@@ -5,12 +5,71 @@
   box-sizing: border-box;
 }
 
+.display-none {
+  display: none;
+}
+
 body {
   background-color: #1f1f1f;
 }
 
+.main-header {
+  color: #fff;
+  text-decoration: underline;
+  text-decoration-thickness: 5px;
+  text-decoration-color: #27ACAB;
+  padding-top: 80px;
+  margin-bottom: 20px;
+}
+
+.myprofile-header {
+  color: #fff;
+  text-decoration: underline;
+  text-decoration-thickness: 5px;
+  text-decoration-color: #27ACAB;
+  margin-bottom: 20px;
+}
+
+label {
+  color: #27ACAB;
+}
+
+.total-posts-like-counters {
+  font-size: 20px;
+  color: #fff;
+}
+
+.btn-primary {
+  background-color: #27ACAB;
+  color: #fff;
+  border-color: #27ACAB;
+  border-radius: 9px;
+  box-shadow: 5px 5px 10px #181818, -5px -5px 10px #262626;
+}
+
+.btn-danger {
+  border-radius: 9px;
+  box-shadow: 5px 5px 10px #181818, -5px -5px 10px #262626;
+}
+
+.active-icon {
+  color: #27ACAB !important;
+}
+
+.form-margin {
+  margin-bottom: 20px;
+}
+
+.profile-image {
+  margin-top: 80px;
+  margin-bottom: 5px;
+}
+
 .navbar {
   background-color: #1f1f1f;
+  width: 100%;
+  position: fixed;
+  z-index: 10;
 }
 
 #addPostBtn {
@@ -22,6 +81,7 @@ body {
 
 .wrapper {
   position: fixed;
+  z-index: 10;
   top: 0;
   left: 0;
   height: 100%;
@@ -49,10 +109,10 @@ body {
 }
 
 .menu-btn {
-  position: absolute;
+  position: fixed;
   right: 20px;
   top: 15px;
-  z-index: 2;
+  z-index: 20;
   text-align: center;
   line-height: 50px;
   height: 50px;
@@ -66,7 +126,7 @@ body {
 
 .wrapper ul {
   position: absolute;
-  top: 50%;
+  top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
   list-style: none;
@@ -82,7 +142,7 @@ body {
 }
 
 .wrapper ul li a {
-  color: #000;
+  color: #1f1f1f;
   text-decoration: none;
   font-size: 1.5em;
   position: relative;
@@ -111,7 +171,7 @@ body {
   position: fixed;
   display: flex;
   justify-content: center;
-  bottom: 0px;
+  bottom: 0;
   padding-top: 20px;
   padding-bottom: 20px;
   background-color: #1f1f1f;
@@ -120,6 +180,160 @@ body {
 
 #menu-logo-img {
   height: 100px;
+}
+
+#albumOutput {
+  margin-top: 20px;
+}
+
+.card-body {
+  z-index: 1;
+  background-color: #1f1f1f;
+}
+
+.card-text {
+  color: #fff;
+}
+
+.fa-expand, .fa-pencil, .fa-trash-o, .fa-heart-o, .fa-commenting-o {
+  font-size: 30px;
+  color: #fff;
+}
+
+.fa-expand {
+  backdrop-filter: blur(15px) saturate(200%);
+  -webkit-backdrop-filter: blur(15px) saturate(200%);
+  background-color: rgba(31, 31, 31, 0.44);
+  border-radius: 30%;
+  padding: 10px;
+}
+
+.fa-heart, .fa-picture-o, .fa-paper-plane {
+  font-size: 30px;
+  color: #27ACAB;
+}
+
+.like-counter, .comment-counter {
+  font-size: 20px;
+  color: #fff;
+}
+
+.card {
+  border-radius: 9px;
+  background-color: #1f1f1f;
+  box-shadow: 5px 5px 10px #181818, -5px -5px 10px #262626;
+}
+
+.card-img-top {
+  width: 150px;
+  height: 400px;
+  object-fit: cover;
+}
+
+.fa-chevron-down {
+  color: #27ACAB;
+}
+
+.overlay-container {
+  position: absolute;
+  top: 300px;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  backdrop-filter: blur(15px) saturate(200%);
+  -webkit-backdrop-filter: blur(15px) saturate(200%);
+  background-color: rgba(31, 31, 31, 0.44);
+  border-radius: 12px;
+  height: 60px;
+  width: 200px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.overlay-username {
+  color: #27ACAB;
+  margin: 1px;
+}
+
+.overlay-imagename {
+  color: #fff;
+}
+
+.overlay-profile-image {
+  margin-top: 5px;
+  margin-right: 10px;
+}
+
+.active-icon {
+  color: #27ACAB !important;
+}
+
+.comment-container {
+  margin-top: 10px;
+}
+
+.comment-container-header {
+  color: #27ACAB;
+}
+
+.comment-username {
+  color: #27ACAB;
+}
+
+.comment-text {
+  color: #fff;
+}
+
+.comment-time {
+  color: grey;
+  font-size: 0.8em;
+}
+
+.new-comment-label {
+  margin-top: 10px;
+}
+
+.send-comment-btn {
+  margin-top: 10px;
+}
+
+.modal {
+  background-color: rgba(0, 0, 0, 0.75);
+}
+
+.modal-header {
+  border-bottom: 0 none;
+}
+
+.modal-footer {
+  border-top: 0 none;
+}
+
+.modal-content {
+  background-color: #1f1f1f;
+}
+
+.modal-title,
+.modal-body {
+  color: #fff;
+}
+
+#closeModal {
+  color: #27ACAB;
+}
+
+.log-reg-form {
+  margin-bottom: 30px;
+}
+
+.log-reg-card {
+  padding-left: 50px;
+  padding-right: 20px;
+}
+
+.reg-btn {
+  margin-bottom: 100px;
 }
 
 /*# sourceMappingURL=style.css.map */
