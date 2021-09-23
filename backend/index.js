@@ -9,7 +9,10 @@ const express = require('express'),
   User = require('./models/users.js'),
   Comment = require('./models/comments.js'),
   port = 8080,
+  // for when we explicitly need to let mongo know what type we're dealing with, in pipelines and the like
   ObjectId = mongoose.Types.ObjectId;
+
+// ---------- set up ----------
 
 app.use((req, res, next) => {
   console.log(`${req.method} request ${req.url}`);
@@ -39,6 +42,10 @@ mongoose.connect(`mongodb+srv://${config.MONGO_USER}:${config.MONGO_PASSWORD}@cl
 
 app.listen(port, () => console.log(`Fullstack app is listening on port ${port}`));
 
+// ---------- set up ENDS ----------
+
+// ---------- post things (not the method but the thing) ----------
+
 app.post('/postPost', (req, res) => {
   const newPost = new Post({
     _id: new mongoose.Types.ObjectId,
@@ -54,19 +61,7 @@ app.post('/postPost', (req, res) => {
   });
   newPost.save()
     .then(result => {
-      console.log(newPost);
-      // User.updateOne({
-      //     _id: req.body.user_id
-      //   },
-      //   {
-      //     $inc: { 'stats.posts': 1 }
-      //   }
-      // ).then(result => {
-        console.log(result);
-        res.send(result);
-      // }).catch(err => {
-      //   res.send(err);
-      // })
+      res.send(result);
     })
     .catch(err => {
       res.send(err);
@@ -81,20 +76,52 @@ app.get('/allPosts', (req, res) => {
         foreignField: '_id',
         as: 'author'
       }
-    // },
-    // { $lookup: {
-    //     from: 'comments',
-    //     localField: 'post_id',
-    //     foreignField: '_id',
-    //     as: 'stats.comments'
-    //   }
     }
   ]).then(result => {
-    // console.log(result);
     res.send(result);
   }).catch(err => {
-    // console.log(err);
     res.send(err);
+  });
+});
+
+app.patch('/editPost/:id', (req, res) => {
+  Post.findById(req.params.id, (err, post) => {
+    if (post.user_id == req.body.user_id) {
+      const upd8Post = {
+        author: '',
+        title: req.body.title,
+        descript: req.body.descript,
+        img_url: req.body.img_url
+      };
+      Post.updateOne({
+        _id: req.params.id
+      }, upd8Post)
+        .then(result => {
+          console.log(result);
+          res.send(result);
+        }).catch(err => {
+          console.log(err);
+          res.send(err);
+        });
+    } else {
+      res.send('project not found');
+    }
+  });
+});
+
+app.delete('/deletePost/:id', (req, res) => {
+  Post.findOne({
+    _id: req.params.id
+  }, (err, post) => {
+    if (post && post.user_id == req.body.user_id) {
+      Post.deleteOne({
+        _id: req.params.id
+      }, err => {
+        res.send('deleted');
+      });
+    } else {
+        res.send('not found / unauthorised');
+    }
   });
 });
 
@@ -117,6 +144,10 @@ app.get('/userPosts/:id', (req, res) => {
     res.send(err);
   });
 });
+
+// ---------- post things ENDS ----------
+
+// ---------- like things ----------
 
 app.post('/likePost/:id', (req, res) => {
   Post.updateOne(
@@ -190,46 +221,9 @@ app.get('/hasLiked/:id', (req, res) => {
   });
 });
 
-app.patch('/editPost/:id', (req, res) => {
-  Post.findById(req.params.id, (err, post) => {
-    if (post.user_id == req.body.user_id) {
-      const upd8Post = {
-        author: '',
-        title: req.body.title,
-        descript: req.body.descript,
-        img_url: req.body.img_url
-      };
-      Post.updateOne({
-        _id: req.params.id
-      }, upd8Post)
-        .then(result => {
-          console.log(result);
-          res.send(result);
-        }).catch(err => {
-          console.log(err);
-          res.send(err);
-        });
-    } else {
-      res.send('project not found');
-    }
-  });
-});
+// ---------- like things END ----------
 
-app.delete('/deletePost/:id', (req, res) => {
-  Post.findOne({
-    _id: req.params.id
-  }, (err, post) => {
-    if (post && post.user_id == req.body.user_id) {
-      Post.deleteOne({
-        _id: req.params.id
-      }, err => {
-        res.send('deleted');
-      });
-    } else {
-        res.send('not found / unauthorised');
-    }
-  });
-});
+// ---------- comment things ----------
 
 app.post('/createComment', (req, res) => {
   const newComment = new Comment({
@@ -249,7 +243,6 @@ app.post('/createComment', (req, res) => {
           $inc: { 'stats.comments': 1 }
         }
       ).then(result => {
-        // assume that'll work -- can just add that (but a post?)
         res.send(newComment);
       }).catch(err => {
         res.send(err);
@@ -269,18 +262,6 @@ app.get('/seeComments/:id', (req, res) => {
       res.send(err);
     }
   });
-});
-
-app.patch('/lz', (req ,res) => {
-  // Comment.remove({}).then(result => {res.send(result)}).catch(err => {res.send(err)});
-  Comment.find({}, (err, comments) => {
-    console.log(comments);
-    // comments.stats.comments = 0;
-    comments.updateOne({
-      'stats.comments': 0
-    }).then(result => {res.send(result)}).catch(err=>{res.send(err)});
-  }).then(result => {res.send(result)}).catch(err=>{res.send(err)});
-
 });
 
 app.delete('/deleteComment/:id', (req, res) => {
@@ -308,6 +289,10 @@ app.delete('/deleteComment/:id', (req, res) => {
     }
   });
 });
+
+// ---------- comment things END ----------
+
+// ---------- user things ----------
 
 app.get('/getUser/:id', (req, res) => {
   User.findOne({
@@ -366,4 +351,4 @@ app.post('/loginUser', (req, res) => {
   });
 });
 
-// ---------- users END ----------
+// ---------- user things END ----------
