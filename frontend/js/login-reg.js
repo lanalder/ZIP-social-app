@@ -67,7 +67,6 @@ $(document).ready(function() {
       });
 
       setFieldsToSend(4);
-      console.log(submitData);
 
       if (inputVals.every(x => x)) {
         $.ajax({
@@ -76,7 +75,6 @@ $(document).ready(function() {
           data: JSON.stringify(submitData),
           contentType: 'application/json',
           success(user) {
-            console.log(user);
             if (user !== 'username taken already. pls use a different username.') {
               alert('registered! and auto. logged in :)');
               trackingDevice(user);

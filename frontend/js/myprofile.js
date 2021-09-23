@@ -105,7 +105,6 @@ $(document).ready(function(){
   const getPosts = () => {
    let clickedUser = window.location.hash.substring(1);
    if (clickedUser == 'me' || clickedUser == '') {
-     console.log(clickedUser);
      clickedUser = authUser.id;
    }
    readRequests(`${url}/userPosts/${clickedUser}`, function(posts) {
@@ -309,7 +308,6 @@ $(document).ready(function(){
 
 
     setFieldsToSend();
-    console.log(inputVals, inputVals.every(x => x), submitData);
 
     if (validateMe()) {
       writeRequests(`${url}/editPost/${clickedCard}`, 'PATCH', submitData, function(response) {
@@ -338,7 +336,6 @@ $(document).ready(function(){
         user_id: authUser.id
       },
       success(response) {
-        console.log(response);
         if (response == 'deleted') {
           alert('Post has been deleted');
           window.location.reload();

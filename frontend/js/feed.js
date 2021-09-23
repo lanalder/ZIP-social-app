@@ -114,7 +114,6 @@ $(document).ready(function(){
           liked = liked.map((each) => {
             return each = Object.values(each);
           }).flat();
-          console.log(liked);
           // time to actually generate posts now we have all necessary data
           genPosts(posts, liked);
         });
@@ -330,7 +329,6 @@ $(document).ready(function(){
         user_id: authUser.id
       },
       success(response) {
-        console.log(response);
         if (response == 'deleted') {
           alert('Post has been deleted');
           window.location.reload();
