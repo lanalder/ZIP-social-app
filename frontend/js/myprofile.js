@@ -310,7 +310,6 @@ $(document).ready(function(){
 
 
     setFieldsToSend();
-    console.log(inputVals, inputVals.every(x => x), submitData);
 
     if (validateMe()) {
       writeRequests(`${url}/editPost/${clickedCard}`, 'PATCH', submitData, function(response) {
@@ -339,7 +338,6 @@ $(document).ready(function(){
         user_id: authUser.id
       },
       success(response) {
-        console.log(response);
         if (response == 'deleted') {
           alert('Post has been deleted');
           window.location.reload();
